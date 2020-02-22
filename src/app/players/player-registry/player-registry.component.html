@@ -1,0 +1,65 @@
+<form [formGroup]="registryForm" novalidate (ngSubmit)="onSubmit()">
+
+  <h2>Register your account</h2>
+
+  <mat-card class="registry-card">
+    <mat-card-header>
+      <mat-card-title>Your personal details</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="First name" formControlName="firstName">
+            <mat-error *ngIf="registryForm.controls['firstName'].hasError('required')">
+              First name is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Last name" formControlName="lastName">
+            <mat-error *ngIf="registryForm.controls['lastName'].hasError('required')">
+              Last name is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput type="email" placeholder="Email address" formControlName="email">
+            <mat-error *ngIf="registryForm.controls['email'].hasError('required')">
+              An email address is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput type="password" placeholder="Password" formControlName="password">
+            <mat-error *ngIf="registryForm.controls['password'].hasError('required')">
+              A password is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput type="password" placeholder="Confirm your password" formControlName="passwordConfirmation">
+            <mat-error *ngIf="registryForm.controls['passwordConfirmation'].hasError('required')">
+              A password confirmation is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" type="submit">Submit</button>
+    </mat-card-actions>
+  </mat-card>
+</form>

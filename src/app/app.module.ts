@@ -10,6 +10,10 @@ import localeEs from '@angular/common/locales/es';
 import localeFr from '@angular/common/locales/fr';
 import { MainActionsComponent } from './commons/main-actions/main-actions.component';
 
+import { SecurityModule } from './security/security.module';
+import { PlayersModule } from './players/players.module';
+import { MatchesModule } from './matches/matches.module';
+
 registerLocaleData(localeFr, 'fr-FR');
 registerLocaleData(localeEs, 'es-ES');
 
@@ -22,6 +26,9 @@ registerLocaleData(localeEs, 'es-ES');
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    SecurityModule,
+    PlayersModule,
+    MatchesModule
   ],
   providers: [],
   bootstrap: [AppComponent]
