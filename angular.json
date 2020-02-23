@@ -123,5 +123,8 @@
       }
     }
   },
-  "defaultProject": "y-a-foot-web"
+  "defaultProject": "y-a-foot-web",
+  "cli": {
+    "analytics": false
+  }
 }

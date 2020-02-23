@@ -12,6 +12,9 @@ pipeline {
             steps {
                 // Get code from GitHub repository
                 git branch: 'master', url: 'https://github.com/afbustamante/y-a-foot-web'
+
+                // Prepare Angular dependencies
+                sh 'npm install'
             }
         }
         stage('Lint') {
