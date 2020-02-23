@@ -13,19 +13,22 @@ import { MainActionsComponent } from './commons/main-actions/main-actions.compon
 import { SecurityModule } from './security/security.module';
 import { PlayersModule } from './players/players.module';
 import { MatchesModule } from './matches/matches.module';
+import { CommonsModule } from './commons/commons.module';
+import { HttpClientModule } from '@angular/common/http';
 
 registerLocaleData(localeFr, 'fr-FR');
 registerLocaleData(localeEs, 'es-ES');
 
 @NgModule({
   declarations: [
-    AppComponent,
-    MainActionsComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
+    CommonsModule,
     SecurityModule,
     PlayersModule,
     MatchesModule

@@ -10,7 +10,7 @@ export class PlayersService {
 
   constructor(private apiRequestService: ApiRequestService) { }
 
-  registerPlayer(player: Player): Observable<Number> {
+  registerPlayer(player: Player): Observable<number> {
     return this.apiRequestService.post('/users', player);
   }
 }

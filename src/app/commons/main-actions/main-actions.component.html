@@ -2,8 +2,17 @@
     <h2 i18n>What do you want to do?</h2>
 
     <nav>
-        <a routerLink="/matches/new" routerLinkActive="active" i18n>Create a new match</a>
-        <a routerLink="/matches/search" routerLinkActive="active" i18n>Join a match</a>
-        <a routerLink="/matches/list" routerLinkActive="active" i18n>View my matches</a>
+        <a mat-raised-button color="primary" routerLink="/matches/new" routerLinkActive="active" i18n>
+            <mat-icon aria-hidden="true" svgIcon="appointment-new"></mat-icon>
+            Create a new match
+        </a>
+        <a mat-raised-button routerLink="/matches/search" routerLinkActive="active" i18n>
+            <mat-icon aria-hidden="true" svgIcon="system-search"></mat-icon>
+            Join a match
+        </a>
+        <a mat-raised-button routerLink="/matches/list" routerLinkActive="active" i18n>
+            <mat-icon aria-hidden="true" svgIcon="office-calendar"></mat-icon>
+            View my matches
+        </a>
     </nav>
 </div>

@@ -14,7 +14,7 @@ export class ApiRequestService {
   public get(url: string, urlParams?: HttpParams): Observable<any> {
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
-    const options: any = { headers: headers};
+    const options: any = { headers: headers };
     if (!isNil(urlParams)) {
       options.params = urlParams;
     }
@@ -22,7 +22,7 @@ export class ApiRequestService {
     return this.http.get(url, options);
   }
 
-  public post(url: string, body: Object, urlParams?: HttpParams, headers?: HttpHeaders ): Observable<any> {
+  public post(url: string, body: object, urlParams?: HttpParams, headers?: HttpHeaders ): Observable<any> {
     const options: any = {};
     if (isNil(headers)) {
       headers = new HttpHeaders();
@@ -35,11 +35,11 @@ export class ApiRequestService {
     return this.http.post( url, JSON.stringify(body), options);
   }
 
-  public put(url: string, body?: Object, options?: any): Observable<any> {
+  public put(url: string, body?: object, options?: any): Observable<any> {
     if (isNil(options)) {
       let headers = new HttpHeaders();
       headers = headers.append('Content-Type', 'application/json');
-      options = { headers: headers};
+      options = { headers: headers };
     }
     return this.http.put(url, JSON.stringify(body), options);
   }

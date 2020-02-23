@@ -8,8 +8,8 @@ import { MatchListComponent } from './matches/match-list/match-list.component';
 import { PlayerRegistryComponent } from './players/player-registry/player-registry.component';
 
 const routes: Routes = [
-  { path: '', component: MainActionsComponent }, 
-  { path: 'register', component: PlayerRegistryComponent }, 
+  { path: '', component: MainActionsComponent },
+  { path: 'register', component: PlayerRegistryComponent },
   { path: 'signin', component: SignInComponent },
   { path: 'matches/new', component: NewMatchComponent },
   { path: 'matches/search', component: MatchSearchComponent },
