@@ -11,8 +11,6 @@ export class MainActionsComponent implements OnInit {
 
   constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
     iconRegistry.addSvgIcon('appointment-new', sanitizer.bypassSecurityTrustResourceUrl('assets/img/actions/appointment-new.svg'));
-    iconRegistry.addSvgIcon('go-home', sanitizer.bypassSecurityTrustResourceUrl('assets/img/actions/go-home.svg'));
-    iconRegistry.addSvgIcon('list-add', sanitizer.bypassSecurityTrustResourceUrl('assets/img/actions/list-add.svg'));
     iconRegistry.addSvgIcon('system-search', sanitizer.bypassSecurityTrustResourceUrl('assets/img/actions/system-search.svg'));
     iconRegistry.addSvgIcon('office-calendar', sanitizer.bypassSecurityTrustResourceUrl('assets/img/apps/office-calendar.svg'));
   }

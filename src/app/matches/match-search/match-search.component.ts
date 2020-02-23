@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-match-search',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MatchSearchComponent implements OnInit {
 
-  constructor() { }
+  searchForm = this.fb.group({
+    matchCode: [null, Validators.required]
+  });
+
+  constructor(
+    private fb: FormBuilder,
+  ) {}
 
   ngOnInit(): void {
   }
 
+  onSubmit() {
+  }
 }

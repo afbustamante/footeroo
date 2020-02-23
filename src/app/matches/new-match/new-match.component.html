@@ -3,28 +3,26 @@
 
     <mat-card class="registry-card">
         <mat-card-header>
-            <mat-card-title>Match details</mat-card-title>
+            <mat-card-title i18n>Match details</mat-card-title>
         </mat-card-header>
         <mat-card-content>
             <div class="row">
                 <div class="col">
-                    <mat-form-field class="full-width">
+                    <mat-form-field>
                         <mat-label i18n>When?</mat-label>
                         <input matInput formControlName="date" [min]="minDate" [matDatepicker]="picker">
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
-                        <mat-error *ngIf="registryForm.controls['time'].hasError('required')">
+                        <mat-error *ngIf="registryForm.controls['time'].hasError('required')" i18n>
                             A date is <strong>required</strong>
                         </mat-error>
                     </mat-form-field>
                 </div>
-            </div>
-            <div class="row">
                 <div class="col">
-                    <mat-form-field class="full-width">
+                    <mat-form-field>
                         <mat-label i18n>At what time?</mat-label>
                         <input matInput type="time" formControlName="time">
-                        <mat-error *ngIf="registryForm.controls['time'].hasError('required')">
+                        <mat-error *ngIf="registryForm.controls['time'].hasError('required')" i18n>
                             A time is <strong>required</strong>
                         </mat-error>
                     </mat-form-field>
@@ -33,12 +31,13 @@
             <div class="row">
                 <div class="col">
                     <mat-form-field>
-                        <mat-label i18n>How many players?</mat-label>
+                        <mat-label i18n>How many players? (min)</mat-label>
                         <input matInput type="number" placeholder="Min" formControlName="numPlayersMin">
                     </mat-form-field>
                 </div>
                 <div class="col">
                     <mat-form-field>
+                        <mat-label i18n>How many players? (max)</mat-label>
                         <input matInput type="number" placeholder="Max" formControlName="numPlayersMax">
                     </mat-form-field>
                 </div>
@@ -52,18 +51,21 @@
                                 {{ site.name }}
                             </mat-option>
                         </mat-select>
-                        <mat-error *ngIf="registryForm.controls['site'].hasError('required')">
+                        <mat-error *ngIf="registryForm.controls['site'].hasError('required')" i18n>
                             A place is <strong>required</strong>
                         </mat-error>
                     </mat-form-field>
-                </div>
-                <div class="col">
-                    <button mat-raised-button aria-label="Add" aria-hidden="false" svgIcon="list-add"></button>
+                    <button mat-icon-button>
+                        <mat-icon aria-hidden="false" aria-label="Add">add_box</mat-icon>
+                    </button>
                 </div>
             </div>
         </mat-card-content>
         <mat-card-actions>
-            <button mat-raised-button color="primary" type="submit">Submit</button>
+            <button mat-raised-button color="primary" type="submit" i18n>
+                <mat-icon aria-hidden="true">done</mat-icon>
+                Create
+            </button>
         </mat-card-actions>
     </mat-card>
 </form>

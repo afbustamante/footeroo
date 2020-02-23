@@ -1,1 +1,27 @@
-<p>match-search works!</p>
+<form [formGroup]="searchForm" novalidate (ngSubmit)="onSubmit()">
+    <h2 i18n>Join a match</h2>
+
+    <p i18n>In order to join a match please start by typing its code and then click on Search to continue</p>
+
+    <mat-card class="search-card">
+        <mat-card-content>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field class="full-width">
+                        <mat-label i18n>Match code</mat-label>
+                        <input matInput formControlName="matchCode">
+                        <mat-error *ngIf="searchForm.controls['matchCode'].hasError('required')" i18n>
+                            A match code is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button color="primary" type="submit" i18n>
+                <mat-icon aria-hidden="true">search</mat-icon>
+                Search
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</form>
