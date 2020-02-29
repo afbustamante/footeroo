@@ -15,6 +15,8 @@ import { PlayersModule } from './players/players.module';
 import { MatchesModule } from './matches/matches.module';
 import { CommonsModule } from './commons/commons.module';
 import { HttpClientModule } from '@angular/common/http';
+import { SignInGuard } from './security/sign-in.guard';
+import { AuthenticationInterceptor } from './security/authentication-interceptor';
 
 registerLocaleData(localeFr, 'fr-FR');
 registerLocaleData(localeEs, 'es-ES');
@@ -33,7 +35,10 @@ registerLocaleData(localeEs, 'es-ES');
     PlayersModule,
     MatchesModule
   ],
-  providers: [],
+  providers: [
+    SignInGuard,
+    AuthenticationInterceptor
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

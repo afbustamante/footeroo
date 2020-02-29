@@ -9,7 +9,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 export class PlayerRegistryComponent {
   registryForm = this.fb.group({
     firstName: [null, Validators.required],
-    lastName: [null, Validators.required],
+    surname: [null, Validators.required],
     email: [null, Validators.required],
     password: [null, Validators.required],
     passwordConfirmation: [null, Validators.required]

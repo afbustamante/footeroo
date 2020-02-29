@@ -1,7 +1,6 @@
-export class Player {
-    id: number;
-    email: string;
-    password: string;
+import { User } from '../security/user';
+
+export class Player extends User {
     firstName: string;
     surname: string;
     phoneNumber: string;

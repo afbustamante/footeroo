@@ -7,8 +7,9 @@
       <div class="row">
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput type="email" placeholder="Username" formControlName="username">
-            <mat-error *ngIf="signinForm.controls['username'].hasError('required')">
+            <mat-label i18n>Username</mat-label>
+            <input matInput type="email" placeholder="Email" formControlName="username">
+            <mat-error *ngIf="signinForm.controls['username'].hasError('required')" i18n>
               Your username is <strong>required</strong>
             </mat-error>
           </mat-form-field>
@@ -17,8 +18,9 @@
       <div class="row">
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput type="password" placeholder="Password" formControlName="password">
-            <mat-error *ngIf="signinForm.controls['password'].hasError('required')">
+            <mat-label i18n>Password</mat-label>
+            <input matInput type="password" formControlName="password">
+            <mat-error *ngIf="signinForm.controls['password'].hasError('required')" i18n>
               Your password is <strong>required</strong>
             </mat-error>
           </mat-form-field>
@@ -26,8 +28,8 @@
       </div>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button color="primary" type="submit">Submit</button>
-      <button mat-raised-button color="accent" routerLink="/register">Register as a new player</button>
+      <button mat-raised-button color="primary" type="submit" i18n>Submit</button>
+      <button mat-raised-button color="accent" routerLink="/register" i18n>Register as a new player</button>
     </mat-card-actions>
   </mat-card>
 </form>
