@@ -23,7 +23,9 @@ export class AuthenticationService {
   }
 
   signIn(email: string, password: string) {
-    return this.http.put<any>(`${environment.apiUrl}/users/${email}/authenticate`, { email, password })
+    password = btoa(password); // Base64 encoded password
+
+    return this.http.put<any>(`${environment.apiUrl}/users/${email}/auth`, { email, password })
       .pipe(map(user => {
         localStorage.setItem('currentUser', JSON.stringify(user));
         this.currentUserSubject.next(user);

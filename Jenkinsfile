@@ -11,7 +11,7 @@ pipeline {
         stage('Prepare') {
             steps {
                 // Get code from GitHub repository
-                git branch: 'master', url: 'https://github.com/afbustamante/y-a-foot-web'
+                git branch: 'master', url: 'https://github.com/afbustamante/footeroo'
 
                 // Prepare Angular dependencies
                 sh 'npm install'
