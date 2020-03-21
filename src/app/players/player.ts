@@ -1,6 +1,6 @@
 import { User } from '../security/user';
 
-export class Player extends User {
+export interface Player extends User {
     id: number;
     phoneNumber: string;
 }

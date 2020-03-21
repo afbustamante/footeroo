@@ -8,15 +8,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import localeFr from '@angular/common/locales/fr';
-import { MainActionsComponent } from './commons/main-actions/main-actions.component';
 
 import { SecurityModule } from './security/security.module';
 import { PlayersModule } from './players/players.module';
 import { MatchesModule } from './matches/matches.module';
 import { CommonsModule } from './commons/commons.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SignInGuard } from './security/sign-in.guard';
 import { AuthenticationInterceptor } from './security/authentication-interceptor';
+import { ErrorsInterceptor } from './commons/errors-interceptor';
 
 registerLocaleData(localeFr, 'fr-FR');
 registerLocaleData(localeEs, 'es-ES');
@@ -37,7 +37,8 @@ registerLocaleData(localeEs, 'es-ES');
   ],
   providers: [
     SignInGuard,
-    AuthenticationInterceptor
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorsInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })

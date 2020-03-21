@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { SitesService } from 'src/app/sites/sites.service';
+import { Site } from 'src/app/sites/site';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-new-match',
@@ -17,13 +20,15 @@ export class NewMatchComponent implements OnInit {
   });
 
   minDate = Date.now;
-  sites = [];
+  sites$: Observable<Site[]>;
 
   constructor(
     private fb: FormBuilder,
+    private sitesService: SitesService
   ) {}
 
   ngOnInit(): void {
+    this.sites$ = this.sitesService.findSites();
   }
 
   onSubmit() {
