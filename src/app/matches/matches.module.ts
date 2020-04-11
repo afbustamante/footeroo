@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NewMatchComponent } from './new-match/new-match.component';
+import { MatchRegistryComponent } from './match-registry/match-registry.component';
 import { MatchSearchComponent } from './match-search/match-search.component';
 import { MatchListComponent } from './match-list/match-list.component';
+import { MatchDetailComponent } from './match-detail/match-detail.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -15,9 +16,10 @@ import { RouterModule } from '@angular/router';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
-  declarations: [NewMatchComponent, MatchSearchComponent, MatchListComponent],
+  declarations: [MatchRegistryComponent, MatchSearchComponent, MatchListComponent, MatchDetailComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -31,6 +33,7 @@ import { MatMenuModule } from '@angular/material/menu';
     MatNativeDateModule,
     MatGridListModule,
     MatMenuModule,
+    MatSlideToggleModule,
     ReactiveFormsModule
   ]
 })

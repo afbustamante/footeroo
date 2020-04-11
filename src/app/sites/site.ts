@@ -1,6 +1,6 @@
 export interface Site {
-    id: number;
+    id?: number;
     name: string;
     address: string;
-    phoneNumber: string;
+    phoneNumber?: string;
 }

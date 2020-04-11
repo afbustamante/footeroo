@@ -10,9 +10,7 @@
                 <div class="col">
                     <mat-form-field>
                         <mat-label i18n>When?</mat-label>
-                        <input matInput formControlName="date" [min]="minDate" [matDatepicker]="picker">
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-datepicker #picker></mat-datepicker>
+                        <input matInput type="date" formControlName="date" [min]="minDate">
                         <mat-error *ngIf="registryForm.controls['time'].hasError('required')" i18n>
                             A date is <strong>required</strong>
                         </mat-error>
@@ -58,6 +56,16 @@
                     <button mat-icon-button>
                         <mat-icon aria-hidden="false" aria-label="Add">add_box</mat-icon>
                     </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-slide-toggle formControlName="carpoolingEnabled" i18n>Enable carpooling for this match</mat-slide-toggle>                    
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-slide-toggle formControlName="sharingEnabled" i18n>Enable public invitations for this match</mat-slide-toggle>                    
                 </div>
             </div>
         </mat-card-content>

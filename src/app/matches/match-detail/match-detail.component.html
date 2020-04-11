@@ -1,0 +1,15 @@
+<div *ngIf="match$ | async as match">
+    <h3>"{{ match.code }}"</h3>
+    <div>
+        <label>Id: </label>{{ match.id }}
+    </div>
+    <div>
+        <label>Code: </label>{{ match.code }}
+    </div>
+    <div>
+        <label>Date: </label>{{ match.date }}
+    </div>
+    <p>
+        <button>Back</button>
+    </p>
+</div>

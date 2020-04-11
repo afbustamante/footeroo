@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Site } from './site';
 import { environment } from 'src/environments/environment';
-import { tap, catchError } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { AuthenticationService } from '../security/authentication.service';
 
@@ -23,7 +23,6 @@ export class SitesService {
         headers: new HttpHeaders().set('player', this.authenticationService.currentUser.email)
       })
       .pipe(
-        tap(_ => console.log('Fetched sites')),
         catchError(this.handleError<Site[]>('findSites', []))
       );
   }
