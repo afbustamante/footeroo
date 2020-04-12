@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: '', component: MainActionsComponent },
   { path: 'register', component: PlayerRegistryComponent },
   { path: 'signin', component: SignInComponent },
-  { path: 'matches/new', component: MatchRegistryComponent, canActivate: [SignInGuard] },
+  { path: 'matches/create', component: MatchRegistryComponent, canActivate: [SignInGuard] },
   { path: 'matches/search', component: MatchSearchComponent, canActivate: [SignInGuard] },
   { path: 'matches/list', component: MatchListComponent, canActivate: [SignInGuard] },
   { path: 'match/:code', component: MatchDetailComponent, canActivate: [SignInGuard] },

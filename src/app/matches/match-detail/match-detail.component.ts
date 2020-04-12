@@ -12,7 +12,7 @@ import { switchMap } from 'rxjs/operators';
 })
 export class MatchDetailComponent implements OnInit {
 
-  match$: Observable<Match | Object>;
+  match$: Observable<Match | object>;
 
   constructor(
     private matchesService: MatchesService,

@@ -1,33 +1,26 @@
-import { Component } from '@angular/core';
-import { map } from 'rxjs/operators';
-import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
+import { Component, OnInit } from '@angular/core';
+import { MatchesService } from '../matches.service';
+import { Match } from '../match';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-match-list',
   templateUrl: './match-list.component.html',
   styleUrls: ['./match-list.component.css']
 })
-export class MatchListComponent {
-  /** Based on the screen size, switch from standard to one column per row */
-  cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
-    map(({ matches }) => {
-      if (matches) {
-        return [
-          { title: 'Card 1', cols: 1, rows: 1 },
-          { title: 'Card 2', cols: 1, rows: 1 },
-          { title: 'Card 3', cols: 1, rows: 1 },
-          { title: 'Card 4', cols: 1, rows: 1 }
-        ];
-      }
+export class MatchListComponent implements OnInit {
 
-      return [
-        { title: 'Card 1', cols: 2, rows: 1 },
-        { title: 'Card 2', cols: 1, rows: 1 },
-        { title: 'Card 3', cols: 1, rows: 2 },
-        { title: 'Card 4', cols: 1, rows: 1 }
-      ];
-    })
-  );
+  matchesToPlay$: Observable<Match[]>;
+  playedMatches$: Observable<Match[]>;
+  cancelledMatches$: Observable<Match[]>;
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(
+    private matchesService: MatchesService
+  ) {}
+
+  ngOnInit(): void {
+    this.matchesToPlay$ = this.matchesService.findMatchesToPlay();
+    this.playedMatches$ = this.matchesService.findPlayedMatches();
+    this.matchesToPlay$ = this.matchesService.findCancelledMatches();
+  }
 }

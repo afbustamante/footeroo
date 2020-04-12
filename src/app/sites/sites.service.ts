@@ -4,7 +4,6 @@ import { Site } from './site';
 import { environment } from 'src/environments/environment';
 import { catchError } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
-import { AuthenticationService } from '../security/authentication.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,14 +13,11 @@ export class SitesService {
   private sitesApiPath = '/sites';
 
   constructor(
-    private http: HttpClient,
-    private authenticationService: AuthenticationService
+    private http: HttpClient
   ) { }
 
   findSites(): Observable<Site[]> {
-    return this.http.get<Site[]>(environment.apiUrl + this.sitesApiPath, {
-        headers: new HttpHeaders().set('player', this.authenticationService.currentUser.email)
-      })
+    return this.http.get<Site[]>(environment.apiUrl + this.sitesApiPath)
       .pipe(
         catchError(this.handleError<Site[]>('findSites', []))
       );
