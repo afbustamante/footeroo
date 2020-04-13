@@ -21,11 +21,14 @@
                 </mat-menu>
               </mat-card-title>
             </mat-card-header>
-            <mat-card-content class="dashboard-card-content">
+            <mat-card-content>
               <div>
-                <p>{{ match.site.name }}</p>
-                <p>{{ match.numPlayersMin }} <span i18n> expected players</span></p>
-                <p>{{ match.numRegisteredPlayers }} <span i18n> registered players</span></p>
+                <p>{{ match.site.name }}<br/>{{ match.site.address }}</p>
+                <p>
+                  <span *ngIf="match.numPlayersMin != null">{{ match.numPlayersMin }} <span i18n> players required</span><br/></span>
+                  <span *ngIf="match.numPlayersMax != null">{{ match.numPlayersMax }} <span i18n> players (max)</span><br/></span>
+                  {{ match.numRegisteredPlayers }} <span i18n> players attending</span>
+                </p>
               </div>
             </mat-card-content>
           </mat-card>
@@ -49,9 +52,10 @@
                 </mat-menu>
               </mat-card-title>
             </mat-card-header>
-            <mat-card-content class="dashboard-card-content">
+            <mat-card-content>
               <div>
-                <p>{{ match.site.name }}</p>
+                <p>{{ match.site.name }}<br/>{{ match.site.address }}</p>
+                <p>{{ match.numRegisteredPlayers }} <span i18n> players attended</span></p>
               </div>
             </mat-card-content>
           </mat-card>
@@ -75,9 +79,9 @@
                 </mat-menu>
               </mat-card-title>
             </mat-card-header>
-            <mat-card-content class="dashboard-card-content">
+            <mat-card-content>
               <div>
-                <p>{{ match.site.name }}</p>
+                <p>{{ match.site.name }}<br/>{{ match.site.address }}</p>
               </div>
             </mat-card-content>
           </mat-card>
