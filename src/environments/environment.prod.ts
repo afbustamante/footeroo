@@ -1,4 +1,4 @@
 export const environment = {
-  apiUrl: 'http://localhost:8280',
+  apiUrl: 'https://y-a-foot.marca2.net',
   production: true
 };
