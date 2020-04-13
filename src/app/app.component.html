@@ -1,8 +1,19 @@
 <div id="header">
-    <div class="logo-block">
-        <img src="assets/img/others/logo.png" alt="" title="Footeroo" />
-    </div>
-    <div class="title-block"><h1>Footeroo</h1></div>
+    <mat-toolbar>
+        <div class="title-block">
+            <h1>Footeroo</h1>
+        </div>
+        <div *ngIf="currentUser != null">
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon aria-hidden="true">face</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item i18n>Signed in as {{ currentUser.email }}</button>
+                <button mat-menu-item i18n>My profile</button>
+                <button mat-menu-item i18n (click)="signout()">Sign out</button>
+            </mat-menu>
+        </div>
+    </mat-toolbar>
 </div>
 
 <router-outlet></router-outlet>

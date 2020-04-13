@@ -29,13 +29,13 @@ export class PlayerRegistryComponent {
       firstName: this.registryForm.value.firstName,
       surname: this.registryForm.value.surname,
       email: this.registryForm.value.email,
-      password: btoa(this.registryForm.value.password) // Base64 encoded password 
-    }
+      password: btoa(this.registryForm.value.password) // Base64 encoded password
+    };
     this.playersService.registerPlayer(player)
       .subscribe(
         response => {
           const location = response.headers.get('Location');
-  
+
           if (location) {
             const locationParts = location.split('/');
             const playerId = locationParts[locationParts.length - 1];
@@ -43,12 +43,10 @@ export class PlayerRegistryComponent {
             this.router.navigate(['/']);
           }
         }
-      )
+      );
   }
 
   private publishPlayerRegistrySuccess(playerId: string) {
-    localStorage.setItem('playerId', playerId);
-
     // TODO Use a visual component to show this message
     console.log('Player successfully created with the id ' + playerId);
   }

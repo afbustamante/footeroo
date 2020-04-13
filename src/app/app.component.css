@@ -2,17 +2,16 @@
     width: 100%;
     float: left;
     position: relative;
-}
-
-.logo-block {
-    padding: 0.5em;
-    float: left;
-    position: relative;
+    margin-bottom: 1em;
 }
 
 .title-block {
     padding: 0.5em;
     width: 85%;
-    float: right;
+    float: left;
     position: relative;
+    background-image: url('/assets/img/others/logo.png');
+    background-repeat: no-repeat;
+    background-position: left;
+    text-indent: 3em;
 }

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthenticationService } from '../authentication.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
+import { User } from '../user';
 
 @Component({
   selector: 'app-sign-in',
@@ -10,6 +11,9 @@ import { first } from 'rxjs/operators';
   styleUrls: ['./sign-in.component.css']
 })
 export class SignInComponent implements OnInit {
+
+  @Output() signInUserEvent = new EventEmitter<User>();
+
   signinForm = this.fb.group({
     username: [null, Validators.required],
     password: [null, Validators.required],
@@ -37,6 +41,7 @@ export class SignInComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
+          this.signInUserEvent.emit(data);
           this.router.navigate([this.destination]);
         },
         error => {
