@@ -21,6 +21,6 @@ export class MatchListComponent implements OnInit {
   ngOnInit(): void {
     this.matchesToPlay$ = this.matchesService.findMatchesToPlay();
     this.playedMatches$ = this.matchesService.findPlayedMatches();
-    this.matchesToPlay$ = this.matchesService.findCancelledMatches();
+    this.cancelledMatches$ = this.matchesService.findCancelledMatches();
   }
 }

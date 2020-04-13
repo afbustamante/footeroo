@@ -8,7 +8,7 @@
           <mat-card class="dashboard-card">
             <mat-card-header>
               <mat-card-title>
-                {{ match.date | date:'short' }}
+                {{ match.date | date:'longDate' }} <span i18n>at</span> {{ match.date | date:'shortTime' }}
     
                 <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Options">
                   <mat-icon>more_vert</mat-icon>
@@ -38,7 +38,7 @@
           <mat-card class="dashboard-card">
             <mat-card-header>
               <mat-card-title>
-                {{ match.date | date:'short' }}
+                {{ match.date | date:'longDate' }} <span i18n>at</span> {{ match.date | date:'shortTime' }}
     
                 <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Options">
                   <mat-icon>more_vert</mat-icon>
@@ -64,7 +64,7 @@
           <mat-card class="dashboard-card">
             <mat-card-header>
               <mat-card-title>
-                {{ match.date | date:'short' }}
+                {{ match.date | date:'longDate' }} <span i18n>at</span> {{ match.date | date:'shortTime' }}
     
                 <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Options">
                   <mat-icon>more_vert</mat-icon>

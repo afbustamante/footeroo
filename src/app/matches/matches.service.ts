@@ -4,6 +4,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Match } from './match';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
+import { formatDate } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -26,29 +27,14 @@ export class MatchesService {
   }
 
   findMatchesToPlay(): Observable<Match[]> {
-    return this.http.get<Match[]>(environment.apiUrl + this.matchesApiPath)
-      .pipe(
-        map(matches =>
-          matches.filter(match =>
-            /* FIXME Date comparison not working !!
-            match.date.getTime() > Date.now().getTime()
-            */
-           match.id > 15
-          )
-        ));
+    const today = formatDate(Date.now(), 'yyyy-MM-dd', 'en');
+    return this.http.get<Match[]>(environment.apiUrl + this.matchesApiPath + '?startDate=' + today);
   }
 
   findPlayedMatches(): Observable<Match[]> {
-    return this.http.get<Match[]>(environment.apiUrl + this.matchesApiPath)
-      .pipe(
-        map(matches =>
-          matches.filter(match =>
-            /* FIXME Date comparison not working !!
-            match.date.getTime() > Date.now().getTime()
-            */
-            match.id < 15
-          )
-        ));
+    const oneDayMilliseconds = 86400000;
+    const yesterday = formatDate(Date.now() - oneDayMilliseconds, 'yyyy-MM-dd', 'en');
+    return this.http.get<Match[]>(environment.apiUrl + this.matchesApiPath + '?endDate=' + yesterday);
   }
 
   findCancelledMatches(): Observable<Match[]> {
