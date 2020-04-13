@@ -1,79 +1,85 @@
-<form [formGroup]="registryForm" novalidate (ngSubmit)="onSubmit()">
-    <h2 i18n>Create a new match</h2>
+<div>
+    <form [formGroup]="registryForm" novalidate (ngSubmit)="onSubmit()">
+        <h2 i18n>Create a new match</h2>
 
-    <mat-card class="registry-card">
-        <mat-card-header>
-            <mat-card-title i18n>Match details</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-            <div class="row">
-                <div class="col">
-                    <mat-form-field>
-                        <mat-label i18n>When?</mat-label>
-                        <input matInput type="date" formControlName="date" [min]="minDate">
-                        <mat-error *ngIf="registryForm.controls['time'].hasError('required')" i18n>
-                            A date is <strong>required</strong>
-                        </mat-error>
-                    </mat-form-field>
+        <mat-card class="registry-card">
+            <mat-card-header>
+                <mat-card-title i18n>Match details</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field>
+                            <mat-label i18n>When?</mat-label>
+                            <input matInput type="date" formControlName="date" [min]="minDate">
+                            <mat-error *ngIf="registryForm.controls['time'].hasError('required')" i18n>
+                                A date is <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field>
+                            <mat-label i18n>At what time?</mat-label>
+                            <input matInput type="time" formControlName="time">
+                            <mat-error *ngIf="registryForm.controls['time'].hasError('required')" i18n>
+                                A time is <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
                 </div>
-                <div class="col">
-                    <mat-form-field>
-                        <mat-label i18n>At what time?</mat-label>
-                        <input matInput type="time" formControlName="time">
-                        <mat-error *ngIf="registryForm.controls['time'].hasError('required')" i18n>
-                            A time is <strong>required</strong>
-                        </mat-error>
-                    </mat-form-field>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field>
+                            <mat-label i18n>How many players? (min)</mat-label>
+                            <input matInput type="number" placeholder="Min" formControlName="numPlayersMin">
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field>
+                            <mat-label i18n>How many players? (max)</mat-label>
+                            <input matInput type="number" placeholder="Max" formControlName="numPlayersMax">
+                        </mat-form-field>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <mat-form-field>
-                        <mat-label i18n>How many players? (min)</mat-label>
-                        <input matInput type="number" placeholder="Min" formControlName="numPlayersMin">
-                    </mat-form-field>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field>
+                            <mat-label i18n>Where?</mat-label>
+                            <mat-select formControlName="site">
+                                <mat-option *ngFor="let site of sites$ | async" [value]="site">
+                                    {{ site.name }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="registryForm.controls['site'].hasError('required')" i18n>
+                                A place is <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
+                        <button mat-icon-button>
+                            <mat-icon aria-hidden="false" aria-label="Add">add_box</mat-icon>
+                        </button>
+                    </div>
                 </div>
-                <div class="col">
-                    <mat-form-field>
-                        <mat-label i18n>How many players? (max)</mat-label>
-                        <input matInput type="number" placeholder="Max" formControlName="numPlayersMax">
-                    </mat-form-field>
+                <div class="row">
+                    <div class="col">
+                        <mat-slide-toggle formControlName="carpoolingEnabled" i18n>Enable carpooling for this match</mat-slide-toggle>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <mat-form-field>
-                        <mat-label i18n>Where?</mat-label>
-                        <mat-select formControlName="site">
-                            <mat-option *ngFor="let site of sites$ | async" [value]="site">
-                                {{ site.name }}
-                            </mat-option>
-                        </mat-select>
-                        <mat-error *ngIf="registryForm.controls['site'].hasError('required')" i18n>
-                            A place is <strong>required</strong>
-                        </mat-error>
-                    </mat-form-field>
-                    <button mat-icon-button>
-                        <mat-icon aria-hidden="false" aria-label="Add">add_box</mat-icon>
-                    </button>
+                <div class="row">
+                    <div class="col">
+                        <mat-slide-toggle formControlName="sharingEnabled" i18n>Enable public invitations for this match</mat-slide-toggle>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <mat-slide-toggle formControlName="carpoolingEnabled" i18n>Enable carpooling for this match</mat-slide-toggle>                    
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <mat-slide-toggle formControlName="sharingEnabled" i18n>Enable public invitations for this match</mat-slide-toggle>                    
-                </div>
-            </div>
-        </mat-card-content>
-        <mat-card-actions>
-            <button mat-raised-button color="primary" type="submit" i18n>
-                <mat-icon aria-hidden="true">done</mat-icon>
-                Create
-            </button>
-        </mat-card-actions>
-    </mat-card>
-</form>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button color="primary" type="submit" i18n>
+                    <mat-icon aria-hidden="true">done</mat-icon>
+                    Create
+                </button>
+            </mat-card-actions>
+        </mat-card>
+    </form>
+
+    <div>
+        <a routerLink="/" routerLinkActive="active" i18n>Go back to the home page</a>
+    </div>
+</div>

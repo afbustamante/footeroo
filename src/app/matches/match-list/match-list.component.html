@@ -1,5 +1,5 @@
-<div class="grid-container">
-  <h2 class="mat-h1" i18n>My matches</h2>
+<div>
+  <h2 class="mat-h1" i18n>My matches calendar</h2>
 
   <mat-tab-group>
     <mat-tab label="Matches to play">
@@ -21,7 +21,7 @@
                 </mat-menu>
               </mat-card-title>
             </mat-card-header>
-            <mat-card-content>
+            <mat-card-content class="dashboard-card-content">
               <div>
                 <p>{{ match.site.name }}<br/>{{ match.site.address }}</p>
                 <p>
@@ -52,7 +52,7 @@
                 </mat-menu>
               </mat-card-title>
             </mat-card-header>
-            <mat-card-content>
+            <mat-card-content class="dashboard-card-content">
               <div>
                 <p>{{ match.site.name }}<br/>{{ match.site.address }}</p>
                 <p>{{ match.numRegisteredPlayers }} <span i18n> players attended</span></p>
@@ -79,7 +79,7 @@
                 </mat-menu>
               </mat-card-title>
             </mat-card-header>
-            <mat-card-content>
+            <mat-card-content class="dashboard-card-content">
               <div>
                 <p>{{ match.site.name }}<br/>{{ match.site.address }}</p>
               </div>
@@ -89,4 +89,8 @@
       </mat-grid-list>
     </mat-tab>
   </mat-tab-group>
+
+  <div>
+    <a routerLink="/" routerLinkActive="active" i18n>Go back to the home page</a>
+  </div>
 </div>
