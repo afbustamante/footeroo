@@ -1,35 +1,41 @@
-<form [formGroup]="signinForm" novalidate (ngSubmit)="onSubmit()">
-
+<div>
   <h2>Sign-in</h2>
 
-  <mat-card class="signin-card">
-    <mat-card-content>
-      <div class="row">
-        <div class="col">
-          <mat-form-field class="full-width">
-            <mat-label i18n>Username</mat-label>
-            <input matInput type="email" placeholder="Email" formControlName="username">
-            <mat-error *ngIf="signinForm.controls['username'].hasError('required')" i18n>
-              Your username is <strong>required</strong>
-            </mat-error>
-          </mat-form-field>
+  <form [formGroup]="signinForm" novalidate (ngSubmit)="onSubmit()">
+    <mat-card class="signin-card">
+      <mat-card-content>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <mat-label i18n>Username</mat-label>
+              <input matInput type="email" placeholder="Email" formControlName="username">
+              <mat-error *ngIf="signinForm.controls['username'].hasError('required')" i18n>
+                Your username is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <mat-form-field class="full-width">
-            <mat-label i18n>Password</mat-label>
-            <input matInput type="password" formControlName="password">
-            <mat-error *ngIf="signinForm.controls['password'].hasError('required')" i18n>
-              Your password is <strong>required</strong>
-            </mat-error>
-          </mat-form-field>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <mat-label i18n>Password</mat-label>
+              <input matInput type="password" formControlName="password">
+              <mat-error *ngIf="signinForm.controls['password'].hasError('required')" i18n>
+                Your password is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
         </div>
-      </div>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-raised-button color="primary" type="submit" i18n>Submit</button>
-      <button mat-raised-button color="accent" routerLink="/register" i18n>Register as a new player</button>
-    </mat-card-actions>
-  </mat-card>
-</form>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" type="submit" i18n>Submit</button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+
+  <div>
+    <a mat-button routerLinkActive="active" routerLink="/register" i18n>
+      Register as a new player
+    </a>
+  </div>
+</div>

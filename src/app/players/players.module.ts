@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { PlayerRegistryComponent } from './player-registry/player-registry.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,6 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   declarations: [PlayerRegistryComponent],
   imports: [
     CommonModule,
+    RouterModule,
     MatInputModule,
     MatButtonModule,
     MatSelectModule,

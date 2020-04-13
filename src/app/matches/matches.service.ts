@@ -11,34 +11,31 @@ import { formatDate } from '@angular/common';
 })
 export class MatchesService {
 
-  private matchesApiPath = '/matches';
-
   constructor(
     private http: HttpClient
   ) {}
 
   createMatch(match: Match): Observable<HttpResponse<any>> {
-    return this.http.post(environment.apiUrl + this.matchesApiPath, match, { observe : 'response'});
+    return this.http.post(`${environment.apiUrl}/matches`, match, { observe : 'response'});
   }
 
   loadMatch(code: string): Observable<Match | object> {
-    const url = environment.apiUrl + this.matchesApiPath;
-    return this.http.get(`${url}/${code}`);
+    return this.http.get(`${environment.apiUrl}/matches/${code}`);
   }
 
   findMatchesToPlay(): Observable<Match[]> {
     const today = formatDate(Date.now(), 'yyyy-MM-dd', 'en');
-    return this.http.get<Match[]>(environment.apiUrl + this.matchesApiPath + '?startDate=' + today);
+    return this.http.get<Match[]>(`${environment.apiUrl}/matches?startDate=${today}`);
   }
 
   findPlayedMatches(): Observable<Match[]> {
     const oneDayMilliseconds = 86400000;
     const yesterday = formatDate(Date.now() - oneDayMilliseconds, 'yyyy-MM-dd', 'en');
-    return this.http.get<Match[]>(environment.apiUrl + this.matchesApiPath + '?endDate=' + yesterday);
+    return this.http.get<Match[]>(`${environment.apiUrl}/matches?endDate=${yesterday}`);
   }
 
   findCancelledMatches(): Observable<Match[]> {
-    return this.http.get<Match[]>(environment.apiUrl + this.matchesApiPath)
+    return this.http.get<Match[]>(`${environment.apiUrl}/matches`)
       .pipe(
         map(matches =>
           matches.filter(match =>

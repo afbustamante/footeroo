@@ -10,14 +10,12 @@ import { Observable, of } from 'rxjs';
 })
 export class SitesService {
 
-  private sitesApiPath = '/sites';
-
   constructor(
     private http: HttpClient
   ) { }
 
   findSites(): Observable<Site[]> {
-    return this.http.get<Site[]>(environment.apiUrl + this.sitesApiPath)
+    return this.http.get<Site[]>(`${environment.apiUrl}/sites`)
       .pipe(
         catchError(this.handleError<Site[]>('findSites', []))
       );

@@ -7,12 +7,14 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
 import { SignInComponent } from './sign-in/sign-in.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [SignInComponent],
   imports: [
     CommonModule,
     FormsModule,
+    RouterModule,
     MatInputModule,
     MatButtonModule,
     MatSelectModule,
