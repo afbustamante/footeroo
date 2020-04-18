@@ -24,6 +24,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SignInGuard } from './security/sign-in.guard';
 import { AuthenticationInterceptor } from './security/authentication-interceptor';
 import { ErrorsInterceptor } from './commons/errors-interceptor';
+import { SitesModule } from './sites/sites.module';
 
 registerLocaleData(localeFr, 'fr-FR');
 registerLocaleData(localeEs, 'es-ES');
@@ -45,7 +46,8 @@ registerLocaleData(localeEs, 'es-ES');
     MatIconModule,
     SecurityModule,
     PlayersModule,
-    MatchesModule
+    MatchesModule,
+    SitesModule
   ],
   providers: [
     SignInGuard,

@@ -1,11 +1,12 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SitesService } from 'src/app/sites/sites.service';
 import { Site } from 'src/app/sites/site';
-import { Observable } from 'rxjs';
 import { MatchesService } from 'src/app/matches/matches.service';
 import { Match } from '../match';
 import { Router } from '@angular/router';
+import { SiteRegistryComponent } from 'src/app/sites/site-registry/site-registry.component';
 
 @Component({
   selector: 'app-match-registry',
@@ -28,17 +29,20 @@ export class MatchRegistryComponent implements OnInit {
   });
 
   minDate = Date.now;
-  sites$: Observable<Site[]>;
+  sites: Site[];
 
   constructor(
     private fb: FormBuilder,
+    private dialog: MatDialog,
     private sitesService: SitesService,
     private matchesService: MatchesService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.sites$ = this.sitesService.findSites();
+    this.sitesService.findSites().subscribe(result => {
+      this.sites = result;
+    });
   }
 
   onSubmit() {
@@ -61,7 +65,7 @@ export class MatchRegistryComponent implements OnInit {
           const locationParts = location.split('/');
           const code = locationParts[locationParts.length - 1];
           this.publishMatchRegistrySuccess(code);
-          this.router.navigate(['/match/list']);
+          this.router.navigate(['/matches/list']);
         }
       }
     );
@@ -72,5 +76,26 @@ export class MatchRegistryComponent implements OnInit {
 
     // TODO Use a visual component to show this message
     console.log('Match successfully created with the code ' + code);
+  }
+
+  openSiteRegistryDialog(): void {
+    const dialogRef = this.dialog.open(SiteRegistryComponent, {
+      width: '400px',
+      data: {
+        name: '',
+        address: '',
+        phoneNumber: ''
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.addSite(result);
+    });
+  }
+
+  addSite(site: Site): void {
+    if (site) {
+      this.sites.push(site);
+    }
   }
 }

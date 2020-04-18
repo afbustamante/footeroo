@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Site } from './site';
 import { environment } from 'src/environments/environment';
 import { catchError } from 'rxjs/operators';
@@ -19,6 +19,10 @@ export class SitesService {
       .pipe(
         catchError(this.handleError<Site[]>('findSites', []))
       );
+  }
+
+  createSite(site: Site): Observable<HttpResponse<any>> {
+    return this.http.post(`${environment.apiUrl}/sites`, site, { observe : 'response'});
   }
 
   /**
