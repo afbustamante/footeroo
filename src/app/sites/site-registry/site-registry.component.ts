@@ -39,7 +39,7 @@ export class SiteRegistryComponent implements OnInit {
         if (location) {
           const locationParts = location.split('/');
           const id = locationParts[locationParts.length - 1];
-          this.data.id = Number.parseInt(id);
+          this.data.id = Number.parseInt(id, 10);
         }
       }
     );
