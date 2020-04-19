@@ -7,7 +7,6 @@ import { MatchSearchComponent } from './matches/match-search/match-search.compon
 import { MatchListComponent } from './matches/match-list/match-list.component';
 import { PlayerRegistryComponent } from './players/player-registry/player-registry.component';
 import { SignInGuard } from './security/sign-in.guard';
-import { MatchDetailComponent } from './matches/match-detail/match-detail.component';
 
 const routes: Routes = [
   { path: '', component: MainActionsComponent },
@@ -16,7 +15,6 @@ const routes: Routes = [
   { path: 'matches/create', component: MatchRegistryComponent, canActivate: [SignInGuard] },
   { path: 'matches/search', component: MatchSearchComponent, canActivate: [SignInGuard] },
   { path: 'matches/list', component: MatchListComponent, canActivate: [SignInGuard] },
-  { path: 'match/:code', component: MatchDetailComponent, canActivate: [SignInGuard] },
   { path: '**', redirectTo: '' }
 ];
 

@@ -1,15 +1,56 @@
-<div *ngIf="match$ | async as match">
-    <h3>"{{ match.code }}"</h3>
-    <div>
-        <label>Id: </label>{{ match.id }}
-    </div>
-    <div>
-        <label>Code: </label>{{ match.code }}
-    </div>
-    <div>
-        <label>Date: </label>{{ match.date }}
-    </div>
-    <p>
-        <button>Back</button>
-    </p>
+<div>
+    <mat-card *ngIf="code && match">
+        <mat-card-header>
+            <mat-card-title>
+                Match details
+            </mat-card-title>
+            <mat-card-subtitle>
+                {{ match.code }} <span i18n>created by</span> {{ match.author.firstName }} {{ match.author.surname }}
+            </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+            <table>
+                <tr class="row">
+                    <td class="leftcol">
+                        <span i18n>When?</span>
+                    </td>
+                    <td class="rightcol">
+                        {{ match.date | date:'longDate' }} <span i18n>at</span> {{ match.date | date:'shortTime' }}
+                    </td>
+                </tr>
+                <tr class="row">
+                    <td class="leftcol">
+                        <span i18n>Where?</span>
+                    </td>
+                    <td class="rightcol">
+                        {{ match.site.name }}<br />{{ match.site.address }}
+                    </td>
+                </tr>
+                <tr class="row">
+                    <td class="leftcol">
+                        <span i18n>Who's coming?</span>
+                    </td>
+                    <td class="rightcol">
+                        <mat-list *ngIf="match.registrations">
+                            <mat-list-item *ngFor="let registration of match.registrations">
+                                <mat-icon matListIcon>face</mat-icon>
+                                {{ registration.player.firstName }}
+                            </mat-list-item>
+                        </mat-list>
+                    </td>
+                </tr>
+            </table>
+        </mat-card-content>
+        <mat-card-actions *ngIf="match">
+            <button mat-raised-button color="primary" type="button" [disabled]="playerAlreadyRegistered || pastMatch" i18n>Join</button>
+        </mat-card-actions>
+    </mat-card>
+
+    <mat-card *ngIf="code && !match">
+        <mat-card-header>
+            <mat-card-title>
+                <span i18n>No match found for this code</span>
+            </mat-card-title>
+        </mat-card-header>
+    </mat-card>
 </div>

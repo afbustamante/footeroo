@@ -19,8 +19,8 @@ export class MatchesService {
     return this.http.post(`${environment.apiUrl}/matches`, match, { observe : 'response'});
   }
 
-  loadMatch(code: string): Observable<Match | object> {
-    return this.http.get(`${environment.apiUrl}/matches/${code}`);
+  findMatchByCode(code: string): Observable<Match> {
+    return this.http.get<Match>(`${environment.apiUrl}/matches/${code}`);
   }
 
   findMatchesToPlay(): Observable<Match[]> {

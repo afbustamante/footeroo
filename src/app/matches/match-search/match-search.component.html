@@ -10,7 +10,7 @@
                     <div class="col">
                         <mat-form-field class="full-width">
                             <mat-label i18n>Match code</mat-label>
-                            <input matInput formControlName="matchCode">
+                            <input matInput formControlName="matchCode" (input)="resetMatch()">
                             <mat-error *ngIf="searchForm.controls['matchCode'].hasError('required')" i18n>
                                 A match code is <strong>required</strong>
                             </mat-error>
@@ -25,6 +25,8 @@
                 </button>
             </mat-card-actions>
         </mat-card>
+
+        <app-match-detail *ngIf="requestSent" [code]="searchForm.value.matchCode" [match]="match"></app-match-detail>
     </form>
 
     <div>

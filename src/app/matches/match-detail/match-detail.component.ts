@@ -1,28 +1,47 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit, OnChanges, Input, SimpleChanges } from '@angular/core';
 import { Match } from '../match';
-import { MatchesService } from '../matches.service';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
+import { AuthenticationService } from 'src/app/security/authentication.service';
 
 @Component({
   selector: 'app-match-detail',
   templateUrl: './match-detail.component.html',
   styleUrls: ['./match-detail.component.css']
 })
-export class MatchDetailComponent implements OnInit {
+export class MatchDetailComponent implements OnInit, OnChanges {
 
-  match$: Observable<Match | object>;
+  @Input()
+  code: string;
+
+  @Input()
+  match: Match;
+
+  playerAlreadyRegistered: boolean;
+  pastMatch: boolean;
 
   constructor(
-    private matchesService: MatchesService,
-    private route: ActivatedRoute
+    private authenticationService: AuthenticationService
   ) {}
 
   ngOnInit(): void {
-    this.match$ = this.route.paramMap.pipe(
-      switchMap((params: ParamMap) => this.matchesService.loadMatch(params.get('code')))
-    );
+    this.playerAlreadyRegistered = false;
+    this.pastMatch = false;
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    this.playerAlreadyRegistered = this.isPlayerAlreadyRegistered();
+    this.pastMatch = (this.match && this.match.date.getTime < Date.now);
+  }
+
+  isPlayerAlreadyRegistered(): boolean {
+    const currentUser = this.authenticationService.currentUser;
+    if (currentUser && this.match && this.match.registrations) {
+      this.match.registrations.forEach(reg => {
+        if (reg.player.email === currentUser.email) {
+          console.log('Player already registered');
+          return true;
+        }
+      });
+    }
+    return false;
+  }
 }

@@ -9,7 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatListModule } from '@angular/material/list';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
@@ -26,6 +26,7 @@ import { SiteRegistryComponent } from '../sites/site-registry/site-registry.comp
   declarations: [MatchRegistryComponent, MatchSearchComponent, MatchListComponent, MatchDetailComponent],
   imports: [
     CommonModule,
+    FormsModule,
     RouterModule,
     LayoutModule,
     MatButtonModule,
