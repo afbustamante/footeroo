@@ -4,6 +4,7 @@ import { AuthenticationService } from '../authentication.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { User } from '../user';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-sign-in',
@@ -18,13 +19,14 @@ export class SignInComponent implements OnInit {
     username: [null, Validators.required],
     password: [null, Validators.required],
   });
-  errorMessage: string;
+  errorCode: number;
   destination: string;
 
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
+    private messageSnackBar: MatSnackBar,
     private authenticationService: AuthenticationService
   ) {}
 
@@ -41,11 +43,29 @@ export class SignInComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          this.signInUserEvent.emit(data);
+          this.signInUserEvent.emit(data.body);
           this.router.navigate([this.destination]);
         },
         error => {
-          this.errorMessage = error;
+          this.errorCode = error.status;
+          
+          if (this.errorCode === 401) {
+            // Invalid credentials
+            // TODO Translate this message
+            this.messageSnackBar.open('Invalid username or password', 'OK', {
+              duration: 3000,
+              horizontalPosition: 'right',
+              verticalPosition: 'top'
+            })
+          } else {
+            // A problem occurred with the server
+            // TODO Translate this message
+            this.messageSnackBar.open('The remote server is unavailable now. Please try again later.', 'OK', {
+              duration: 5000,
+              horizontalPosition: 'right',
+              verticalPosition: 'top'
+            })
+          }
         }
       );
   }

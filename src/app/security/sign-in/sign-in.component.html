@@ -23,6 +23,9 @@
               <mat-error *ngIf="signinForm.controls['password'].hasError('required')" i18n>
                 Your password is <strong>required</strong>
               </mat-error>
+              <mat-error *ngIf="errorCode === 401" i18n>
+                Invalid username or password
+              </mat-error>
             </mat-form-field>
           </div>
         </div>

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from './user';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 
@@ -17,7 +17,7 @@ export class AuthenticationService {
     return currentUserSubject.value;
   }
 
-  signIn(email: string, password: string) {
+  signIn(email: string, password: string): Observable<HttpResponse<any>> {
     password = btoa(password); // Base64 encoded password
 
     return this.http.put<any>(`${environment.apiUrl}/users/${email}/auth`, { email, password })

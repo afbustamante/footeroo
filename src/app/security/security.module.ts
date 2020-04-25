@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { RouterModule } from '@angular/router';
 
@@ -20,6 +21,7 @@ import { RouterModule } from '@angular/router';
     MatSelectModule,
     MatRadioModule,
     MatCardModule,
+    MatSnackBarModule,
     ReactiveFormsModule,
   ]
 })
