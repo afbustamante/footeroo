@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { PlayersService } from '../players.service';
 import { Player } from '../player';
 import { Router } from '@angular/router';
@@ -21,6 +22,7 @@ export class PlayerRegistryComponent {
   constructor(
     private fb: FormBuilder,
     private router: Router,
+    private messageSnackBar: MatSnackBar,
     private playersService: PlayersService
   ) {}
 
@@ -47,7 +49,11 @@ export class PlayerRegistryComponent {
   }
 
   private publishPlayerRegistrySuccess(playerId: string) {
-    // TODO Use a visual component to show this message
-    console.log('Player successfully created with the id ' + playerId);
+    // TODO Translate this message
+    this.messageSnackBar.open('Player successfully signed up. You can sign in now.', 'OK', {
+      duration: 5000,
+      verticalPosition: 'top',
+      horizontalPosition: 'right'
+    });
   }
 }

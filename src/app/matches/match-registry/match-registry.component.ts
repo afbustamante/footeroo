@@ -1,6 +1,7 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { SitesService } from 'src/app/sites/sites.service';
 import { Site } from 'src/app/sites/site';
 import { MatchesService } from 'src/app/matches/matches.service';
@@ -34,6 +35,7 @@ export class MatchRegistryComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private dialog: MatDialog,
+    private messageSnackBar: MatSnackBar,
     private sitesService: SitesService,
     private matchesService: MatchesService,
     private router: Router
@@ -74,8 +76,15 @@ export class MatchRegistryComponent implements OnInit {
   publishMatchRegistrySuccess(code: string) {
     this.lastCreatedCode = code;
 
-    // TODO Use a visual component to show this message
-    console.log('Match successfully created with the code ' + code);
+    // TODO Translate this message
+    let message = 'Match successfully created with the code ' + code + '. ';
+    message += 'Copy and share this the code with your friends for them to join this match. ';
+    
+    this.messageSnackBar.open(message, 'OK', {
+      duration: 8000,
+      verticalPosition: 'top',
+      horizontalPosition: 'right'
+    });
   }
 
   openSiteRegistryDialog(): void {

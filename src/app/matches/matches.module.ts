@@ -15,6 +15,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { MatchRegistryComponent } from './match-registry/match-registry.component';
 import { MatchSearchComponent } from './match-search/match-search.component';
@@ -41,6 +42,7 @@ import { SiteRegistryComponent } from '../sites/site-registry/site-registry.comp
     MatMenuModule,
     MatSlideToggleModule,
     MatDialogModule,
+    MatSnackBarModule,
     ReactiveFormsModule
   ],
   entryComponents: [
