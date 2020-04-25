@@ -7,6 +7,12 @@ pipeline {
         disableConcurrentBuilds()
     }
 
+    environment {
+        DEPLOYMENT_DIR = '/var/www/html'
+        SOURCE_DIR = "dist/footeroo"
+        DESTINATION_DIR = "${DEPLOYMENT_DIR}/footeroo"
+    }
+
     stages {
         stage('Prepare') {
             steps {
@@ -27,6 +33,13 @@ pipeline {
             steps {
                 // Run the build task in PROD mode
                 sh 'ng build --prod'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                // Deploy the application
+                sh "rm -rf ${DESTINATION_DIR}"
+                sh "cp -r ${SOURCE_DIR} ${DESTINATION_DIR}"
             }
         }
     }
