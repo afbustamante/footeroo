@@ -79,7 +79,7 @@ export class MatchRegistryComponent implements OnInit {
     // TODO Translate this message
     let message = 'Match successfully created with the code ' + code + '. ';
     message += 'Copy and share this the code with your friends for them to join this match. ';
-    
+
     this.messageSnackBar.open(message, 'OK', {
       duration: 8000,
       verticalPosition: 'top',

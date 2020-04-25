@@ -11,6 +11,8 @@ pipeline {
         DEPLOYMENT_DIR = '/var/www/html'
         SOURCE_DIR = "dist/footeroo"
         DESTINATION_DIR = "${DEPLOYMENT_DIR}/footeroo"
+        DESTINATION_OWNER_USER = "apache"
+        DESTINATION_OWNER_GROUP = "apache"
     }
 
     stages {
@@ -40,6 +42,7 @@ pipeline {
                 // Deploy the application
                 sh "rm -rf ${DESTINATION_DIR}"
                 sh "cp -r ${SOURCE_DIR} ${DESTINATION_DIR}"
+                sh "chown -R ${DESTINATION_OWNER_USER}:${DESTINATION_OWNER_GROUP} ${DESTINATION_DIR}"
             }
         }
     }
