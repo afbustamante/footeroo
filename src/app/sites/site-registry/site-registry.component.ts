@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { Validators, FormBuilder } from '@angular/forms';
 import { SitesService } from '../sites.service';
 import { Site } from '../site';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-site-registry',
@@ -20,7 +20,6 @@ export class SiteRegistryComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private sitesService: SitesService,
-    private dialogRef: MatDialogRef<SiteRegistryComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Site
   ) {}
 

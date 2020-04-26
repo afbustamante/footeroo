@@ -16,15 +16,17 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatRadioModule } from '@angular/material/radio'; 
 
 import { MatchRegistryComponent } from './match-registry/match-registry.component';
 import { MatchSearchComponent } from './match-search/match-search.component';
 import { MatchListComponent } from './match-list/match-list.component';
 import { MatchDetailComponent } from './match-detail/match-detail.component';
 import { SiteRegistryComponent } from '../sites/site-registry/site-registry.component';
+import { MatchJoinConfirmationComponent } from './match-join-confirmation/match-join-confirmation.component';
 
 @NgModule({
-  declarations: [MatchRegistryComponent, MatchSearchComponent, MatchListComponent, MatchDetailComponent],
+  declarations: [MatchRegistryComponent, MatchSearchComponent, MatchListComponent, MatchDetailComponent, MatchJoinConfirmationComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -43,6 +45,7 @@ import { SiteRegistryComponent } from '../sites/site-registry/site-registry.comp
     MatSlideToggleModule,
     MatDialogModule,
     MatSnackBarModule,
+    MatRadioModule,
     ReactiveFormsModule
   ],
   entryComponents: [

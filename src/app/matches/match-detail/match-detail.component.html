@@ -42,7 +42,7 @@
             </table>
         </mat-card-content>
         <mat-card-actions *ngIf="match">
-            <button mat-raised-button color="primary" type="button" [disabled]="playerAlreadyRegistered || pastMatch" i18n>Join</button>
+            <button mat-raised-button color="primary" type="button" [disabled]="playerAlreadyRegistered || pastMatch || !placesAvailable" (click)="openMatchJoinConfirmationDialog()" i18n>Join</button>
         </mat-card-actions>
     </mat-card>
 

@@ -1,0 +1,16 @@
+.radio-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.radio-button {
+    margin: 10px;
+}
+
+.notice {
+    display: block;
+    background-color: lightgrey;
+    border: thin solid darkgrey;
+    padding: 10px;
+    margin: 10px 0px;
+}
