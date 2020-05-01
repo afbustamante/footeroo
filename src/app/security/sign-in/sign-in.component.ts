@@ -48,14 +48,14 @@ export class SignInComponent implements OnInit {
         },
         error => {
           this.errorCode = error.status;
-          
+
           if (this.errorCode === 401) {
             // Invalid credentials
             this.messageSnackBar.open(error.headers.get('ctx-messages'), 'OK', {
               duration: 3000,
               horizontalPosition: 'right',
               verticalPosition: 'top'
-            })
+            });
           } else {
             // A problem occurred with the server
             // TODO Translate this message
@@ -63,7 +63,7 @@ export class SignInComponent implements OnInit {
               duration: 5000,
               horizontalPosition: 'right',
               verticalPosition: 'top'
-            })
+            });
           }
         }
       );

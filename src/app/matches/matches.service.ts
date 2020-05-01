@@ -5,6 +5,8 @@ import { Match } from './match';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 import { formatDate } from '@angular/common';
+import { MatchRegistration } from './match-registration';
+import { Player } from '../players/player';
 
 @Injectable({
   providedIn: 'root'
@@ -42,5 +44,12 @@ export class MatchesService {
             match.cancelled
           )
         ));
+  }
+
+  joinMatch(player: Player, match: Match): Observable<HttpResponse<any>> {
+    const registration: MatchRegistration = {
+      player
+    };
+    return this.http.post(`${environment.apiUrl}/matches/${match.code}/registrations`, registration, { observe : 'response'});
   }
 }

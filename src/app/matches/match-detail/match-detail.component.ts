@@ -1,8 +1,12 @@
 import { Component, OnInit, OnChanges, Input, SimpleChanges } from '@angular/core';
+import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Match } from '../match';
 import { AuthenticationService } from 'src/app/security/authentication.service';
 import { MatchJoinConfirmationComponent } from '../match-join-confirmation/match-join-confirmation.component';
+import { MatchesService } from '../matches.service';
+import { User } from 'src/app/security/user';
 
 @Component({
   selector: 'app-match-detail',
@@ -20,15 +24,20 @@ export class MatchDetailComponent implements OnInit, OnChanges {
   playerAlreadyRegistered: boolean;
   pastMatch: boolean;
   placesAvailable: boolean;
+  currentUser: User;
 
   constructor(
+    private router: Router,
     private dialog: MatDialog,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private matchesService: MatchesService,
+    private messageSnackBar: MatSnackBar,
   ) {}
 
   ngOnInit(): void {
     this.playerAlreadyRegistered = false;
     this.pastMatch = false;
+    this.currentUser = this.authenticationService.currentUser;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -40,12 +49,11 @@ export class MatchDetailComponent implements OnInit, OnChanges {
   }
 
   isPlayerAlreadyRegistered(): boolean {
-    const currentUser = this.authenticationService.currentUser;
     let alreadyRegistered = false;
 
-    if (currentUser && this.match && this.match.registrations) {
+    if (this.currentUser && this.match && this.match.registrations) {
       this.match.registrations.forEach(reg => {
-        if (reg.player.email === currentUser.email) {
+        if (reg.player.email === this.currentUser.email) {
           alreadyRegistered = true;
         }
       });
@@ -65,8 +73,42 @@ export class MatchDetailComponent implements OnInit, OnChanges {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log('Join mode: ' + result);
+        if (result === 'JOIN_ONLY') {
+          this.matchesService.joinMatch(this.currentUser, this.match).subscribe(
+            data => {
+              this.publishMatchJoinSuccess();
+              this.router.navigate(['/matches/list']);
+            },
+            error => {
+              this.messageSnackBar.open(error.headers.get('ctx-messages'), 'OK', {
+                duration: 5000,
+                horizontalPosition: 'right',
+                verticalPosition: 'top'
+              });
+            }
+          );
+        }
       }
+    });
+  }
+
+  publishMatchJoinSuccess() {
+    // TODO Translate this message
+    this.messageSnackBar.open('You have successfully joined this match', 'OK', {
+      duration: 5000,
+      verticalPosition: 'top',
+      horizontalPosition: 'right'
+    });
+  }
+
+  publishMatchJoinFail() {
+    // TODO Translate this message
+    const message = 'There is a problem with your request.';
+
+    this.messageSnackBar.open('There is a problem with your request.', 'OK', {
+      duration: 5000,
+      verticalPosition: 'top',
+      horizontalPosition: 'right'
     });
   }
 }

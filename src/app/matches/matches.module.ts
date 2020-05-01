@@ -16,7 +16,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatRadioModule } from '@angular/material/radio'; 
+import { MatRadioModule } from '@angular/material/radio';
 
 import { MatchRegistryComponent } from './match-registry/match-registry.component';
 import { MatchSearchComponent } from './match-search/match-search.component';
