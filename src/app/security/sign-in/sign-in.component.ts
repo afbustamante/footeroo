@@ -51,8 +51,7 @@ export class SignInComponent implements OnInit {
           
           if (this.errorCode === 401) {
             // Invalid credentials
-            // TODO Translate this message
-            this.messageSnackBar.open('Invalid username or password', 'OK', {
+            this.messageSnackBar.open(error.headers.get('ctx-messages'), 'OK', {
               duration: 3000,
               horizontalPosition: 'right',
               verticalPosition: 'top'
