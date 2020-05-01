@@ -21,6 +21,9 @@ pipeline {
                 // Get code from GitHub repository
                 git branch: 'master', url: 'https://github.com/afbustamante/footeroo'
 
+                // Clean the workspace
+                sh 'rm -rf dist'
+
                 // Prepare Angular dependencies
                 sh 'npm install'
             }
@@ -33,7 +36,10 @@ pipeline {
         }
         stage('Build') {
             steps {
+                // Run the build task in DEV mode
+                sh 'ng build'
                 // Run the build task in PROD mode
+                sh 'rm -rf dist/*'
                 sh 'ng build --prod'
             }
         }
