@@ -24,9 +24,19 @@ import { MatchListComponent } from './match-list/match-list.component';
 import { MatchDetailComponent } from './match-detail/match-detail.component';
 import { SiteRegistryComponent } from '../sites/site-registry/site-registry.component';
 import { MatchJoinConfirmationComponent } from './match-join-confirmation/match-join-confirmation.component';
+import { MatchJoinWithCarComponent } from './match-join-with-car/match-join-with-car.component';
+import { MatchJoinWithoutCarComponent } from './match-join-without-car/match-join-without-car.component';
 
 @NgModule({
-  declarations: [MatchRegistryComponent, MatchSearchComponent, MatchListComponent, MatchDetailComponent, MatchJoinConfirmationComponent],
+  declarations: [
+    MatchRegistryComponent,
+    MatchSearchComponent,
+    MatchListComponent,
+    MatchDetailComponent,
+    MatchJoinConfirmationComponent,
+    MatchJoinWithCarComponent,
+    MatchJoinWithoutCarComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,

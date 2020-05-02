@@ -87,6 +87,10 @@ export class MatchDetailComponent implements OnInit, OnChanges {
               });
             }
           );
+        } else if (result === 'JOIN_WITH_CAR') {
+          this.router.navigate([`/match/${this.match.code}/join-with-car`]);
+        } else if (result === 'JOIN_WITHOUT_CAR') {
+          this.router.navigate([`/match/${this.match.code}/join-without-car`]);
         }
       }
     });

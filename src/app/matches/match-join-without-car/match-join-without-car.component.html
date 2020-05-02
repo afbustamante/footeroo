@@ -1,0 +1,32 @@
+<div>
+    <h2 i18n>Do you need a car to join this match?</h2>
+
+    <p i18n>Some players have registered the following cars to go to this match. Let them know that you would like to join them.</p>
+
+    <mat-grid-list cols="2" rowHeight="200px">
+        <mat-grid-tile *ngFor="let car of cars$ | async">
+            <mat-card class="car-card">
+                <mat-card-header>
+                    <mat-card-title>{{ car.name }}</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="row">
+                        <div class="col">
+                            {{ car.name }} ({{ car.numSeats }} <span i18n>seats</span>)
+                        </div>
+                    </div>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-raised-button color="primary" type="button" i18n>
+                        <mat-icon aria-hidden="true">done</mat-icon>
+                        Join and ask for a seat
+                    </button>
+                </mat-card-actions>
+            </mat-card>
+        </mat-grid-tile>
+    </mat-grid-list>
+
+    <div>
+        <a mat-button routerLink="/" routerLinkActive="active" i18n>Back to the home page</a>
+    </div>
+</div>

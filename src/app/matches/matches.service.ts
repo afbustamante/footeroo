@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 import { formatDate } from '@angular/common';
 import { MatchRegistration } from './match-registration';
 import { Player } from '../players/player';
+import { Car } from '../cars/car';
 
 @Injectable({
   providedIn: 'root'
@@ -46,9 +47,10 @@ export class MatchesService {
         ));
   }
 
-  joinMatch(player: Player, match: Match): Observable<HttpResponse<any>> {
+  joinMatch(player: Player, match: Match, car?: Car): Observable<HttpResponse<any>> {
     const registration: MatchRegistration = {
-      player
+      player,
+      car
     };
     return this.http.post(`${environment.apiUrl}/matches/${match.code}/registrations`, registration, { observe : 'response'});
   }
