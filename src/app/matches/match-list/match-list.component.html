@@ -1,8 +1,8 @@
 <div>
-  <h2 class="mat-h1" i18n>My matches calendar</h2>
+  <h2 class="mat-h1" i18n>My calendar</h2>
 
   <mat-tab-group>
-    <mat-tab label="Matches to play">
+    <mat-tab label="Coming matches">
       <mat-grid-list cols="1" rowHeight="200px">
         <mat-grid-tile *ngFor="let match of matchesToPlay$ | async">
           <mat-card class="dashboard-card">

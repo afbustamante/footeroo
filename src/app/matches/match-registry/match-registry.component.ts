@@ -1,13 +1,14 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Observable } from 'rxjs';
+
 import { SitesService } from 'src/app/sites/sites.service';
 import { Site } from 'src/app/sites/site';
 import { MatchesService } from 'src/app/matches/matches.service';
 import { Match } from '../match';
-import { Router } from '@angular/router';
-import { SiteRegistryComponent } from 'src/app/sites/site-registry/site-registry.component';
 
 @Component({
   selector: 'app-match-registry',
@@ -19,18 +20,26 @@ export class MatchRegistryComponent implements OnInit {
   @Output()
   lastCreatedCode: string;
 
-  registryForm = this.fb.group({
+  basicMatchForm = this.fb.group({
     date: [null, Validators.required],
     time: [null, Validators.required],
     numPlayersMin: [null],
     numPlayersMax: [null],
-    site: [null, Validators.required],
     carpoolingEnabled: [true],
     sharingEnabled: [true]
   });
 
+  matchSiteForm = this.fb.group({
+    site: [null],
+    name: [null, Validators.required],
+    address: [null, Validators.required],
+    phoneNumber: [null]
+  });
+  siteSelected = false;
+  newSitePanelSelected = false;
+
   minDate = Date.now;
-  sites: Site[];
+  sites$: Observable<Site[]>;
 
   constructor(
     private fb: FormBuilder,
@@ -42,13 +51,30 @@ export class MatchRegistryComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.sitesService.findSites().subscribe(result => {
-      this.sites = result;
-    });
+    this.sites$ = this.sitesService.findSites();
   }
 
-  onSubmit() {
-    const matchForm = this.registryForm.value;
+  selectSite() {
+    this.siteSelected = true;
+  }
+
+  createWithSelectedSite() {
+    const site = this.matchSiteForm.value.site;
+    this.createMatch(site);
+  }
+
+  createWithNewSite() {
+    const site: Site = {
+      name: this.matchSiteForm.value.name,
+      address: this.matchSiteForm.value.address,
+      phoneNumber: this.matchSiteForm.value.phoneNumber
+    };
+
+    this.createMatch(site);
+  }
+
+  createMatch(site: Site) {
+    const matchForm = this.basicMatchForm.value;
 
     const match: Match = {
       date: new Date(matchForm.date + 'T' + matchForm.time + ':00'),
@@ -56,7 +82,7 @@ export class MatchRegistryComponent implements OnInit {
       numPlayersMax: matchForm.numPlayersMax,
       carpoolingEnabled: matchForm.carpoolingEnabled,
       sharingEnabled: matchForm.sharingEnabled,
-      site: matchForm.site
+      site
     };
 
     this.matchesService.createMatch(match).subscribe(
@@ -87,24 +113,4 @@ export class MatchRegistryComponent implements OnInit {
     });
   }
 
-  openSiteRegistryDialog(): void {
-    const dialogRef = this.dialog.open(SiteRegistryComponent, {
-      width: '400px',
-      data: {
-        name: '',
-        address: '',
-        phoneNumber: ''
-      }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.addSite(result);
-    });
-  }
-
-  addSite(site: Site): void {
-    if (site) {
-      this.sites.push(site);
-    }
-  }
 }

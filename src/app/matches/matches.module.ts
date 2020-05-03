@@ -17,7 +17,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatRadioModule } from '@angular/material/radio';
-import { MatExpansionModule } from '@angular/material/expansion'; 
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatStepperModule } from '@angular/material/stepper';
 
 import { MatchRegistryComponent } from './match-registry/match-registry.component';
 import { MatchSearchComponent } from './match-search/match-search.component';
@@ -58,6 +59,7 @@ import { MatchJoinWithoutCarComponent } from './match-join-without-car/match-joi
     MatSnackBarModule,
     MatRadioModule,
     MatExpansionModule,
+    MatStepperModule,
     ReactiveFormsModule
   ],
   entryComponents: [

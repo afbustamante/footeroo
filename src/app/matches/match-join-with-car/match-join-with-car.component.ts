@@ -18,7 +18,7 @@ import { Match } from '../match';
 export class MatchJoinWithCarComponent implements OnInit {
 
   match: Match;
-  newCarPanelSelected: boolean = false;
+  newCarPanelSelected = false;
 
   registryForm = this.fb.group({
     carSeats: [null],
