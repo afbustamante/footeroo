@@ -9,3 +9,7 @@ table {
 .rightcol {
     width: 80%;
 }
+
+.marked {
+    font-weight: bold;
+}

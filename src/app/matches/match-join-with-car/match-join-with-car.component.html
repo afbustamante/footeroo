@@ -1,39 +1,40 @@
 <div>
     <form [formGroup]="registryForm" novalidate>
-        <h2 i18n>Join match with a car</h2>
+        <h2 i18n>Joining a match with a car</h2>
 
         <p i18n>Please select a car from the ones that you may already have registered or register a new one below.</p>
 
-        <mat-card class="registry-card">
-            <mat-card-content>
-                <div class="row">
-                    <div class="col">
-                        <mat-form-field>
-                            <mat-label i18n>Which car?</mat-label>
-                            <mat-select formControlName="car">
-                                <mat-option *ngFor="let car of cars$ | async" [value]="car">
-                                    {{ car.name }} ({{ car.numSeats }} <span i18n>seats</span>)
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                </div>
-            </mat-card-content>
-            <mat-card-actions>
-                <button mat-raised-button color="primary" type="button" (click)="joinMatchWithExistingCar()" i18n>
-                    <mat-icon aria-hidden="true">done</mat-icon>
-                    Join using this car
-                </button>
-            </mat-card-actions>
-        </mat-card>
-
-        <mat-card class="registry-card">
-            <mat-card-header>
-                <mat-card-title i18n>Register a new car</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
+        <mat-accordion>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title i18n>
+                        Is it an already registered car?
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+        
+                <label id="radio-group-label" i18n>Which car?</label>
+                <mat-radio-group aria-labelledby="radio-group-label" class="radio-group" formControlName="car" (change)="selectCar()">
+                    <mat-radio-button class="radio-button" *ngFor="let car of cars$ | async" [value]="car">
+                        {{ car.name }} ({{ car.numSeats }} <span i18n>seats</span>)
+                    </mat-radio-button>
+                </mat-radio-group>
+        
+                <mat-action-row>
+                    <button mat-raised-button color="primary" type="button" (click)="joinMatchWithExistingCar()" [disabled]="!carSelected" i18n>
+                        <mat-icon aria-hidden="true">done</mat-icon>
+                        Join using this car
+                    </button>
+                </mat-action-row>
+            </mat-expansion-panel>
+        
+            <mat-expansion-panel (opened)="newCarPanelSelected = true" (closed)="newCarPanelSelected = false">
+                <mat-expansion-panel-header>
+                    <mat-panel-title i18n>
+                        Is it a new car?
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
                 <p i18n>Please register your car's details below:</p>
-
+        
                 <div class="row">
                     <div class="col">
                         <mat-form-field>
@@ -48,14 +49,14 @@
                         </mat-form-field>
                     </div>
                 </div>
-            </mat-card-content>
-            <mat-card-actions>
-                <button mat-raised-button color="primary" type="button" (click)="joinMatchWithNewCar()" i18n>
-                    <mat-icon aria-hidden="true">done</mat-icon>
-                    Join using this car
-                </button>
-            </mat-card-actions>
-        </mat-card>
+                <mat-action-row>
+                    <button mat-raised-button color="primary" type="button" (click)="joinMatchWithNewCar()" i18n>
+                        <mat-icon aria-hidden="true">done</mat-icon>
+                        Join using this car
+                    </button>
+                </mat-action-row>
+            </mat-expansion-panel>
+        </mat-accordion>
     </form>
 
     <div>

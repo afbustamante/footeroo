@@ -18,6 +18,7 @@ import { Match } from '../match';
 export class MatchJoinWithCarComponent implements OnInit {
 
   match: Match;
+  newCarPanelSelected: boolean = false;
 
   registryForm = this.fb.group({
     carSeats: [null],
@@ -27,6 +28,7 @@ export class MatchJoinWithCarComponent implements OnInit {
 
   currentPlayer: Player;
   cars$: Observable<Car[]>;
+  carSelected: boolean;
 
   constructor(
     private fb: FormBuilder,
@@ -53,6 +55,11 @@ export class MatchJoinWithCarComponent implements OnInit {
     );
     this.cars$ = this.carsService.findCars();
     this.currentPlayer = this.authenticationService.currentUser;
+    this.carSelected = false;
+  }
+
+  selectCar() {
+    this.carSelected = true;
   }
 
   joinMatchWithExistingCar(): void {

@@ -34,7 +34,12 @@
                         <mat-list *ngIf="match.registrations">
                             <mat-list-item *ngFor="let registration of match.registrations">
                                 <mat-icon matListIcon>face</mat-icon>
-                                {{ registration.player.firstName }}
+                                <span *ngIf="currentUser.email === registration.player.email" class="marked">
+                                    {{ registration.player.firstName }}
+                                </span>
+                                <span *ngIf="currentUser.email !== registration.player.email">
+                                    {{ registration.player.firstName }}
+                                </span>
                             </mat-list-item>
                         </mat-list>
                     </td>
