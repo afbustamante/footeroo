@@ -24,7 +24,6 @@ import { MatchRegistryComponent } from './match-registry/match-registry.componen
 import { MatchSearchComponent } from './match-search/match-search.component';
 import { MatchListComponent } from './match-list/match-list.component';
 import { MatchDetailComponent } from './match-detail/match-detail.component';
-import { SiteRegistryComponent } from '../sites/site-registry/site-registry.component';
 import { MatchJoinConfirmationComponent } from './match-join-confirmation/match-join-confirmation.component';
 import { MatchJoinWithCarComponent } from './match-join-with-car/match-join-with-car.component';
 import { MatchJoinWithoutCarComponent } from './match-join-without-car/match-join-without-car.component';
@@ -63,7 +62,6 @@ import { MatchJoinWithoutCarComponent } from './match-join-without-car/match-joi
     ReactiveFormsModule
   ],
   entryComponents: [
-    SiteRegistryComponent
   ]
 })
 export class MatchesModule { }
