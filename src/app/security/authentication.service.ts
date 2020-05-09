@@ -4,6 +4,7 @@ import { User } from './user';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
+import { Credentials } from './credentials';
 
 @Injectable({
   providedIn: 'root'
@@ -29,5 +30,9 @@ export class AuthenticationService {
 
   signOut() {
     localStorage.removeItem('currentUser');
+  }
+
+  updateCredentials(user: User, credentials: Credentials): Observable<HttpResponse<any>> {
+    return this.http.patch(`${environment.apiUrl}/users/${user.email}/details`, credentials, { observe : 'response'});
   }
 }

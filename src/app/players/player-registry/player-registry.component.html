@@ -65,7 +65,10 @@
         </div>
       </mat-card-content>
       <mat-card-actions>
-        <button mat-raised-button color="primary" type="submit" [disabled]="registryForm.invalid" i18n>Submit</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="registryForm.invalid" i18n>
+          <mat-icon aria-hidden="true">how_to_reg</mat-icon>
+          Sign-up
+        </button>
       </mat-card-actions>
     </mat-card>
   </form>

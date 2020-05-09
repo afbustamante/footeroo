@@ -21,4 +21,8 @@ export class PlayersService {
   registerPlayer(player: Player): Observable<HttpResponse<any>> {
     return this.http.post(`${environment.apiUrl}/players`, player, { observe : 'response'});
   }
+
+  updatePlayerDetails(player: Player): Observable<HttpResponse<any>> {
+    return this.http.put(`${environment.apiUrl}/players/${player.id}`, player, { observe : 'response'});
+  }
 }
