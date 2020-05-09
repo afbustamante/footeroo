@@ -4,9 +4,9 @@
     <p i18n>You can create a match in two simple steps. First, fill out basic details for your new match and then fill out the details of the site where the match is going to take place.</p>
 
     <mat-horizontal-stepper #stepper>
-        <mat-step [stepControl]="basicMatchForm">
-            <form [formGroup]="basicMatchForm">
-                <ng-template matStepLabel i18n>Fill out match details</ng-template>
+        <mat-step [stepControl]="basicMatchForm" [hasError]="basicMatchForm.invalid">
+            <form [formGroup]="basicMatchForm" (ngSubmit)="onSubmitMatchDetails()">
+                <ng-template matStepLabel i18n>Match details</ng-template>
 
                 <div class="step-content">
                     <div class="row">
@@ -34,12 +34,18 @@
                             <mat-form-field>
                                 <mat-label i18n>How many players? (min)</mat-label>
                                 <input matInput type="number" placeholder="Min" formControlName="numPlayersMin">
+                                <mat-error *ngIf="basicMatchForm.controls['numPlayersMin'].hasError('min')" i18n>
+                                    This is not a valid number
+                                </mat-error>
                             </mat-form-field>
                         </div>
                         <div class="col">
                             <mat-form-field>
                                 <mat-label i18n>How many players? (max)</mat-label>
                                 <input matInput type="number" placeholder="Max" formControlName="numPlayersMax">
+                                <mat-error *ngIf="basicMatchForm.controls['numPlayersMax'].hasError('min')" i18n>
+                                    This is not a valid number
+                                </mat-error>
                             </mat-form-field>
                         </div>
                     </div>
@@ -55,13 +61,14 @@
                     </div>
                 </div>
                 <div>
-                    <button mat-raised-button color="primary" matStepperNext type="button" i18n>Next</button>
+                    <button mat-raised-button color="primary" matStepperNext type="submit"
+                        [disabled]="basicMatchForm.invalid" i18n>Next</button>
                 </div>
             </form>
         </mat-step>
-        <mat-step [stepControl]="matchSiteForm" class="registry-step">
+        <mat-step [stepControl]="matchSiteForm" class="registry-step" [hasError]="matchSiteForm.invalid">
             <form [formGroup]="matchSiteForm">
-                <ng-template matStepLabel i18n>Choose a place to play</ng-template>
+                <ng-template matStepLabel i18n>Place to play</ng-template>
 
                 <div class="step-content">
                     <mat-accordion>
@@ -80,7 +87,7 @@
                             </mat-radio-group>
                 
                             <mat-action-row>
-                                <button mat-raised-button color="primary" type="submit" [disabled]="!siteSelected" (click)="createWithSelectedSite()" i18n>
+                                <button mat-raised-button color="primary" type="submit" [disabled]="basicMatchForm.invalid || !siteSelected" (click)="createWithSelectedSite()" i18n>
                                     <mat-icon aria-hidden="true">done</mat-icon>
                                     Choose and create match
                                 </button>
@@ -126,7 +133,7 @@
                                 </div>
                             </div>
                             <mat-action-row>
-                                <button mat-raised-button color="primary" type="button" (click)="createWithNewSite()" i18n>
+                                <button mat-raised-button color="primary" type="button" [disabled]="basicMatchForm.invalid || matchSiteForm.invalid" (click)="createWithNewSite()" i18n>
                                     <mat-icon aria-hidden="true">done</mat-icon>
                                     Create match
                                 </button>

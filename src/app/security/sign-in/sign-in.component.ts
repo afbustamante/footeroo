@@ -16,8 +16,8 @@ export class SignInComponent implements OnInit {
   @Output() signInUserEvent = new EventEmitter<User>();
 
   signinForm = this.fb.group({
-    username: [null, Validators.required],
-    password: [null, Validators.required],
+    username: [null, [Validators.required, Validators.email]],
+    password: [null, [Validators.required, Validators.minLength(6)]],
   });
   errorCode: number;
   destination: string;

@@ -1,7 +1,6 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 
@@ -23,8 +22,8 @@ export class MatchRegistryComponent implements OnInit {
   basicMatchForm = this.fb.group({
     date: [null, Validators.required],
     time: [null, Validators.required],
-    numPlayersMin: [null],
-    numPlayersMax: [null],
+    numPlayersMin: [null, Validators.min(1)],
+    numPlayersMax: [null, Validators.min(1)],
     carpoolingEnabled: [true],
     sharingEnabled: [true]
   });
@@ -43,7 +42,6 @@ export class MatchRegistryComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private dialog: MatDialog,
     private messageSnackBar: MatSnackBar,
     private sitesService: SitesService,
     private matchesService: MatchesService,
@@ -52,6 +50,13 @@ export class MatchRegistryComponent implements OnInit {
 
   ngOnInit(): void {
     this.sites$ = this.sitesService.findSites();
+  }
+
+  onSubmitMatchDetails() {
+    if (this.basicMatchForm.value.numPlayersMin && this.basicMatchForm.value.numPlayersMax &&
+      this.basicMatchForm.value.numPlayersMin > this.basicMatchForm.value.numPlayersMax) {
+        // TODO Validation error for min and max values when both are entered
+      }
   }
 
   selectSite() {

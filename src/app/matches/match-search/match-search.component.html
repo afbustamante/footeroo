@@ -11,15 +11,15 @@
                         <mat-form-field class="full-width">
                             <mat-label i18n>Match code</mat-label>
                             <input matInput formControlName="matchCode" (input)="resetMatch()">
-                            <mat-error *ngIf="searchForm.controls['matchCode'].hasError('required')" i18n>
-                                A match code is <strong>required</strong>
+                            <mat-error *ngIf="searchForm.controls['matchCode'].hasError('required') || searchForm.controls['matchCode'].hasError('pattern')" i18n>
+                                A valid match code is <strong>required</strong>
                             </mat-error>
                         </mat-form-field>
                     </div>
                 </div>
             </mat-card-content>
             <mat-card-actions>
-                <button mat-raised-button color="primary" type="submit" i18n>
+                <button mat-raised-button color="primary" type="submit" [disabled]="searchForm.invalid" i18n>
                     <mat-icon aria-hidden="true">search</mat-icon>
                     Search
                 </button>

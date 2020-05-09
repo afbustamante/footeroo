@@ -1,5 +1,5 @@
 <div>
-  <h2>Sign-in</h2>
+  <h2 i18n>Sign-in</h2>
 
   <form [formGroup]="signinForm" novalidate (ngSubmit)="onSubmit()">
     <mat-card class="signin-card">
@@ -9,8 +9,8 @@
             <mat-form-field class="full-width">
               <mat-label i18n>Username</mat-label>
               <input matInput type="email" placeholder="Email" formControlName="username">
-              <mat-error *ngIf="signinForm.controls['username'].hasError('required')" i18n>
-                Your username is <strong>required</strong>
+              <mat-error *ngIf="signinForm.controls['username'].hasError('required') || signinForm.controls['username'].hasError('email')" i18n>
+                A valid username is <strong>required</strong>
               </mat-error>
             </mat-form-field>
           </div>
@@ -20,11 +20,8 @@
             <mat-form-field class="full-width">
               <mat-label i18n>Password</mat-label>
               <input matInput type="password" formControlName="password">
-              <mat-error *ngIf="signinForm.controls['password'].hasError('required')" i18n>
-                Your password is <strong>required</strong>
-              </mat-error>
-              <mat-error *ngIf="errorCode === 401" i18n>
-                Invalid username or password
+              <mat-error *ngIf="signinForm.controls['password'].hasError('required') || signinForm.controls['password'].hasError('minLength')" i18n>
+                A valid password is <strong>required</strong>
               </mat-error>
             </mat-form-field>
           </div>

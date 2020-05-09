@@ -14,9 +14,9 @@ export class PlayerRegistryComponent {
   registryForm = this.fb.group({
     firstName: [null, Validators.required],
     surname: [null, Validators.required],
-    email: [null, Validators.required],
-    password: [null, Validators.required],
-    passwordConfirmation: [null, Validators.required]
+    email: [null, [Validators.required, Validators.email]],
+    password: [null, [Validators.required, Validators.minLength(6)]],
+    passwordConfirmation: [null, [Validators.required, Validators.minLength(6)]]
   });
 
   constructor(

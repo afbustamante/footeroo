@@ -11,7 +11,7 @@ import { Match } from '../match';
 export class MatchSearchComponent implements OnInit {
 
   searchForm = this.fb.group({
-    matchCode: [null, Validators.required]
+    matchCode: [null, [Validators.required, Validators.pattern('^[A-Z]{10,12}$')]]
   });
   requestSent: boolean;
   match: Match;
