@@ -93,18 +93,20 @@ export class MatchRegistryComponent implements OnInit {
     this.matchesService.createMatch(match).subscribe(
       response => {
         const location = response.headers.get('Location');
-
-        if (location) {
-          const locationParts = location.split('/');
-          const code = locationParts[locationParts.length - 1];
-          this.publishMatchRegistrySuccess(code);
-          this.router.navigate(['/matches/list']);
+        this.publishMatchRegistrySuccess(location);
+        this.router.navigate(['/matches/list']);
+      },
+      error => {
+        if (error.status === 400) {
+          this.publishMatchRegistryFailure(error.headers.get('ctx-messages'));
         }
       }
     );
   }
 
-  publishMatchRegistrySuccess(code: string) {
+  private publishMatchRegistrySuccess(location: string) {
+    const locationParts = location.split('/');
+    const code = locationParts[locationParts.length - 1];
     this.lastCreatedCode = code;
 
     // TODO Translate this message
@@ -118,4 +120,11 @@ export class MatchRegistryComponent implements OnInit {
     });
   }
 
+  private publishMatchRegistryFailure(message: string) {
+    this.messageSnackBar.open(message, 'OK', {
+      duration: 5000,
+      verticalPosition: 'top',
+      horizontalPosition: 'right'
+    });
+  }
 }

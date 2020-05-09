@@ -28,7 +28,7 @@
         </div>
       </mat-card-content>
       <mat-card-actions>
-        <button mat-raised-button color="primary" type="submit" i18n>Submit</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="signinForm.invalid" i18n>Submit</button>
       </mat-card-actions>
     </mat-card>
   </form>

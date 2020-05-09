@@ -36,21 +36,34 @@ export class PlayerRegistryComponent {
     this.playersService.registerPlayer(player)
       .subscribe(
         response => {
-          const location = response.headers.get('Location');
-
-          if (location) {
-            const locationParts = location.split('/');
-            const playerId = locationParts[locationParts.length - 1];
-            this.publishPlayerRegistrySuccess(playerId);
+          if (response.status === 201) {
+            const location = response.headers.get('Location');
+            this.publishPlayerRegistrySuccess(location);
             this.router.navigate(['/']);
+          }
+        },
+        error => {
+          if (error.status === 400) {
+            this.publishPlayerRegistryFailure(error.headers.get('ctx-messages'));
           }
         }
       );
   }
 
-  private publishPlayerRegistrySuccess(playerId: string) {
+  private publishPlayerRegistrySuccess(location: string) {
+    const locationParts = location.split('/');
+    const playerId = locationParts[locationParts.length - 1];
+    console.log('Player successfully created with the ID ' + playerId);
     // TODO Translate this message
     this.messageSnackBar.open('Player successfully signed up. You can sign in now.', 'OK', {
+      duration: 5000,
+      verticalPosition: 'top',
+      horizontalPosition: 'right'
+    });
+  }
+
+  private publishPlayerRegistryFailure(message: string) {
+    this.messageSnackBar.open(message, 'OK', {
       duration: 5000,
       verticalPosition: 'top',
       horizontalPosition: 'right'
