@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SignInComponent } from './security/sign-in/sign-in.component';
-import { MainActionsComponent } from './commons/main-actions/main-actions.component';
+import { HomeComponent } from './commons/home/home.component';
 import { MatchRegistryComponent } from './matches/match-registry/match-registry.component';
 import { MatchSearchComponent } from './matches/match-search/match-search.component';
 import { MatchListComponent } from './matches/match-list/match-list.component';
@@ -12,7 +12,7 @@ import { PlayerProfileComponent } from './players/player-profile/player-profile.
 import { SignInGuard } from './security/sign-in.guard';
 
 const routes: Routes = [
-  { path: '', component: MainActionsComponent },
+  { path: '', component: HomeComponent },
   { path: 'register', component: PlayerRegistryComponent },
   { path: 'signin', component: SignInComponent },
   { path: 'profile', component: PlayerProfileComponent },

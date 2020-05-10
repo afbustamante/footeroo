@@ -10,7 +10,7 @@
     
     <p>Start using Footeroo by clicking on one of the options below.</p>
     
-    <h2 i18n>What do you want to do?</h2>
+    <h2 i18n>What would you like to do?</h2>
 
     <nav>
         <a mat-raised-button color="primary" routerLink="/matches/create" routerLinkActive="active" i18n>
@@ -24,6 +24,10 @@
         <a mat-raised-button routerLink="/matches/list" routerLinkActive="active" i18n>
             <mat-icon aria-hidden="true">calendar_today</mat-icon>
             View my calendar
+        </a>
+        <a mat-raised-button routerLink="/profile" routerLinkActive="active" *ngIf="currentPlayer" i18n>
+            <mat-icon aria-hidden="true">face</mat-icon>
+            Manage my profile
         </a>
     </nav>
 </div>
