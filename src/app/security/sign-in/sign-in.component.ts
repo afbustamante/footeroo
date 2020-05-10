@@ -15,9 +15,11 @@ export class SignInComponent implements OnInit {
 
   @Output() signInUserEvent = new EventEmitter<User>();
 
+  passwordPattern = '^[0-9a-zA-Z]{6,24}$';
+
   signinForm = this.fb.group({
     username: [null, [Validators.required, Validators.email]],
-    password: [null, [Validators.required, Validators.minLength(6)]],
+    password: [null, [Validators.required, Validators.pattern(this.passwordPattern)]],
   });
   errorCode: number;
   destination: string;

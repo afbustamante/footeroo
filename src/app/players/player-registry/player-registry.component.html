@@ -46,7 +46,7 @@
             <mat-form-field class="full-width">
               <mat-label i18n>Password</mat-label>
               <input matInput type="password" formControlName="password">
-              <mat-error *ngIf="registryForm.controls['password'].hasError('required') || registryForm.controls['password'].hasError('minLength')" i18n>
+              <mat-error *ngIf="registryForm.controls['password'].hasError('required') || registryForm.controls['password'].hasError('pattern')" i18n>
                 A valid password is <strong>required</strong>
               </mat-error>
             </mat-form-field>
@@ -57,7 +57,7 @@
             <mat-form-field class="full-width">
               <mat-label i18n>Confirm your password</mat-label>
               <input matInput type="password" formControlName="passwordConfirmation">
-              <mat-error *ngIf="registryForm.controls['passwordConfirmation'].hasError('required') || registryForm.controls['passwordConfirmation'].hasError('minLength')" i18n>
+              <mat-error *ngIf="registryForm.controls['passwordConfirmation'].hasError('required') || registryForm.controls['passwordConfirmation'].hasError('pattern')" i18n>
                 A valid confirmation password is <strong>required</strong>
               </mat-error>
             </mat-form-field>

@@ -11,12 +11,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./player-registry.component.css']
 })
 export class PlayerRegistryComponent {
+
+  passwordPattern = '^[0-9a-zA-Z]{6,24}$';
+
   registryForm = this.fb.group({
     firstName: [null, Validators.required],
     surname: [null, Validators.required],
     email: [null, [Validators.required, Validators.email]],
-    password: [null, [Validators.required, Validators.minLength(6)]],
-    passwordConfirmation: [null, [Validators.required, Validators.minLength(6)]]
+    password: [null, [Validators.required, Validators.pattern(this.passwordPattern)]],
+    passwordConfirmation: [null, [Validators.required, Validators.pattern(this.passwordPattern)]]
   });
 
   constructor(

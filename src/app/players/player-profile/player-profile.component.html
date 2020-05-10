@@ -72,7 +72,7 @@
                         <mat-form-field class="full-width">
                             <mat-label i18n>Current password</mat-label>
                             <input matInput type="password" formControlName="currentPassword">
-                            <mat-error *ngIf="credentialsForm.controls['currentPassword'].hasError('required') || credentialsForm.controls['currentPassword'].hasError('minLength')" i18n>
+                            <mat-error *ngIf="credentialsForm.controls['currentPassword'].hasError('required') || credentialsForm.controls['currentPassword'].hasError('pattern')" i18n>
                                 A valid password is <strong>required</strong>
                             </mat-error>
                         </mat-form-field>
@@ -83,7 +83,7 @@
                         <mat-form-field class="full-width">
                             <mat-label i18n>New password</mat-label>
                             <input matInput type="password" formControlName="newPassword">
-                            <mat-error *ngIf="credentialsForm.controls['newPassword'].hasError('required') || credentialsForm.controls['newPassword'].hasError('minLength')" i18n>
+                            <mat-error *ngIf="credentialsForm.controls['newPassword'].hasError('required') || credentialsForm.controls['newPassword'].hasError('pattern')" i18n>
                                 A valid confirmation password is <strong>required</strong>
                             </mat-error>
                         </mat-form-field>
@@ -94,7 +94,7 @@
                         <mat-form-field class="full-width">
                             <mat-label i18n>Confirm your password</mat-label>
                             <input matInput type="password" formControlName="passwordConfirmation">
-                            <mat-error *ngIf="credentialsForm.controls['passwordConfirmation'].hasError('required') || credentialsForm.controls['passwordConfirmation'].hasError('minLength')" i18n>
+                            <mat-error *ngIf="credentialsForm.controls['passwordConfirmation'].hasError('required') || credentialsForm.controls['passwordConfirmation'].hasError('pattern')" i18n>
                                 A valid confirmation password is <strong>required</strong>
                             </mat-error>
                         </mat-form-field>

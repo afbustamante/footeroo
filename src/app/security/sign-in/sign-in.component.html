@@ -10,7 +10,7 @@
               <mat-label i18n>Username</mat-label>
               <input matInput type="email" placeholder="Email" formControlName="username">
               <mat-error *ngIf="signinForm.controls['username'].hasError('required') || signinForm.controls['username'].hasError('email')" i18n>
-                A valid username is <strong>required</strong>
+                A valid email address is <strong>required</strong>
               </mat-error>
             </mat-form-field>
           </div>
@@ -20,7 +20,7 @@
             <mat-form-field class="full-width">
               <mat-label i18n>Password</mat-label>
               <input matInput type="password" formControlName="password">
-              <mat-error *ngIf="signinForm.controls['password'].hasError('required') || signinForm.controls['password'].hasError('minLength')" i18n>
+              <mat-error *ngIf="signinForm.controls['password'].hasError('pattern')" i18n>
                 A valid password is <strong>required</strong>
               </mat-error>
             </mat-form-field>
@@ -28,7 +28,14 @@
         </div>
       </mat-card-content>
       <mat-card-actions>
-        <button mat-raised-button color="primary" type="submit" [disabled]="signinForm.invalid" i18n>Submit</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="signinForm.invalid" i18n>
+          <mat-icon aria-hidden="true">fingerprint</mat-icon>
+          Sign-in
+        </button>
+        <button mat-raised-button color="accent" type="button" [disabled]="signinForm.controls['username'].hasError('required')" i18n>
+          <mat-icon aria-hidden="true">contact_support</mat-icon>
+          I forgot my password
+        </button>
       </mat-card-actions>
     </mat-card>
   </form>
