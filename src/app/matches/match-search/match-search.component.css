@@ -6,11 +6,6 @@
     min-width: 120px;
     margin: 20px auto;
 }
-
-.result-card {
-    min-width: 200px;
-    margin: 20px auto;
-}
   
 .row {
     display: flex;

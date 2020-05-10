@@ -1,5 +1,5 @@
 <div>
-    <form [formGroup]="searchForm" novalidate (ngSubmit)="onSubmit()">
+    <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
         <h2 i18n>Join a match</h2>
 
         <p i18n>In order to join a match please start by typing its code and then click on Search to continue</p>
@@ -26,7 +26,19 @@
             </mat-card-actions>
         </mat-card>
 
-        <app-match-detail *ngIf="requestSent" [code]="searchForm.value.matchCode" [match]="match"></app-match-detail>
+        <div *ngIf="requestSent && match">
+            <app-match-detail [mode]="'JOIN'" [match]="match"></app-match-detail>
+        </div>
+
+        <div *ngIf="requestSent && !match">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>
+                        <span i18n>No match found for this code</span>
+                    </mat-card-title>
+                </mat-card-header>
+            </mat-card>
+        </div>
     </form>
 
     <div>

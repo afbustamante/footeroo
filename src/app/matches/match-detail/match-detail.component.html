@@ -1,5 +1,5 @@
-<div>
-    <mat-card *ngIf="code && match">
+<div *ngIf="match && mode">
+    <mat-card class="detail-card">
         <mat-card-header>
             <mat-card-title>
                 Match details
@@ -46,16 +46,8 @@
                 </tr>
             </table>
         </mat-card-content>
-        <mat-card-actions *ngIf="match">
+        <mat-card-actions *ngIf="mode === 'JOIN'">
             <button mat-raised-button color="primary" type="button" [disabled]="playerAlreadyRegistered || pastMatch || !placesAvailable" (click)="openMatchJoinConfirmationDialog()" i18n>Join</button>
         </mat-card-actions>
-    </mat-card>
-
-    <mat-card *ngIf="code && !match">
-        <mat-card-header>
-            <mat-card-title>
-                <span i18n>No match found for this code</span>
-            </mat-card-title>
-        </mat-card-header>
     </mat-card>
 </div>

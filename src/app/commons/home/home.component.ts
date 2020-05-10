@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private authenticationService: AuthenticationService,
-    private iconRegistry: MatIconRegistry, 
+    private iconRegistry: MatIconRegistry,
     private sanitizer: DomSanitizer
   ) {
     iconRegistry.addSvgIcon('appointment-new', sanitizer.bypassSecurityTrustResourceUrl('assets/img/actions/appointment-new.svg'));

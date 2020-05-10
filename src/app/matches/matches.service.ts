@@ -38,7 +38,7 @@ export class MatchesService {
   }
 
   findCancelledMatches(): Observable<Match[]> {
-    return this.http.get<Match[]>(`${environment.apiUrl}/matches`)
+    return this.http.get<Match[]>(`${environment.apiUrl}/matches?status=CANCELLED`)
       .pipe(
         map(matches =>
           matches.filter(match =>

@@ -15,9 +15,11 @@
                 </button>
     
                 <mat-menu #menu="matMenu" xPosition="before">
-                  <button mat-menu-item i18n>View</button>
+                  <button mat-menu-item (click)="showMatchDetail(match.code)" i18n>View</button>
                   <button mat-menu-item i18n>Quit</button>
+                  <!--
                   <button mat-menu-item i18n>Cancel</button>
+                  -->
                 </mat-menu>
               </mat-card-title>
             </mat-card-header>
@@ -48,7 +50,7 @@
                 </button>
     
                 <mat-menu #menu="matMenu" xPosition="before">
-                  <button mat-menu-item i18n>View</button>¡
+                  <button mat-menu-item (click)="showMatchDetail(match.code)" i18n>View</button>
                 </mat-menu>
               </mat-card-title>
             </mat-card-header>
@@ -62,6 +64,7 @@
         </mat-grid-tile>
       </mat-grid-list>
     </mat-tab>
+    <!--
     <mat-tab label="Cancelled matches">
       <mat-grid-list cols="1" rowHeight="200px">
         <mat-grid-tile *ngFor="let match of cancelledMatches$ | async">
@@ -75,7 +78,7 @@
                 </button>
     
                 <mat-menu #menu="matMenu" xPosition="before">
-                  <button mat-menu-item i18n>View</button>¡
+                  <button mat-menu-item (click)="showMatchDetail(match.code)" i18n>View</button>¡
                 </mat-menu>
               </mat-card-title>
             </mat-card-header>
@@ -88,6 +91,7 @@
         </mat-grid-tile>
       </mat-grid-list>
     </mat-tab>
+    -->
   </mat-tab-group>
 
   <div>

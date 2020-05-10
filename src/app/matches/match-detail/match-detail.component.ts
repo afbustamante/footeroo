@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -13,10 +13,10 @@ import { User } from 'src/app/security/user';
   templateUrl: './match-detail.component.html',
   styleUrls: ['./match-detail.component.css']
 })
-export class MatchDetailComponent implements OnInit, OnChanges {
+export class MatchDetailComponent implements OnInit {
 
   @Input()
-  code: string;
+  mode: string;
 
   @Input()
   match: Match;
@@ -35,12 +35,7 @@ export class MatchDetailComponent implements OnInit, OnChanges {
   ) {}
 
   ngOnInit(): void {
-    this.playerAlreadyRegistered = false;
-    this.pastMatch = false;
     this.currentUser = this.authenticationService.currentUser;
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
     this.playerAlreadyRegistered = this.isPlayerAlreadyRegistered();
     this.pastMatch = (this.match) && (new Date(this.match.date) < new Date());
     this.placesAvailable = (this.match) && (
