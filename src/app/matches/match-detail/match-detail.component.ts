@@ -77,7 +77,7 @@ export class MatchDetailComponent implements OnInit, OnChanges {
           this.matchesService.joinMatch(this.currentUser, this.match).subscribe(
             data => {
               this.publishMatchJoinSuccess();
-              this.router.navigate(['/matches/list']);
+              this.router.navigate(['/list']);
             },
             error => {
               this.messageSnackBar.open(error.headers.get('ctx-messages'), 'OK', {

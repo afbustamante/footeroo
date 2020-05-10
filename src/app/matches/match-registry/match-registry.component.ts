@@ -94,7 +94,7 @@ export class MatchRegistryComponent implements OnInit {
       response => {
         const location = response.headers.get('Location');
         this.publishMatchRegistrySuccess(location);
-        this.router.navigate(['/matches/list']);
+        this.router.navigate(['/list']);
       },
       error => {
         if (error.status === 400) {

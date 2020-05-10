@@ -50,7 +50,7 @@ export class MatchJoinWithoutCarComponent implements OnInit {
     this.matchesService.joinMatch(this.currentPlayer, this.match, car).subscribe(
       data => {
         this.publishMatchJoinSuccess();
-        this.router.navigate(['/matches/list']);
+        this.router.navigate(['/list']);
       },
       error => {
         this.messageSnackBar.open(error.headers.get('ctx-messages'), 'OK', {
