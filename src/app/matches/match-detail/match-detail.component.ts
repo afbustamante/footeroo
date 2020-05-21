@@ -104,7 +104,7 @@ export class MatchDetailComponent implements OnInit {
     // TODO Translate this message
     const message = 'There is a problem with your request.';
 
-    this.messageSnackBar.open('There is a problem with your request.', 'OK', {
+    this.messageSnackBar.open(message, 'OK', {
       duration: 5000,
       verticalPosition: 'top',
       horizontalPosition: 'right'

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { Match } from '../match';
@@ -19,6 +20,7 @@ export class MatchListComponent implements OnInit {
   */
 
   constructor(
+    private router: Router,
     private matchesService: MatchesService,
     private dialog: MatDialog
   ) {}
@@ -37,5 +39,9 @@ export class MatchListComponent implements OnInit {
         code: matchCode
       }
     });
+  }
+
+  showCarpoolingOptions(matchCode: string): void {
+    this.router.navigate([`/match/${matchCode}/carpooling`]);
   }
 }

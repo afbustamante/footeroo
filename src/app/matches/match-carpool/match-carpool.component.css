@@ -1,0 +1,28 @@
+button {
+    margin-right: 5px;
+}
+
+.detail-card {
+    min-width: 200px;
+    margin: 10px auto;
+}
+
+.detail-card-content {
+    text-align: left;
+}
+
+.leftcol {
+    float: left;
+    width: 48%;
+}
+
+.rightcol {
+    float: right;
+    width: 48%;
+}
+
+.actions {
+    float: left;
+    width: 100%;
+    padding-top: 10px;
+}

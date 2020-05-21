@@ -24,6 +24,10 @@ export class CarsService {
     );
   }
 
+  loadCar(id: number): Observable<Car> {
+    return this.http.get<Car>(`${environment.apiUrl}/cars/${id}`);
+  }
+
   findCarsByMatch(matchCode: string): Observable<Car[]> {
     return this.http.get<MatchRegistration[]>(`${environment.apiUrl}/matches/${matchCode}/registrations`).pipe(
       catchError(err => {

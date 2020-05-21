@@ -1,0 +1,70 @@
+<div>
+    <form [formGroup]="carpoolForm" (ngSubmit)="onSubmit()">
+        <h2 i18n>Carpooling options</h2>
+
+        <p i18n>Sometimes it's easier when we share!</p>
+
+        <div *ngIf="isDriver">
+            <p *ngIf="playersAvailableForCarpool" i18n>Some players are looking for a ride to go this match. Would you like to pick them up?</p>
+
+            <p *ngIf="!playersAvailableForCarpool" i18n>However, there are no players waiting for a carpool by now for this match. You could try again later!</p>
+
+            <div class="leftcol">
+                <mat-card class="detail-card" *ngIf="playersAvailableForCarpool">
+                    <mat-card-header>
+                        <mat-card-subtitle i18n>
+                            Players available
+                        </mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content class="detail-card-content">
+                        <mat-selection-list formControlName="requestingPlayersSelection">
+                            <mat-list-option *ngFor="let player of requestingPlayers" [value]="player">
+                            {{ player.firstName }}
+                            </mat-list-option>
+                        </mat-selection-list>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <button mat-button color="accent" type="button" [disabled]="requestingPlayers.length === 0 || !candidatesSelected()" (click)="addPassengers()" i18n>
+                            <mat-icon matListIcon>add_circle</mat-icon>
+                            Take
+                        </button>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+            <div class="rightcol">
+                <mat-card class="detail-card" *ngIf="playersAvailableForCarpool">
+                    <mat-card-header>
+                        <mat-card-subtitle i18n>
+                            My passengers
+                        </mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content class="detail-card-content">
+                        <mat-selection-list formControlName="confirmedPlayersSelection" *ngIf="confirmedPlayers.length > 0">
+                            <mat-list-option *ngFor="let player of confirmedPlayers" [value]="player">
+                            {{ player.firstName }}
+                            </mat-list-option>
+                        </mat-selection-list>
+
+                        <p *ngIf="confirmedPlayers.length === 0" i18n>You have no passengers yet</p>
+                    </mat-card-content>
+                    <mat-card-actions >
+                        <button mat-button color="warn" type="button" [disabled]="confirmedPlayers.length === 0 || !passengersSelected()" (click)="removePassengers()" i18n>
+                            <mat-icon matListIcon>remove_circle</mat-icon>
+                            Remove
+                        </button>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+            <div class="actions">
+                <button mat-raised-button color="primary" i18n>Save changes</button>
+            </div>
+        </div>
+        <div *ngIf="!isDriver">
+            <p i18n>However, you have not proposed a car this time. You can go back and change your transportation options in order to do some carpooling with the other players of this match.</p>
+        </div>
+    </form>
+</div>
+<div class="actions">
+    <a mat-button routerLink="/list" routerLinkActive="active" i18n>Back to my calendar</a>
+    <a mat-button routerLink="/" routerLinkActive="active" i18n>Back to the home page</a>
+</div>
