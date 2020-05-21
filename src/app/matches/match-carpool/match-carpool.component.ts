@@ -153,7 +153,7 @@ export class MatchCarpoolComponent implements OnInit {
 
   onSubmit(): void {
     if (this.isDriver) {
-      let playersNotUpdated = [];
+      const playersNotUpdated = [];
 
       this.confirmedPlayers.forEach(player => {
         if (!this.formerlyConfirmedPlayers.includes(player)) {
@@ -179,7 +179,7 @@ export class MatchCarpoolComponent implements OnInit {
         }
       });
 
-      if (playersNotUpdated.length == 0) {
+      if (playersNotUpdated.length === 0) {
         this.publishUpdateSuccess();
         this.router.navigate(['/list']);
       } else {

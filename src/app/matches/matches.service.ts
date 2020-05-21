@@ -58,6 +58,6 @@ export class MatchesService {
   updateCarForPlayerRegistration(match: Match, player: Player, car: Car, confirmed: boolean): Observable<HttpResponse<any>> {
     return this.http.patch(`${environment.apiUrl}/matches/${match.code}/registrations/${player.id}`, {
       car, confirmed
-    }, {observe: 'response'})
+    }, {observe: 'response'});
   }
 }
