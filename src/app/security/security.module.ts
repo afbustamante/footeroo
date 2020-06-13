@@ -10,9 +10,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { SignInComponent } from './sign-in/sign-in.component';
+import { PasswordResetComponent } from './password-reset/password-reset.component';
 
 @NgModule({
-  declarations: [SignInComponent],
+  declarations: [SignInComponent, PasswordResetComponent],
   imports: [
     CommonModule,
     FormsModule,

@@ -19,7 +19,7 @@ export class SignInGuard implements CanActivate {
     const currentUser = this.authenticationService.currentUser;
 
     if (!currentUser) {
-      this.router.navigate(['/signin'], { queryParams: { dest: state.url} });
+      this.router.navigate(['/sign-in'], { queryParams: { dest: state.url} });
       return false;
     }
 

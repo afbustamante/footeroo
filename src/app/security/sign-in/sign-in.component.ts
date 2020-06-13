@@ -70,4 +70,8 @@ export class SignInComponent implements OnInit {
         }
       );
   }
+
+  sendToForgottenPasswordForm() {
+    this.router.navigate(['/password-reset']);
+  }
 }

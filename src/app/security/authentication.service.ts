@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from './user';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 import { Credentials } from './credentials';
@@ -30,6 +30,17 @@ export class AuthenticationService {
 
   signOut() {
     localStorage.removeItem('currentUser');
+  }
+
+  sendPasswordResetToken(email: string): Observable<HttpResponse<any>> {
+    const params = {};
+    return this.http.post(`${environment.apiUrl}/users/${email}/token`, params, { observe : 'response'});
+  }
+
+  /* Only used for password reset */
+  findUserByToken(token: string): Observable<User> {
+    const options = { params: new HttpParams().set('token', token) };
+    return this.http.get<User>(`${environment.apiUrl}/users`, options);
   }
 
   updateCredentials(user: User, credentials: Credentials): Observable<HttpResponse<any>> {

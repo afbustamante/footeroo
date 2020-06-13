@@ -32,7 +32,7 @@
           <mat-icon aria-hidden="true">fingerprint</mat-icon>
           Sign-in
         </button>
-        <button mat-raised-button color="accent" type="button" [disabled]="signinForm.controls['username'].hasError('required')" i18n>
+        <button mat-raised-button color="accent" type="button" [disabled]="signinForm.controls['username'].hasError('required')" (click)="sendToForgottenPasswordForm()" i18n>
           <mat-icon aria-hidden="true">contact_support</mat-icon>
           I forgot my password
         </button>

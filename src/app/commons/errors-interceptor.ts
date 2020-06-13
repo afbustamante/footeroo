@@ -21,7 +21,7 @@ export class ErrorsInterceptor implements HttpInterceptor {
                         if (error.status === 401) {
                             // Unauthorized
                             this.authenticationService.signOut();
-                            this.router.navigate(['/signin']);
+                            this.router.navigate(['/sign-in']);
                         }
                         return throwError(error);
                     }

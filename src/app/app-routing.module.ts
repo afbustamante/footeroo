@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { SignInGuard } from './security/sign-in.guard';
 import { SignInComponent } from './security/sign-in/sign-in.component';
 import { HomeComponent } from './commons/home/home.component';
 import { MatchRegistryComponent } from './matches/match-registry/match-registry.component';
@@ -10,12 +11,13 @@ import { MatchJoinWithoutCarComponent } from './matches/match-join-without-car/m
 import { MatchCarpoolComponent } from './matches/match-carpool/match-carpool.component';
 import { PlayerRegistryComponent } from './players/player-registry/player-registry.component';
 import { PlayerProfileComponent } from './players/player-profile/player-profile.component';
-import { SignInGuard } from './security/sign-in.guard';
+import { PasswordResetComponent } from './security/password-reset/password-reset.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'register', component: PlayerRegistryComponent },
-  { path: 'signin', component: SignInComponent },
+  { path: 'sign-in', component: SignInComponent },
+  { path: 'password-reset', component: PasswordResetComponent },
   { path: 'profile', component: PlayerProfileComponent, canActivate: [SignInGuard]  },
   { path: 'create', component: MatchRegistryComponent, canActivate: [SignInGuard] },
   { path: 'search', component: MatchSearchComponent, canActivate: [SignInGuard] },
