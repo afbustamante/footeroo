@@ -25,7 +25,7 @@ export class MatchRegistryComponent implements OnInit {
     numPlayersMin: [null, Validators.min(1)],
     numPlayersMax: [null, Validators.min(1)],
     carpoolingEnabled: [true],
-    sharingEnabled: [true]
+    codeSharingEnabled: [true]
   });
 
   matchSiteForm = this.fb.group({
@@ -86,7 +86,7 @@ export class MatchRegistryComponent implements OnInit {
       numPlayersMin: matchForm.numPlayersMin,
       numPlayersMax: matchForm.numPlayersMax,
       carpoolingEnabled: matchForm.carpoolingEnabled,
-      sharingEnabled: matchForm.sharingEnabled,
+      codeSharingEnabled: matchForm.codeSharingEnabled,
       site
     };
 
@@ -111,7 +111,7 @@ export class MatchRegistryComponent implements OnInit {
 
     // TODO Translate this message
     let message = 'Match successfully created with the code ' + code + '. ';
-    message += 'Copy and share this the code with your friends for them to join this match. ';
+    message += 'Copy and share this code with your friends for them to join this match. ';
 
     this.messageSnackBar.open(message, 'OK', {
       duration: 8000,

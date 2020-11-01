@@ -2,11 +2,13 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Observable } from 'rxjs';
 import { Match } from '../match';
 import { AuthenticationService } from 'src/app/security/authentication.service';
 import { MatchJoinConfirmationComponent } from '../match-join-confirmation/match-join-confirmation.component';
 import { MatchesService } from '../matches.service';
 import { User } from 'src/app/security/user';
+import { MatchRegistration } from '../match-registration';
 
 @Component({
   selector: 'app-match-detail',
@@ -19,7 +21,12 @@ export class MatchDetailComponent implements OnInit {
   mode: string;
 
   @Input()
+  code: string;
+
+  @Input()
   match: Match;
+
+  registrations: MatchRegistration[];
 
   playerAlreadyRegistered: boolean;
   pastMatch: boolean;
@@ -36,24 +43,20 @@ export class MatchDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUser = this.authenticationService.currentUser;
-    this.playerAlreadyRegistered = this.isPlayerAlreadyRegistered();
+    this.matchesService.findMatchRegistrations(this.code).subscribe(
+      data => {
+        this.registrations = data;
+        this.registrations.forEach(reg => {
+          if (reg.player.email === this.currentUser.email) {
+            this.playerAlreadyRegistered = true;
+          }
+        });
+      }
+    );
     this.pastMatch = (this.match) && (new Date(this.match.date) < new Date());
     this.placesAvailable = (this.match) && (
       (this.match.numPlayersMax && this.match.numPlayersMax > this.match.numRegisteredPlayers) || (this.match.numPlayersMax == null)
     );
-  }
-
-  isPlayerAlreadyRegistered(): boolean {
-    let alreadyRegistered = false;
-
-    if (this.currentUser && this.match && this.match.registrations) {
-      this.match.registrations.forEach(reg => {
-        if (reg.player.email === this.currentUser.email) {
-          alreadyRegistered = true;
-        }
-      });
-    }
-    return alreadyRegistered;
   }
 
   openMatchJoinConfirmationDialog(): void {

@@ -11,6 +11,7 @@ import { MatchesService } from '../matches.service';
 export class MatchViewDialogComponent implements OnInit {
 
   match: Match;
+  code: string;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -18,6 +19,8 @@ export class MatchViewDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.code = this.data.code;
+
     this.matchesService.findMatchByCode(this.data.code).subscribe(
       data => {
         this.match = data;

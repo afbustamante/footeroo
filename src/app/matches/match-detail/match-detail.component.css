@@ -9,6 +9,7 @@ table {
 
 .leftcol {
     width: 20%;
+    vertical-align: top;
 }
 
 .rightcol {

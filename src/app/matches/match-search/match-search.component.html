@@ -27,7 +27,7 @@
         </mat-card>
 
         <div *ngIf="requestSent && match">
-            <app-match-detail [mode]="'JOIN'" [match]="match"></app-match-detail>
+            <app-match-detail [mode]="'JOIN'" [match]="match" [code]="match.code"></app-match-detail>
         </div>
 
         <div *ngIf="requestSent && !match">

@@ -49,8 +49,12 @@ export class MatchCarpoolComponent implements OnInit {
     this.matchesService.findMatchByCode(matchCode).subscribe(
       data => {
         this.match = data;
-        this.processCurrentCar(this.match.registrations);
-        this.initPlayersLists(this.match.registrations);
+        this.matchesService.findMatchRegistrations(matchCode).subscribe(
+          data => {
+            this.processCurrentCar(data);
+            this.initPlayersLists(data);
+          }
+        );
       },
       error => {
         this.messageSnackBar.open(error.headers.get('ctx-messages'), 'OK', {

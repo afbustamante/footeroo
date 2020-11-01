@@ -11,8 +11,7 @@ export interface Match {
     numPlayersMax: number;
     numRegisteredPlayers?: number;
     site: Site;
-    author?: Player;
+    creator?: Player;
     carpoolingEnabled: boolean;
-    sharingEnabled: boolean;
-    registrations?: MatchRegistration[];
+    codeSharingEnabled: boolean;
 }

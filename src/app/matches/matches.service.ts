@@ -47,6 +47,10 @@ export class MatchesService {
         ));
   }
 
+  findMatchRegistrations(code: string): Observable<MatchRegistration[]> {
+    return this.http.get<MatchRegistration[]>(`${environment.apiUrl}/matches/${code}/registrations`);
+  }
+
   joinMatch(player: Player, match: Match, car?: Car): Observable<HttpResponse<any>> {
     const registration: MatchRegistration = {
       player,

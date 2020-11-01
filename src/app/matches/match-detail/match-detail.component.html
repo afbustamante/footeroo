@@ -5,7 +5,7 @@
                 Match details
             </mat-card-title>
             <mat-card-subtitle>
-                {{ match.code }} <span i18n>created by</span> {{ match.author.firstName }} {{ match.author.surname }}
+                {{ match.code }} <span i18n>created by</span> {{ match.creator.firstName }} {{ match.creator.surname }}
             </mat-card-subtitle>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
@@ -31,8 +31,8 @@
                         <span i18n>Who's coming?</span>
                     </td>
                     <td class="rightcol">
-                        <mat-list *ngIf="match.registrations">
-                            <mat-list-item *ngFor="let registration of match.registrations">
+                        <mat-list *ngIf="registrations">
+                            <mat-list-item *ngFor="let registration of registrations">
                                 <mat-icon matListIcon>face</mat-icon>
                                 <span *ngIf="currentUser.email === registration.player.email" class="marked">
                                     {{ registration.player.firstName }}
