@@ -33,7 +33,8 @@
                     <td class="rightcol">
                         <mat-list *ngIf="registrations">
                             <mat-list-item *ngFor="let registration of registrations">
-                                <mat-icon matListIcon>face</mat-icon>
+                                <mat-icon *ngIf="registration.carConfirmed" matListIcon>directions_car</mat-icon>
+                                <mat-icon *ngIf="!registration.carConfirmed" matListIcon>face</mat-icon>
                                 <span *ngIf="currentUser.email === registration.player.email" class="marked">
                                     {{ registration.player.firstName }}
                                 </span>

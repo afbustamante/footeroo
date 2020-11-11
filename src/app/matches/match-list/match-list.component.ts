@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { Match } from '../match';
+import { User } from 'src/app/security/user';
 import { MatchesService } from '../matches.service';
 import { MatchViewDialogComponent } from '../match-view-dialog/match-view-dialog.component';
+import { AuthenticationService } from 'src/app/security/authentication.service';
+import { MatchJoinConfirmationComponent } from '../match-join-confirmation/match-join-confirmation.component';
 
 @Component({
   selector: 'app-match-list',
@@ -18,10 +22,13 @@ export class MatchListComponent implements OnInit {
   /*
   cancelledMatches$: Observable<Match[]>;
   */
+ currentUser: User;
 
   constructor(
     private router: Router,
+    private authenticationService: AuthenticationService,
     private matchesService: MatchesService,
+    private messageSnackBar: MatSnackBar,
     private dialog: MatDialog
   ) {}
 
@@ -31,6 +38,7 @@ export class MatchListComponent implements OnInit {
     /*
     this.cancelledMatches$ = this.matchesService.findCancelledMatches();
     */
+    this.currentUser = this.authenticationService.currentUser;
   }
 
   showMatchDetail(matchCode: string): void {
@@ -43,5 +51,49 @@ export class MatchListComponent implements OnInit {
 
   showCarpoolingOptions(matchCode: string): void {
     this.router.navigate([`/match/${matchCode}/carpooling`]);
+  }
+
+  showMatchJoinConfirmationDialog(match: Match): void {
+    const dialogRef = this.dialog.open(MatchJoinConfirmationComponent, {
+      width: '400px',
+      data: {
+        matchCode: match.code,
+        matchDate: match.date,
+        carpoolingEnabled: match.carpoolingEnabled
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        if (result === 'JOIN_ONLY') {
+          this.matchesService.joinMatch(this.currentUser, match).subscribe(
+            data => {
+              this.publishMatchJoinSuccess();
+              this.router.navigate(['/list']);
+            },
+            error => {
+              this.messageSnackBar.open(error.headers.get('ctx-messages'), 'OK', {
+                duration: 5000,
+                horizontalPosition: 'right',
+                verticalPosition: 'top'
+              });
+            }
+          );
+        } else if (result === 'JOIN_WITH_CAR') {
+          this.router.navigate([`/match/${match.code}/join-with-car`]);
+        } else if (result === 'JOIN_WITHOUT_CAR') {
+          this.router.navigate([`/match/${match.code}/join-without-car`]);
+        }
+      }
+    });
+  }
+
+  publishMatchJoinSuccess() {
+    // TODO Translate this message
+    this.messageSnackBar.open('You have successfully joined this match', 'OK', {
+      duration: 5000,
+      verticalPosition: 'top',
+      horizontalPosition: 'right'
+    });
   }
 }

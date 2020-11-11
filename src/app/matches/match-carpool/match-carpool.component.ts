@@ -46,15 +46,14 @@ export class MatchCarpoolComponent implements OnInit {
     this.currentPlayer = this.authenticationService.currentUser;
 
     const matchCode = this.route.snapshot.paramMap.get('code');
+    this.loadMatch(matchCode);
+  }
+
+  private loadMatch(matchCode: string) {
     this.matchesService.findMatchByCode(matchCode).subscribe(
       data => {
         this.match = data;
-        this.matchesService.findMatchRegistrations(matchCode).subscribe(
-          data => {
-            this.processCurrentCar(data);
-            this.initPlayersLists(data);
-          }
-        );
+        this.loadMatchRegistrations(matchCode);
       },
       error => {
         this.messageSnackBar.open(error.headers.get('ctx-messages'), 'OK', {
@@ -63,6 +62,15 @@ export class MatchCarpoolComponent implements OnInit {
           horizontalPosition: 'right'
         });
         this.router.navigate(['/search']);
+      }
+    );
+  }
+
+  loadMatchRegistrations(matchCode: string) {
+    this.matchesService.findMatchRegistrations(matchCode).subscribe(
+      data => {
+        this.processCurrentCar(data);
+        this.initPlayersLists(data);
       }
     );
   }

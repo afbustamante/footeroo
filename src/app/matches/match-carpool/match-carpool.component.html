@@ -5,7 +5,8 @@
         <p i18n>Sometimes it's easier when we share!</p>
 
         <div *ngIf="isDriver">
-            <p *ngIf="playersAvailableForCarpool" i18n>Some players are looking for a ride to go this match. Would you like to pick them up?</p>
+            <p *ngIf="playersAvailableForCarpool" i18n>Some players are looking for a ride to go this match. Would you like to pick them up? 
+                When you have finished, do not forget to save your updates!</p>
 
             <p *ngIf="!playersAvailableForCarpool" i18n>However, there are no players waiting for a carpool by now for this match. You could try again later!</p>
 
@@ -55,12 +56,14 @@
                     </mat-card-actions>
                 </mat-card>
             </div>
+
             <div class="actions">
                 <button mat-raised-button color="primary" i18n>Save changes</button>
             </div>
         </div>
         <div *ngIf="!isDriver">
-            <p i18n>However, you have not proposed a car this time. You can go back and change your transportation options in order to do some carpooling with the other players of this match.</p>
+            <p i18n>However, you have not proposed a car this time! You can go back and change your transportation options in order to do some carpooling with the other players 
+                registered for this match.</p>
         </div>
     </form>
 </div>
