@@ -47,7 +47,7 @@ export class PlayerRegistryComponent {
         },
         error => {
           if (error.status === 400) {
-            this.publishPlayerRegistryFailure(error.headers.get('ctx-messages'));
+            this.publishPlayerRegistryFailure(error.error.message);
           }
         }
       );

@@ -67,12 +67,12 @@ export class MatchListComponent implements OnInit {
       if (result) {
         if (result === 'JOIN_ONLY') {
           this.matchesService.joinMatch(this.currentUser, match).subscribe(
-            data => {
+            response => {
               this.publishMatchJoinSuccess();
               this.router.navigate(['/list']);
             },
             error => {
-              this.messageSnackBar.open(error.headers.get('ctx-messages'), 'OK', {
+              this.messageSnackBar.open(error.error.message, 'OK', {
                 duration: 5000,
                 horizontalPosition: 'right',
                 verticalPosition: 'top'

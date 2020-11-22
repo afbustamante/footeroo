@@ -45,7 +45,7 @@ export class MatchJoinWithCarComponent implements OnInit {
     this.matchesService.findMatchByCode(matchCode).subscribe(
       data => this.match = data,
       error => {
-        this.messageSnackBar.open(error.headers.get('ctx-messages'), 'OK', {
+        this.messageSnackBar.open(error.error.message, 'OK', {
           duration: 5000,
           verticalPosition: 'top',
           horizontalPosition: 'right'
@@ -78,12 +78,12 @@ export class MatchJoinWithCarComponent implements OnInit {
 
   joinMatch(car: Car): void {
     this.matchesService.joinMatch(this.currentPlayer, this.match, car).subscribe(
-      data => {
+      response => {
         this.publishMatchJoinSuccess();
         this.router.navigate(['/list']);
       },
       error => {
-        this.messageSnackBar.open(error.headers.get('ctx-messages'), 'OK', {
+        this.messageSnackBar.open(error.error.message, 'OK', {
           duration: 5000,
           horizontalPosition: 'right',
           verticalPosition: 'top'

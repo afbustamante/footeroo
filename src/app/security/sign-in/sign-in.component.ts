@@ -44,8 +44,8 @@ export class SignInComponent implements OnInit {
     this.authenticationService.signIn(this.signinForm.controls.username.value, this.signinForm.controls.password.value)
       .pipe(first())
       .subscribe(
-        data => {
-          this.signInUserEvent.emit(data.body);
+        response => {
+          this.signInUserEvent.emit(response.body);
           this.router.navigate([this.destination]);
         },
         error => {
@@ -53,7 +53,7 @@ export class SignInComponent implements OnInit {
 
           if (this.errorCode === 401) {
             // Invalid credentials
-            this.messageSnackBar.open(error.headers.get('ctx-messages'), 'OK', {
+            this.messageSnackBar.open(error.error.message, 'OK', {
               duration: 3000,
               horizontalPosition: 'right',
               verticalPosition: 'top'

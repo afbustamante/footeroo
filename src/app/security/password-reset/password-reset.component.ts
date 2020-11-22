@@ -56,13 +56,13 @@ export class PasswordResetComponent implements OnInit {
     console.log('Token reset request');
 
     this.authenticationService.sendPasswordResetToken(this.requestForm.value.email).subscribe(
-      data => {
+      response => {
         // TODO Translate this message
         this.publishActionSuccess('Your request has been successfully accepted. Please check your inbox and follow the instructions.');
       },
       error => {
         if (error.status === 500) {
-          this.publishActionFailure(error.headers.get('ctx-messages'));
+          this.publishActionFailure(error.error.message);
         }
       }
     );
@@ -82,13 +82,13 @@ export class PasswordResetComponent implements OnInit {
       };
 
       this.authenticationService.updateCredentials(this.user, credentials).subscribe(
-        data => {
+        response => {
           // TODO Translate this message
           this.publishActionSuccess('Your password has been successfully updated. You can sign-in now.');
         },
         error => {
           if (error.status === 500) {
-            this.publishActionFailure(error.headers.get('ctx-messages'));
+            this.publishActionFailure(error.error.message);
           }
         }
       );

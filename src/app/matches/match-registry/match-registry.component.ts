@@ -98,7 +98,7 @@ export class MatchRegistryComponent implements OnInit {
       },
       error => {
         if (error.status === 400) {
-          this.publishMatchRegistryFailure(error.headers.get('ctx-messages'));
+          this.publishMatchRegistryFailure(error.error.message);
         }
       }
     );

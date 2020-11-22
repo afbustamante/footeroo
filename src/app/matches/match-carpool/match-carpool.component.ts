@@ -56,7 +56,7 @@ export class MatchCarpoolComponent implements OnInit {
         this.loadMatchRegistrations(matchCode);
       },
       error => {
-        this.messageSnackBar.open(error.headers.get('ctx-messages'), 'OK', {
+        this.messageSnackBar.open(error.error.message, 'OK', {
           duration: 5000,
           verticalPosition: 'top',
           horizontalPosition: 'right'
@@ -95,7 +95,7 @@ export class MatchCarpoolComponent implements OnInit {
             if (error.status === 403) {
               this.isDriver = false;
             } else {
-              this.messageSnackBar.open(error.headers.get('ctx-messages'), 'OK', {
+              this.messageSnackBar.open(error.error.message, 'OK', {
                 duration: 5000,
                 horizontalPosition: 'right',
                 verticalPosition: 'top'
@@ -171,8 +171,9 @@ export class MatchCarpoolComponent implements OnInit {
         if (!this.formerlyConfirmedPlayers.includes(player)) {
           // The player was added to the confirmed players list
           this.matchesService.updateCarForPlayerRegistration(this.match, player, this.currentCar, true).subscribe(
+            response => {},
             error => {
-              console.log(error.headers.get('ctx-messages'));
+              console.log(error.error.message);
               playersNotUpdated.push(player);
             }
           );
@@ -183,8 +184,9 @@ export class MatchCarpoolComponent implements OnInit {
         if (this.formerlyConfirmedPlayers.includes(player)) {
           // The player was removed from the confirmed players list
           this.matchesService.updateCarForPlayerRegistration(this.match, player, this.currentCar, false).subscribe(
+            response => {},
             error => {
-              console.log(error.headers.get('ctx-messages'));
+              console.log(error.error.message);
               playersNotUpdated.push(player);
             }
           );

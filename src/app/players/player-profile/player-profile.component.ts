@@ -81,7 +81,7 @@ export class PlayerProfileComponent implements OnInit {
       },
       error => {
         if (error.status === 400) {
-          this.publishPlayerUpdateFailure(error.headers.get('ctx-messages'));
+          this.publishPlayerUpdateFailure(error.error.message);
         }
       }
     );
@@ -117,7 +117,7 @@ export class PlayerProfileComponent implements OnInit {
         },
         error => {
           if (error.status === 400 || error.status === 500) {
-            this.publishPlayerUpdateFailure(error.headers.get('ctx-messages'));
+            this.publishPlayerUpdateFailure(error.error.message);
           }
         }
       );
