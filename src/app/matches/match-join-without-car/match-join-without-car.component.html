@@ -12,7 +12,9 @@
                 <mat-card-content>
                     <div class="row">
                         <div class="col">
-                            {{ car.name }} ({{ car.numSeats }} <span i18n>seats</span>)
+                            <span i18n>Driven by:</span> {{ car.driver.firstName }}<br/>
+                            {{ car.numSeats }} <span i18n>seats</span><br/>
+                            {{ car.numPassengers }} <span i18n>passengers</span>
                         </div>
                     </div>
                 </mat-card-content>

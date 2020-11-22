@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, EMPTY } from 'rxjs';
 import { Car } from './car';
 import { environment } from 'src/environments/environment';
-import { catchError, map } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { MatchRegistration } from '../matches/match-registration';
 
 @Injectable({
@@ -29,15 +29,7 @@ export class CarsService {
   }
 
   findCarsByMatch(matchCode: string): Observable<Car[]> {
-    return this.http.get<MatchRegistration[]>(`${environment.apiUrl}/matches/${matchCode}/registrations`).pipe(
-      catchError(err => {
-        console.log(`Could not get cars list from a match. Got ${err.status} error code.`);
-        return EMPTY;
-      }),
-      map(registrations => registrations.filter(r => r.car != null)),
-      map(this.filterCarsFromRegistrations),
-      map(cars => Array.from(new Set(cars)))
-    );
+    return this.http.get<Car[]>(`${environment.apiUrl}/matches/${matchCode}/cars`);
   }
 
   private filterCarsFromRegistrations(registrations: MatchRegistration[]): Car[] {
