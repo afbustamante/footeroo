@@ -4,11 +4,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { Match } from '../match';
-import { User } from 'src/app/security/user';
+import { Player } from 'src/app/players/player';
 import { MatchesService } from '../matches.service';
 import { MatchViewDialogComponent } from '../match-view-dialog/match-view-dialog.component';
 import { AuthenticationService } from 'src/app/security/authentication.service';
 import { MatchJoinConfirmationComponent } from '../match-join-confirmation/match-join-confirmation.component';
+import { MatchAbandonConfirmationComponent } from '../match-abandon-confirmation/match-abandon-confirmation.component';
+import { PlayersService } from 'src/app/players/players.service';
 
 @Component({
   selector: 'app-match-list',
@@ -22,12 +24,13 @@ export class MatchListComponent implements OnInit {
   /*
   cancelledMatches$: Observable<Match[]>;
   */
- currentUser: User;
+ currentPlayer: Player;
 
   constructor(
     private router: Router,
     private authenticationService: AuthenticationService,
     private matchesService: MatchesService,
+    private playersService: PlayersService,
     private messageSnackBar: MatSnackBar,
     private dialog: MatDialog
   ) {}
@@ -38,7 +41,15 @@ export class MatchListComponent implements OnInit {
     /*
     this.cancelledMatches$ = this.matchesService.findCancelledMatches();
     */
-    this.currentUser = this.authenticationService.currentUser;
+    const currentUser = this.authenticationService.currentUser;
+
+    if (currentUser) {
+      this.playersService.loadPlayerByEmail(currentUser.email).subscribe(
+        data => {
+          this.currentPlayer = data;
+        }
+      );
+    }
   }
 
   showMatchDetail(matchCode: string): void {
@@ -66,10 +77,9 @@ export class MatchListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         if (result === 'JOIN_ONLY') {
-          this.matchesService.joinMatch(this.currentUser, match).subscribe(
+          this.matchesService.joinMatch(this.currentPlayer, match).subscribe(
             response => {
-              this.publishMatchJoinSuccess();
-              this.router.navigate(['/list']);
+              this.publishMatchTransportationUpdateSuccess();
             },
             error => {
               this.messageSnackBar.open(error.error.message, 'OK', {
@@ -88,9 +98,47 @@ export class MatchListComponent implements OnInit {
     });
   }
 
-  publishMatchJoinSuccess() {
+  showMatchAbandonConfirmationDialog(match: Match): void {
+    const dialogRef = this.dialog.open(MatchAbandonConfirmationComponent, {
+      width: '400px',
+      data: {
+        matchCode: match.code,
+        matchDate: match.date,
+        carpoolingEnabled: match.carpoolingEnabled
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.matchesService.quitMatch(this.currentPlayer, match).subscribe(
+          response => {
+            this.publishMatchAbandonSuccess();
+            this.matchesToPlay$ = this.matchesService.findMatchesToPlay();
+          },
+          error => {
+            this.messageSnackBar.open(error.error.message, 'OK', {
+              duration: 5000,
+              horizontalPosition: 'right',
+              verticalPosition: 'top'
+            });
+          }
+        );
+      }
+    });
+  }
+
+  publishMatchTransportationUpdateSuccess() {
     // TODO Translate this message
-    this.messageSnackBar.open('You have successfully joined this match', 'OK', {
+    this.publishSuccessMessage('You have successfully updated your transportation options for this match');
+  }
+
+  publishMatchAbandonSuccess() {
+    // TODO Translate this message
+    this.publishSuccessMessage('You have successfully quitted this match');
+  }
+
+  publishSuccessMessage(message: string) {
+    this.messageSnackBar.open(message, 'OK', {
       duration: 5000,
       verticalPosition: 'top',
       horizontalPosition: 'right'

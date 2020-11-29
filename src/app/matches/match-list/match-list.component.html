@@ -18,7 +18,7 @@
                   <button mat-menu-item (click)="showMatchDetail(match.code)" i18n>View</button>
                   <button mat-menu-item (click)="showCarpoolingOptions(match.code)" *ngIf="match.carpoolingEnabled" i18n>Carpool</button>
                   <button mat-menu-item (click)="showMatchJoinConfirmationDialog(match)" i18n>Change transportation options</button>
-                  <button mat-menu-item i18n>Quit</button>
+                  <button mat-menu-item (click)="showMatchAbandonConfirmationDialog(match)" i18n>Quit</button>
                   <!--
                   <button mat-menu-item i18n>Cancel</button>
                   -->

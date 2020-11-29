@@ -29,6 +29,7 @@ import { MatchJoinWithCarComponent } from './match-join-with-car/match-join-with
 import { MatchJoinWithoutCarComponent } from './match-join-without-car/match-join-without-car.component';
 import { MatchViewDialogComponent } from './match-view-dialog/match-view-dialog.component';
 import { MatchCarpoolComponent } from './match-carpool/match-carpool.component';
+import { MatchAbandonConfirmationComponent } from './match-abandon-confirmation/match-abandon-confirmation.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { MatchCarpoolComponent } from './match-carpool/match-carpool.component';
     MatchJoinWithCarComponent,
     MatchJoinWithoutCarComponent,
     MatchViewDialogComponent,
-    MatchCarpoolComponent
+    MatchCarpoolComponent,
+    MatchAbandonConfirmationComponent
   ],
   imports: [
     CommonModule,

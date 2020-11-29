@@ -59,6 +59,10 @@ export class MatchesService {
     return this.http.post(`${environment.apiUrl}/matches/${match.code}/registrations`, registration, { observe : 'response'});
   }
 
+  quitMatch(player: Player, match: Match): Observable<HttpResponse<any>> {
+    return this.http.delete(`${environment.apiUrl}/matches/${match.code}/registrations/${player.id}`, { observe : 'response' });
+  }
+
   updateCarForPlayerRegistration(match: Match, player: Player, car: Car, confirmed: boolean): Observable<HttpResponse<any>> {
     return this.http.patch(`${environment.apiUrl}/matches/${match.code}/registrations/${player.id}`, {
       car, confirmed
