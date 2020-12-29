@@ -53,7 +53,7 @@ export class PlayerProfileComponent implements OnInit {
             firstName: this.currentPlayer.firstName,
             surname: this.currentPlayer.surname,
             email: this.currentPlayer.email,
-            phoneNumber: this.currentPlayer.phoneNumber
+            phoneNumber: this.currentPlayer.phoneNumber ? this.currentPlayer.phoneNumber : ''
           });
 
           this.credentialsForm.setValue({
