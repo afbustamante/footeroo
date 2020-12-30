@@ -52,6 +52,9 @@ export class MatchesService {
   }
 
   joinMatch(player: Player, match: Match, car?: Car): Observable<HttpResponse<any>> {
+    // Avoid sending security details on the request
+    player.token = null;
+
     const registration: MatchRegistration = {
       player,
       car
