@@ -43,6 +43,12 @@ pipeline {
                 sh 'ng build --prod'
             }
         }
+        stage('Analyze') {
+            steps {
+                // Scan for quality issues
+                sh 'sonar-scanner -Dsonar.organization=afbustamante-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=f141b07519c6a6eb8ac0e400c56cfdabb1775cdc'
+            }
+        }
         stage('Deploy') {
             steps {
                 // Deploy the application
