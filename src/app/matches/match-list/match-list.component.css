@@ -1,9 +1,16 @@
-.dashboard-card {
+.match-card {
   position: absolute;
   top: 15px;
   left: 15px;
   right: 15px;
   bottom: 15px;
+}
+
+.cancelled-match {
+  background-color: #f5f5f5;
+  background-image: url('/assets/img/others/cancelled.png');
+  background-repeat: no-repeat;
+  background-position: right;
 }
 
 .more-button {
@@ -12,6 +19,6 @@
   right: 10px;
 }
 
-.dashboard-card-content {
+.match-card-content {
   text-align: left;
 }

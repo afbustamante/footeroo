@@ -11,6 +11,7 @@ import { AuthenticationService } from 'src/app/security/authentication.service';
 import { MatchJoinConfirmationComponent } from '../match-join-confirmation/match-join-confirmation.component';
 import { MatchAbandonConfirmationComponent } from '../match-abandon-confirmation/match-abandon-confirmation.component';
 import { PlayersService } from 'src/app/players/players.service';
+import { MatchCancelConfirmationComponent } from '../match-cancel-confirmation/match-cancel-confirmation.component';
 
 @Component({
   selector: 'app-match-list',
@@ -21,10 +22,7 @@ export class MatchListComponent implements OnInit {
 
   matchesToPlay$: Observable<Match[]>;
   playedMatches$: Observable<Match[]>;
-  /*
-  cancelledMatches$: Observable<Match[]>;
-  */
- currentPlayer: Player;
+  currentPlayer: Player;
 
   constructor(
     private router: Router,
@@ -38,9 +36,6 @@ export class MatchListComponent implements OnInit {
   ngOnInit(): void {
     this.matchesToPlay$ = this.matchesService.findMatchesToPlay();
     this.playedMatches$ = this.matchesService.findPlayedMatches();
-    /*
-    this.cancelledMatches$ = this.matchesService.findCancelledMatches();
-    */
     const currentUser = this.authenticationService.currentUser;
 
     if (currentUser) {
@@ -103,8 +98,7 @@ export class MatchListComponent implements OnInit {
       width: '400px',
       data: {
         matchCode: match.code,
-        matchDate: match.date,
-        carpoolingEnabled: match.carpoolingEnabled
+        matchDate: match.date
       }
     });
 
@@ -127,6 +121,34 @@ export class MatchListComponent implements OnInit {
     });
   }
 
+  showMatchCancelConfirmationDialog(match: Match): void {
+    const dialogRef = this.dialog.open(MatchCancelConfirmationComponent, {
+      width: '400px',
+      data: {
+        matchCode: match.code,
+        matchDate: match.date
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.matchesService.cancelMatch(match).subscribe(
+          response => {
+            this.publishMatchCancelSuccess();
+            this.matchesToPlay$ = this.matchesService.findMatchesToPlay();
+          },
+          error => {
+            this.messageSnackBar.open(error.error.message, 'OK', {
+              duration: 5000,
+              horizontalPosition: 'right',
+              verticalPosition: 'top'
+            });
+          }
+        );
+      }
+    });
+  }
+
   publishMatchTransportationUpdateSuccess() {
     // TODO Translate this message
     this.publishSuccessMessage('You have successfully updated your transportation options for this match');
@@ -135,6 +157,11 @@ export class MatchListComponent implements OnInit {
   publishMatchAbandonSuccess() {
     // TODO Translate this message
     this.publishSuccessMessage('You have successfully quitted this match');
+  }
+
+  publishMatchCancelSuccess() {
+    // TODO Translate this message
+    this.publishSuccessMessage('You have successfully cancelled this match');
   }
 
   publishSuccessMessage(message: string) {

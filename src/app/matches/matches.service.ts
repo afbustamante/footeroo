@@ -37,16 +37,6 @@ export class MatchesService {
     return this.http.get<Match[]>(`${environment.apiUrl}/matches?endDate=${yesterday}`);
   }
 
-  findCancelledMatches(): Observable<Match[]> {
-    return this.http.get<Match[]>(`${environment.apiUrl}/matches?status=CANCELLED`)
-      .pipe(
-        map(matches =>
-          matches.filter(match =>
-            match.cancelled
-          )
-        ));
-  }
-
   findMatchRegistrations(code: string): Observable<MatchRegistration[]> {
     return this.http.get<MatchRegistration[]>(`${environment.apiUrl}/matches/${code}/registrations`);
   }
@@ -64,6 +54,10 @@ export class MatchesService {
 
   quitMatch(player: Player, match: Match): Observable<HttpResponse<any>> {
     return this.http.delete(`${environment.apiUrl}/matches/${match.code}/registrations/${player.id}`, { observe : 'response' });
+  }
+
+  cancelMatch(match: Match): Observable<HttpResponse<any>> {
+    return this.http.delete(`${environment.apiUrl}/matches/${match.code}`, { observe : 'response' });
   }
 
   updateCarForPlayerRegistration(match: Match, player: Player, car: Car, confirmed: boolean): Observable<HttpResponse<any>> {

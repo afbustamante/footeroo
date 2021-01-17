@@ -5,7 +5,7 @@
     <mat-tab label="Coming matches">
       <mat-grid-list cols="1" rowHeight="200px">
         <mat-grid-tile *ngFor="let match of matchesToPlay$ | async">
-          <mat-card class="dashboard-card">
+          <mat-card *ngIf="match.status !== 'CANCELLED'" class="match-card">
             <mat-card-header>
               <mat-card-title>
                 {{ match.date | date:'longDate' }} <span i18n>at</span> {{ match.date | date:'shortTime' }}
@@ -19,13 +19,11 @@
                   <button mat-menu-item (click)="showCarpoolingOptions(match.code)" *ngIf="match.carpoolingEnabled" i18n>Carpool</button>
                   <button mat-menu-item (click)="showMatchJoinConfirmationDialog(match)" i18n>Change transportation options</button>
                   <button mat-menu-item (click)="showMatchAbandonConfirmationDialog(match)" i18n>Quit</button>
-                  <!--
-                  <button mat-menu-item i18n>Cancel</button>
-                  -->
+                  <button mat-menu-item (click)="showMatchCancelConfirmationDialog(match)" *ngIf="match.creator.email === currentPlayer.email" i18n>Cancel</button>
                 </mat-menu>
               </mat-card-title>
             </mat-card-header>
-            <mat-card-content class="dashboard-card-content">
+            <mat-card-content class="match-card-content">
               <div>
                 <p>{{ match.site.name }}<br/>{{ match.site.address }}</p>
                 <p>
@@ -36,13 +34,7 @@
               </div>
             </mat-card-content>
           </mat-card>
-        </mat-grid-tile>
-      </mat-grid-list>
-    </mat-tab>
-    <mat-tab label="Played matches">
-      <mat-grid-list cols="1" rowHeight="200px">
-        <mat-grid-tile *ngFor="let match of playedMatches$ | async">
-          <mat-card class="dashboard-card">
+          <mat-card *ngIf="match.status === 'CANCELLED'" class="match-card cancelled-match">
             <mat-card-header>
               <mat-card-title>
                 {{ match.date | date:'longDate' }} <span i18n>at</span> {{ match.date | date:'shortTime' }}
@@ -56,21 +48,24 @@
                 </mat-menu>
               </mat-card-title>
             </mat-card-header>
-            <mat-card-content class="dashboard-card-content">
+            <mat-card-content class="match-card-content">
               <div>
                 <p>{{ match.site.name }}<br/>{{ match.site.address }}</p>
-                <p>{{ match.numRegisteredPlayers }} <span i18n> players attended</span></p>
+                <p>
+                  <span *ngIf="match.numPlayersMin != null">{{ match.numPlayersMin }} <span i18n> players required</span><br/></span>
+                  <span *ngIf="match.numPlayersMax != null">{{ match.numPlayersMax }} <span i18n> players (max)</span><br/></span>
+                  {{ match.numRegisteredPlayers }} <span i18n> players were registered</span>
+                </p>
               </div>
             </mat-card-content>
           </mat-card>
         </mat-grid-tile>
       </mat-grid-list>
     </mat-tab>
-    <!--
-    <mat-tab label="Cancelled matches">
+    <mat-tab label="Played matches">
       <mat-grid-list cols="1" rowHeight="200px">
-        <mat-grid-tile *ngFor="let match of cancelledMatches$ | async">
-          <mat-card class="dashboard-card">
+        <mat-grid-tile *ngFor="let match of playedMatches$ | async">
+          <mat-card class="match-card">
             <mat-card-header>
               <mat-card-title>
                 {{ match.date | date:'longDate' }} <span i18n>at</span> {{ match.date | date:'shortTime' }}
@@ -80,20 +75,20 @@
                 </button>
     
                 <mat-menu #menu="matMenu" xPosition="before">
-                  <button mat-menu-item (click)="showMatchDetail(match.code)" i18n>View</button>¡
+                  <button mat-menu-item (click)="showMatchDetail(match.code)" i18n>View</button>
                 </mat-menu>
               </mat-card-title>
             </mat-card-header>
-            <mat-card-content class="dashboard-card-content">
+            <mat-card-content class="match-card-content">
               <div>
                 <p>{{ match.site.name }}<br/>{{ match.site.address }}</p>
+                <p>{{ match.numRegisteredPlayers }} <span i18n> players attended</span></p>
               </div>
             </mat-card-content>
           </mat-card>
         </mat-grid-tile>
       </mat-grid-list>
     </mat-tab>
-    -->
   </mat-tab-group>
 
   <div>
