@@ -8,6 +8,8 @@ import { SitesService } from 'src/app/sites/sites.service';
 import { Site } from 'src/app/sites/site';
 import { MatchesService } from 'src/app/matches/matches.service';
 import { Match } from '../match';
+import { Sport } from 'src/app/sports/sport';
+import { SportsService } from 'src/app/sports/sports.service';
 
 @Component({
   selector: 'app-match-registry',
@@ -22,6 +24,7 @@ export class MatchRegistryComponent implements OnInit {
   basicMatchForm = this.fb.group({
     date: [null, Validators.required],
     time: [null, Validators.required],
+    sport: [null, Validators.required],
     numPlayersMin: [null, Validators.min(1)],
     numPlayersMax: [null, Validators.min(1)],
     carpoolingEnabled: [true],
@@ -39,17 +42,20 @@ export class MatchRegistryComponent implements OnInit {
 
   minDate = Date.now;
   sites$: Observable<Site[]>;
+  sports$: Observable<Sport[]>;
 
   constructor(
     private fb: FormBuilder,
     private messageSnackBar: MatSnackBar,
     private sitesService: SitesService,
     private matchesService: MatchesService,
+    private sportsService: SportsService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
     this.sites$ = this.sitesService.findSites();
+    this.sports$ = this.sportsService.findSports();
   }
 
   onSubmitMatchDetails() {
@@ -87,6 +93,7 @@ export class MatchRegistryComponent implements OnInit {
       numPlayersMax: matchForm.numPlayersMax,
       carpoolingEnabled: matchForm.carpoolingEnabled,
       codeSharingEnabled: matchForm.codeSharingEnabled,
+      sport: matchForm.sport,
       site
     };
 

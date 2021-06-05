@@ -7,6 +7,7 @@ export interface Match {
     code?: string;
     date: Date;
     status?: string;
+    sport: string;
     numPlayersMin: number;
     numPlayersMax: number;
     numRegisteredPlayers?: number;

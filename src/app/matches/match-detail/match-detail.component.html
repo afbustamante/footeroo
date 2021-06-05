@@ -1,6 +1,7 @@
 <div *ngIf="match && mode">
     <mat-card class="detail-card">
         <mat-card-header>
+            <div mat-card-avatar [ngClass]="['sports_icon', 'sports_icon_' + match.sport]"></div>
             <mat-card-title>
                 Match details
             </mat-card-title>

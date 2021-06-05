@@ -7,6 +7,7 @@
         <mat-grid-tile *ngFor="let match of matchesToPlay$ | async">
           <mat-card *ngIf="match.status !== 'CANCELLED'" class="match-card">
             <mat-card-header>
+              <div mat-card-avatar [ngClass]="['sports_icon', 'sports_icon_' + match.sport]"></div>
               <mat-card-title>
                 {{ match.date | date:'longDate' }} <span i18n>at</span> {{ match.date | date:'shortTime' }}
     
@@ -36,6 +37,7 @@
           </mat-card>
           <mat-card *ngIf="match.status === 'CANCELLED'" class="match-card cancelled-match">
             <mat-card-header>
+              <div mat-card-avatar [ngClass]="['sports_icon', 'sports_icon_' + match.sport]"></div>
               <mat-card-title>
                 {{ match.date | date:'longDate' }} <span i18n>at</span> {{ match.date | date:'shortTime' }}
     
@@ -67,6 +69,7 @@
         <mat-grid-tile *ngFor="let match of playedMatches$ | async">
           <mat-card class="match-card">
             <mat-card-header>
+              <div mat-card-avatar [ngClass]="['sports_icon', 'sports_icon_' + match.sport]"></div>
               <mat-card-title>
                 {{ match.date | date:'longDate' }} <span i18n>at</span> {{ match.date | date:'shortTime' }}
     

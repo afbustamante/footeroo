@@ -22,3 +22,55 @@
 .match-card-content {
   text-align: left;
 }
+
+.sports_icon {
+  background-size: cover;
+}
+
+.sports_icon_FOOTBALL {
+  background-image: url('/assets/img/sports/football.svg');
+}
+
+.sports_icon_BASKETBALL {
+  background-image: url('/assets/img/sports/basketball.svg');
+}
+
+.sports_icon_BASEBALL {
+  background-image: url('/assets/img/sports/baseball.svg');
+}
+
+.sports_icon_VOLLEYBALL {
+  background-image: url('/assets/img/sports/volleyball.svg');
+}
+
+.sports_icon_RUGBY {
+  background-image: url('/assets/img/sports/volleyball.svg');
+}
+
+.sports_icon_BADMINTON {
+  background-image: url('/assets/img/sports/badminton.svg');
+}
+
+.sports_icon_FUTSAL {
+  background-image: url('/assets/img/sports/futsal.svg');
+}
+
+.sports_icon_HOCKEY {
+  background-image: url('/assets/img/sports/hockey.svg');
+}
+
+.sports_icon_ICE-HOCKEY {
+  background-image: url('/assets/img/sports/ice-hockey.svg');
+}
+
+.sports_icon_SWIMMING {
+  background-image: url('/assets/img/sports/swimming.svg');
+}
+
+.sports_icon_TABLE-TENNIS {
+  background-image: url('/assets/img/sports/table-tennis.svg');
+}
+
+.sports_icon_TENNIS {
+  background-image: url('/assets/img/sports/tennis.svg');
+}
