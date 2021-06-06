@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { MatchRegistryComponent } from './match-registry.component';
 
@@ -6,7 +6,7 @@ describe('MatchRegistryComponent', () => {
   let component: MatchRegistryComponent;
   let fixture: ComponentFixture<MatchRegistryComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ MatchRegistryComponent ]
     })

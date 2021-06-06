@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { MatchJoinConfirmationComponent } from './match-join-confirmation.component';
 
@@ -6,7 +6,7 @@ describe('MatchJoinConfirmationComponent', () => {
   let component: MatchJoinConfirmationComponent;
   let fixture: ComponentFixture<MatchJoinConfirmationComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ MatchJoinConfirmationComponent ]
     })

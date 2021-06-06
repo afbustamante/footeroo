@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { MatchJoinWithCarComponent } from './match-join-with-car.component';
 
@@ -6,7 +6,7 @@ describe('MatchJoinWithCarComponent', () => {
   let component: MatchJoinWithCarComponent;
   let fixture: ComponentFixture<MatchJoinWithCarComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ MatchJoinWithCarComponent ]
     })
