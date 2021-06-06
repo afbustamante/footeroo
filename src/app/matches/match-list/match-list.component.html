@@ -3,9 +3,9 @@
 
   <mat-tab-group>
     <mat-tab label="Coming matches">
-      <mat-grid-list cols="1" rowHeight="200px">
+      <mat-grid-list cols="1" rowHeight="210px">
         <mat-grid-tile *ngFor="let match of matchesToPlay$ | async">
-          <mat-card *ngIf="match.status !== 'CANCELLED'" class="match-card">
+          <mat-card *ngIf="match.status !== 'cancelled'" class="match-card">
             <mat-card-header>
               <div mat-card-avatar [ngClass]="['sports_icon', 'sports_icon_' + match.sport]"></div>
               <mat-card-title>
@@ -35,7 +35,7 @@
               </div>
             </mat-card-content>
           </mat-card>
-          <mat-card *ngIf="match.status === 'CANCELLED'" class="match-card cancelled-match">
+          <mat-card *ngIf="match.status === 'cancelled'" class="match-card cancelled-match">
             <mat-card-header>
               <div mat-card-avatar [ngClass]="['sports_icon', 'sports_icon_' + match.sport]"></div>
               <mat-card-title>
@@ -65,7 +65,7 @@
       </mat-grid-list>
     </mat-tab>
     <mat-tab label="Played matches">
-      <mat-grid-list cols="1" rowHeight="200px">
+      <mat-grid-list cols="1" rowHeight="180px">
         <mat-grid-tile *ngFor="let match of playedMatches$ | async">
           <mat-card class="match-card">
             <mat-card-header>
