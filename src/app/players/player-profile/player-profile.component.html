@@ -1,114 +1,114 @@
 <div>
     <h2 i18n>Manage your account</h2>
+    
+    <mat-tab-group>
+        <mat-tab label="Personal details">
+            <form [formGroup]="profileDetailsForm" novalidate (ngSubmit)="onSubmitDetails()">
+                <mat-card class="registry-card">
+                    <mat-card-content>
+                        <div class="row">
+                            <div class="col">
+                                <mat-form-field class="full-width">
+                                    <mat-label i18n>First name</mat-label>
+                                    <input matInput formControlName="firstName">
+                                    <mat-error *ngIf="profileDetailsForm.controls['firstName'].hasError('required')" i18n>
+                                        Your first name is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <mat-form-field class="full-width">
+                                    <mat-label i18n>Surname</mat-label>
+                                    <input matInput formControlName="surname">
+                                    <mat-error *ngIf="profileDetailsForm.controls['surname'].hasError('required')" i18n>
+                                        Your surname is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <mat-form-field class="full-width">
+                                    <mat-label i18n>Email address</mat-label>
+                                    <input matInput type="email" formControlName="email">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <mat-form-field class="full-width">
+                                    <mat-label i18n>Mobile phone number</mat-label>
+                                    <input matInput formControlName="phoneNumber" placeholder="+33 6 12 34 56 78">
+                                    <mat-error *ngIf="profileDetailsForm.controls['phoneNumber'].hasError('pattern')" i18n>
+                                        A valid phone number is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <button mat-raised-button color="primary" type="submit" [disabled]="profileDetailsForm.invalid" i18n>
+                            <mat-icon aria-hidden="true">done</mat-icon>
+                            Update
+                        </button>
+                    </mat-card-actions>
+                </mat-card>
+            </form>
+        </mat-tab>
 
-    <form [formGroup]="profileDetailsForm" novalidate (ngSubmit)="onSubmitDetails()">
-        <mat-card class="registry-card">
-            <mat-card-header>
-                <mat-card-title i18n>Personal details</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-                <div class="row">
-                    <div class="col">
-                        <mat-form-field class="full-width">
-                            <mat-label i18n>First name</mat-label>
-                            <input matInput formControlName="firstName">
-                            <mat-error *ngIf="profileDetailsForm.controls['firstName'].hasError('required')" i18n>
-                                Your first name is <strong>required</strong>
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <mat-form-field class="full-width">
-                            <mat-label i18n>Surname</mat-label>
-                            <input matInput formControlName="surname">
-                            <mat-error *ngIf="profileDetailsForm.controls['surname'].hasError('required')" i18n>
-                                Your surname is <strong>required</strong>
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <mat-form-field class="full-width">
-                            <mat-label i18n>Email address</mat-label>
-                            <input matInput type="email" formControlName="email">
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <mat-form-field class="full-width">
-                            <mat-label i18n>Mobile phone number</mat-label>
-                            <input matInput formControlName="phoneNumber" placeholder="+33 6 12 34 56 78">
-                            <mat-error *ngIf="profileDetailsForm.controls['phoneNumber'].hasError('pattern')" i18n>
-                                A valid phone number is <strong>required</strong>
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-                </div>
-            </mat-card-content>
-            <mat-card-actions>
-                <button mat-raised-button color="primary" type="submit" [disabled]="profileDetailsForm.invalid" i18n>
-                    <mat-icon aria-hidden="true">done</mat-icon>
-                    Update
-                </button>
-            </mat-card-actions>
-        </mat-card>
-    </form>
+        <mat-tab label="Sign-in information">
+            <form [formGroup]="credentialsForm" novalidate (ngSubmit)="onSubmitCredentials()">
+                <mat-card class="password-card">
+                    <mat-card-content>
+                        <p i18n>You can change your password at any time. Please type your current password and then your new
+                            password to change it.</p>
 
-    <form [formGroup]="credentialsForm" novalidate (ngSubmit)="onSubmitCredentials()">
-        <mat-card class="password-card">
-            <mat-card-header>
-                <mat-card-title i18n>Sign-in information</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-                <p i18n>You can change your password at any time. Please type your current password and then your new
-                    password to change it.</p>
-
-                <div class="row">
-                    <div class="col">
-                        <mat-form-field class="full-width">
-                            <mat-label i18n>Current password</mat-label>
-                            <input matInput type="password" formControlName="currentPassword">
-                            <mat-error *ngIf="credentialsForm.controls['currentPassword'].hasError('required') || credentialsForm.controls['currentPassword'].hasError('pattern')" i18n>
-                                A valid password is <strong>required</strong>
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <mat-form-field class="full-width">
-                            <mat-label i18n>New password</mat-label>
-                            <input matInput type="password" formControlName="newPassword">
-                            <mat-error *ngIf="credentialsForm.controls['newPassword'].hasError('required') || credentialsForm.controls['newPassword'].hasError('pattern')" i18n>
-                                A valid confirmation password is <strong>required</strong>
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <mat-form-field class="full-width">
-                            <mat-label i18n>Confirm your password</mat-label>
-                            <input matInput type="password" formControlName="passwordConfirmation">
-                            <mat-error *ngIf="credentialsForm.controls['passwordConfirmation'].hasError('required') || credentialsForm.controls['passwordConfirmation'].hasError('pattern')" i18n>
-                                A valid confirmation password is <strong>required</strong>
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-                </div>
-            </mat-card-content>
-            <mat-card-actions>
-                <button mat-raised-button color="primary" type="submit" [disabled]="credentialsForm.invalid" i18n>
-                    <mat-icon aria-hidden="true">done</mat-icon>
-                    Update password
-                </button>
-            </mat-card-actions>
-        </mat-card>
-    </form>
+                        <div class="row">
+                            <div class="col">
+                                <mat-form-field class="full-width">
+                                    <mat-label i18n>Current password</mat-label>
+                                    <input matInput type="password" formControlName="currentPassword">
+                                    <mat-error *ngIf="credentialsForm.controls['currentPassword'].hasError('required') || credentialsForm.controls['currentPassword'].hasError('pattern')" i18n>
+                                        A valid password is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <mat-form-field class="full-width">
+                                    <mat-label i18n>New password</mat-label>
+                                    <input matInput type="password" formControlName="newPassword">
+                                    <mat-error *ngIf="credentialsForm.controls['newPassword'].hasError('required') || credentialsForm.controls['newPassword'].hasError('pattern')" i18n>
+                                        A valid confirmation password is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <mat-form-field class="full-width">
+                                    <mat-label i18n>Confirm your password</mat-label>
+                                    <input matInput type="password" formControlName="passwordConfirmation">
+                                    <mat-error *ngIf="credentialsForm.controls['passwordConfirmation'].hasError('required') || credentialsForm.controls['passwordConfirmation'].hasError('pattern')" i18n>
+                                        A valid confirmation password is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <button mat-raised-button color="primary" type="submit" [disabled]="credentialsForm.invalid" i18n>
+                            <mat-icon aria-hidden="true">done</mat-icon>
+                            Update password
+                        </button>
+                    </mat-card-actions>
+                </mat-card>
+            </form>
+        </mat-tab>
+    </mat-tab-group>
 
     <div>
         <a mat-button routerLink="/" routerLinkActive="active" i18n>Back to the home page</a>
