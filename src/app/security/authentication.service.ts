@@ -21,7 +21,7 @@ export class AuthenticationService {
   signIn(email: string, password: string): Observable<HttpResponse<any>> {
     password = btoa(password); // Base64 encoded password
 
-    return this.http.put<any>(`${environment.apiUrl}/users/${email}/auth`, { email, password })
+    return this.http.post<any>(`${environment.usersApiUrl}/users/${email}/auth-token`, { email, password })
       .pipe(map(user => {
         localStorage.setItem('currentUser', JSON.stringify(user));
         return user;
@@ -34,16 +34,16 @@ export class AuthenticationService {
 
   sendPasswordResetToken(email: string): Observable<HttpResponse<any>> {
     const params = {};
-    return this.http.post(`${environment.apiUrl}/users/${email}/token`, params, { observe : 'response'});
+    return this.http.post(`${environment.usersApiUrl}/users/${email}/reset-token`, params, { observe : 'response'});
   }
 
   /* Only used for password reset */
   findUserByToken(token: string): Observable<User> {
     const options = { params: new HttpParams().set('token', token) };
-    return this.http.get<User>(`${environment.apiUrl}/users`, options);
+    return this.http.get<User>(`${environment.usersApiUrl}/users`, options);
   }
 
   updateCredentials(user: User, credentials: Credentials): Observable<HttpResponse<any>> {
-    return this.http.patch(`${environment.apiUrl}/users/${user.email}/details`, credentials, { observe : 'response'});
+    return this.http.patch(`${environment.usersApiUrl}/users/${user.email}`, credentials, { observe : 'response'});
   }
 }

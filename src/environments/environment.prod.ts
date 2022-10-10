@@ -1,4 +1,5 @@
 export const environment = {
-  apiUrl: 'https://y-a-foot.marca2.net/api',
+  coreApiUrl: 'https://api.footero.net/core',
+  usersApiUrl: 'https://api.footero.net/auth',
   production: true
 };

@@ -14,6 +14,6 @@ export class SportsService {
   ) { }
 
   findSports(): Observable<Sport[]> {
-    return this.http.get<Sport[]>(`${environment.apiUrl}/sports`);
+    return this.http.get<Sport[]>(`${environment.coreApiUrl}/sports`);
   }
 }

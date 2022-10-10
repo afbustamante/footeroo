@@ -14,10 +14,10 @@ export class SitesService {
   ) { }
 
   findSites(): Observable<Site[]> {
-    return this.http.get<Site[]>(`${environment.apiUrl}/sites`);
+    return this.http.get<Site[]>(`${environment.coreApiUrl}/sites`);
   }
 
   createSite(site: Site): Observable<HttpResponse<any>> {
-    return this.http.post(`${environment.apiUrl}/sites`, site, { observe : 'response'});
+    return this.http.post(`${environment.coreApiUrl}/sites`, site, { observe : 'response'});
   }
 }

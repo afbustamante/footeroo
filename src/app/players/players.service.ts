@@ -15,14 +15,14 @@ export class PlayersService {
 
   loadPlayerByEmail(email: string): Observable<Player> {
     const options = (email) ? { params: new HttpParams().set('email', email) } : {};
-    return this.http.get<Player>(`${environment.apiUrl}/players`, options);
+    return this.http.get<Player>(`${environment.coreApiUrl}/players`, options);
   }
 
   registerPlayer(player: Player): Observable<HttpResponse<any>> {
-    return this.http.post(`${environment.apiUrl}/players`, player, { observe : 'response'});
+    return this.http.post(`${environment.coreApiUrl}/players`, player, { observe : 'response'});
   }
 
   updatePlayerDetails(player: Player): Observable<HttpResponse<any>> {
-    return this.http.put(`${environment.apiUrl}/players/${player.id}`, player, { observe : 'response'});
+    return this.http.put(`${environment.coreApiUrl}/players/${player.id}`, player, { observe : 'response'});
   }
 }

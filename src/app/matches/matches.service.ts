@@ -19,26 +19,26 @@ export class MatchesService {
   ) {}
 
   createMatch(match: Match): Observable<HttpResponse<any>> {
-    return this.http.post(`${environment.apiUrl}/matches`, match, { observe : 'response'});
+    return this.http.post(`${environment.coreApiUrl}/matches`, match, { observe : 'response'});
   }
 
   findMatchByCode(code: string): Observable<Match> {
-    return this.http.get<Match>(`${environment.apiUrl}/matches/${code}`);
+    return this.http.get<Match>(`${environment.coreApiUrl}/matches/${code}`);
   }
 
   findMatchesToPlay(): Observable<Match[]> {
     const today = formatDate(Date.now(), 'yyyy-MM-dd', 'en');
-    return this.http.get<Match[]>(`${environment.apiUrl}/matches?startDate=${today}`);
+    return this.http.get<Match[]>(`${environment.coreApiUrl}/matches?startDate=${today}`);
   }
 
   findPlayedMatches(): Observable<Match[]> {
     const oneDayMilliseconds = 86400000;
     const yesterday = formatDate(Date.now() - oneDayMilliseconds, 'yyyy-MM-dd', 'en');
-    return this.http.get<Match[]>(`${environment.apiUrl}/matches?endDate=${yesterday}`);
+    return this.http.get<Match[]>(`${environment.coreApiUrl}/matches?endDate=${yesterday}`);
   }
 
   findMatchRegistrations(code: string): Observable<MatchRegistration[]> {
-    return this.http.get<MatchRegistration[]>(`${environment.apiUrl}/matches/${code}/registrations`);
+    return this.http.get<MatchRegistration[]>(`${environment.coreApiUrl}/matches/${code}/registrations`);
   }
 
   joinMatch(player: Player, match: Match, car?: Car): Observable<HttpResponse<any>> {
@@ -49,19 +49,19 @@ export class MatchesService {
       player,
       car
     };
-    return this.http.post(`${environment.apiUrl}/matches/${match.code}/registrations`, registration, { observe : 'response'});
+    return this.http.post(`${environment.coreApiUrl}/matches/${match.code}/registrations`, registration, { observe : 'response'});
   }
 
   quitMatch(player: Player, match: Match): Observable<HttpResponse<any>> {
-    return this.http.delete(`${environment.apiUrl}/matches/${match.code}/registrations/${player.id}`, { observe : 'response' });
+    return this.http.delete(`${environment.coreApiUrl}/matches/${match.code}/registrations/${player.id}`, { observe : 'response' });
   }
 
   cancelMatch(match: Match): Observable<HttpResponse<any>> {
-    return this.http.delete(`${environment.apiUrl}/matches/${match.code}`, { observe : 'response' });
+    return this.http.delete(`${environment.coreApiUrl}/matches/${match.code}`, { observe : 'response' });
   }
 
   updateCarForPlayerRegistration(match: Match, player: Player, car: Car, confirmed: boolean): Observable<HttpResponse<any>> {
-    return this.http.patch(`${environment.apiUrl}/matches/${match.code}/registrations/${player.id}`, {
+    return this.http.patch(`${environment.coreApiUrl}/matches/${match.code}/registrations/${player.id}`, {
       car, confirmed
     }, {observe: 'response'});
   }

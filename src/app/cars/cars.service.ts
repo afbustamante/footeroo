@@ -16,7 +16,7 @@ export class CarsService {
   ) {}
 
   findCars(): Observable<Car[]> {
-    return this.http.get<Car[]>(`${environment.apiUrl}/cars`).pipe(
+    return this.http.get<Car[]>(`${environment.coreApiUrl}/cars`).pipe(
       catchError(err => {
         console.log(`Could not get cars list for active player. Got ${err.status} error code.`);
         return EMPTY;
@@ -25,11 +25,11 @@ export class CarsService {
   }
 
   loadCar(id: number): Observable<Car> {
-    return this.http.get<Car>(`${environment.apiUrl}/cars/${id}`);
+    return this.http.get<Car>(`${environment.coreApiUrl}/cars/${id}`);
   }
 
   findCarsByMatch(matchCode: string): Observable<Car[]> {
-    return this.http.get<Car[]>(`${environment.apiUrl}/matches/${matchCode}/cars`);
+    return this.http.get<Car[]>(`${environment.coreApiUrl}/matches/${matchCode}/cars`);
   }
 
   private filterCarsFromRegistrations(registrations: MatchRegistration[]): Car[] {
