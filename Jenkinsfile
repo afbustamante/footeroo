@@ -3,23 +3,23 @@ pipeline {
 
     options {
         timeout(time: 30, unit: 'MINUTES')
-        retry(1)
         disableConcurrentBuilds()
     }
 
     environment {
         DEPLOYMENT_DIR = '/var/www/html'
         SOURCE_DIR = "dist/footeroo"
-        DESTINATION_DIR = "${DEPLOYMENT_DIR}/footeroo"
-        DESTINATION_OWNER_USER = "apache"
-        DESTINATION_OWNER_GROUP = "apache"
+        DESTINATION_DIR = "${DEPLOYMENT_DIR}/footero.net"
+        DESTINATION_OWNER_USER = "www-data"
+        DESTINATION_OWNER_GROUP = "www-data"
     }
 
     stages {
         stage('Prepare') {
             steps {
                 // Get code from GitHub repository
-                git branch: 'master', url: 'https://github.com/afbustamante/footeroo'
+                // git branch: 'master', url: 'https://github.com/afbustamante/footeroo'
+                echo 'Pulling branch ' + env.GIT_BRANCH
 
                 // Clean the workspace
                 sh 'rm -rf dist'
@@ -45,16 +45,28 @@ pipeline {
         }
         stage('Analyze') {
             steps {
-                // Scan for quality issues
-                sh 'sonar-scanner -Dsonar.organization=afbustamante-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=f141b07519c6a6eb8ac0e400c56cfdabb1775cdc'
+                script {
+                    if (env.BRANCH_NAME == 'master') {
+                        // Scan for quality issues
+                        sh 'sonar-scanner -Dsonar.organization=afbustamante-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=f141b07519c6a6eb8ac0e400c56cfdabb1775cdc'
+                    } else {
+                        echo 'Skipped Sonar analysis on this branch'
+                    }
+                }
             }
         }
         stage('Deploy') {
             steps {
-                // Deploy the application
-                sh "rm -rf ${DESTINATION_DIR}"
-                sh "cp -r ${SOURCE_DIR} ${DESTINATION_DIR}"
-                sh "chown -R ${DESTINATION_OWNER_USER}:${DESTINATION_OWNER_GROUP} ${DESTINATION_DIR}"
+                script {
+                    if (env.BRANCH_NAME == 'master') {
+                        // Deploy the application
+                        sh "rm -rf ${DESTINATION_DIR}"
+                        sh "cp -r ${SOURCE_DIR} ${DESTINATION_DIR}"
+                        sh "chown -R ${DESTINATION_OWNER_USER}:${DESTINATION_OWNER_GROUP} ${DESTINATION_DIR}"
+                    } else {
+                        echo 'No deployment available for this branch'
+                    }
+                }
             }
         }
     }
