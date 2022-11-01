@@ -18,7 +18,7 @@ pipeline {
         stage('Prepare') {
             agent {
                 docker {
-                    image 'node:12.22.12'
+                    image 'node:14.20.1'
                     reuseNode true
                 }
             }
@@ -34,26 +34,18 @@ pipeline {
                 sh 'npm install'
             }
         }
-        stage('Lint') {
-            agent {
-                docker {
-                    image 'node:12.22.12'
-                    reuseNode true
-                }
-            }
-            steps {
-                // Run TS Lint
-                sh 'ng lint'
-            }
-        }
         stage('Build') {
             agent {
                 docker {
-                    image 'node:12.22.12'
+                    image 'node:14.20.1'
                     reuseNode true
                 }
             }
             steps {
+                // Prepare Angular dependencies
+                sh 'npm install'
+                // Run TS Lint
+                sh 'ng lint'
                 // Run the build task in DEV mode
                 sh 'ng build'
                 // Run the build task in PROD mode
@@ -85,7 +77,7 @@ pipeline {
         stage('Deploy') {
             agent {
                 docker {
-                    image 'node:12.22.12'
+                    image 'node:14.20.1'
                     reuseNode true
                 }
             }
