@@ -28,8 +28,8 @@
               <div>
                 <p>{{ match.site.name }}<br/>{{ match.site.address }}</p>
                 <p>
-                  <span *ngIf="match.numPlayersMin != null">{{ match.numPlayersMin }} <span i18n> players required</span><br/></span>
-                  <span *ngIf="match.numPlayersMax != null">{{ match.numPlayersMax }} <span i18n> players (max)</span><br/></span>
+                  <span *ngIf="match.numPlayersMin !== null">{{ match.numPlayersMin }} <span i18n> players required</span><br/></span>
+                  <span *ngIf="match.numPlayersMax !== null">{{ match.numPlayersMax }} <span i18n> players (max)</span><br/></span>
                   {{ match.numRegisteredPlayers }} <span i18n> players attending</span>
                 </p>
               </div>
@@ -54,8 +54,8 @@
               <div>
                 <p>{{ match.site.name }}<br/>{{ match.site.address }}</p>
                 <p>
-                  <span *ngIf="match.numPlayersMin != null">{{ match.numPlayersMin }} <span i18n> players required</span><br/></span>
-                  <span *ngIf="match.numPlayersMax != null">{{ match.numPlayersMax }} <span i18n> players (max)</span><br/></span>
+                  <span *ngIf="match.numPlayersMin !== null">{{ match.numPlayersMin }} <span i18n> players required</span><br/></span>
+                  <span *ngIf="match.numPlayersMax !== null">{{ match.numPlayersMax }} <span i18n> players (max)</span><br/></span>
                   {{ match.numRegisteredPlayers }} <span i18n> players were registered</span>
                 </p>
               </div>

@@ -15,5 +15,6 @@ export class MatchJoinConfirmationComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    console.log('Match join confirmation requested');
   }
 }

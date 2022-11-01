@@ -13,6 +13,7 @@ export class MatchAbandonConfirmationComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    console.log('Match abandon confirmation requested');
   }
 
 }
