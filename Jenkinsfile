@@ -42,15 +42,12 @@ pipeline {
                 }
             }
             steps {
-                // Prepare Angular dependencies
-                sh 'npm install'
                 // Run TS Lint
-                sh 'ng lint'
+                sh 'npm run lint'
                 // Run the build task in DEV mode
-                sh 'ng build'
+                sh 'npm run build'
                 // Run the build task in PROD mode
-                sh 'rm -rf dist/*'
-                sh 'ng build --prod'
+                sh 'npm run build --omit=dev'
             }
             post {
                 success {
