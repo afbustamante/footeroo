@@ -1,3 +1,6 @@
+def VERSION = "${env.BUILD_NUMBER}"
+def DIST_ARCHIVE = "dist.v${VERSION}"
+
 pipeline {
     agent none
 
@@ -54,7 +57,8 @@ pipeline {
             }
             post {
                 success {
-                    archiveArtifacts 'dist/*'
+                    sh "cd dist && zip -r ../${DIST_ARCHIVE}.zip . && cd .."
+                    archiveArtifacts artifacts: "${DIST_ARCHIVE}.zip", fingerprint: true
                 }
             }
         }
