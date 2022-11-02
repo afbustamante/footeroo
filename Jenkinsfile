@@ -1,20 +1,16 @@
-def VERSION = "${env.BUILD_NUMBER}"
-def DIST_ARCHIVE = "dist.v${VERSION}"
-
 pipeline {
     agent none
 
     options {
         timeout(time: 30, unit: 'MINUTES')
         disableConcurrentBuilds()
+        timestamps()
+        buildDiscarder(logRotator(numToKeepStr: '10'))
     }
 
     environment {
-        DEPLOYMENT_DIR = '/var/www/html'
-        SOURCE_DIR = "dist/footeroo"
-        DESTINATION_DIR = "${DEPLOYMENT_DIR}/footero.net"
-        DESTINATION_OWNER_USER = "www-data"
-        DESTINATION_OWNER_GROUP = "www-data"
+        VERSION = "${env.BUILD_NUMBER}"
+        DIST_ARCHIVE ="dist.v${VERSION}"
     }
 
     stages {
