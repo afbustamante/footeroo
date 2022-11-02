@@ -58,7 +58,8 @@ pipeline {
             post {
                 success {
                     sh "cd dist && zip -r ../${DIST_ARCHIVE}.zip . && cd .."
-                    archiveArtifacts artifacts: "${DIST_ARCHIVE}.zip", fingerprint: true
+                    // archiveArtifacts artifacts: "${DIST_ARCHIVE}.zip", fingerprint: true
+                    archiveArtifacts artifacts: 'dist/', fingerprint: true
                 }
             }
         }
@@ -74,26 +75,6 @@ pipeline {
                         sh 'sonar-scanner -Dsonar.organization=afbustamante-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=f141b07519c6a6eb8ac0e400c56cfdabb1775cdc'
                     } else {
                         echo "Skipped Sonar analysis on this branch: ${env.BRANCH_NAME}"
-                    }
-                }
-            }
-        }
-        stage('Deploy') {
-            agent {
-                docker {
-                    image 'node:14.20.1'
-                    reuseNode true
-                }
-            }
-            steps {
-                script {
-                    if (env.BRANCH_NAME == 'develop') {
-                        // Deploy the application
-                        sh "rm -rf ${DESTINATION_DIR}"
-                        sh "cp -r ${SOURCE_DIR} ${DESTINATION_DIR}"
-                        sh "chown -R ${DESTINATION_OWNER_USER}:${DESTINATION_OWNER_GROUP} ${DESTINATION_DIR}"
-                    } else {
-                        echo "No deployment available for this branch: ${env.BRANCH_NAME}"
                     }
                 }
             }
