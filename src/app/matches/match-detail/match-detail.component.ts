@@ -71,19 +71,19 @@ export class MatchDetailComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         if (result === 'JOIN_ONLY') {
-          this.matchesService.joinMatch(this.currentUser, this.match).subscribe(
-            response => {
+          this.matchesService.joinMatch(this.currentUser, this.match).subscribe({
+            next: (response) => {
               this.publishMatchJoinSuccess();
               this.router.navigate(['/list']);
             },
-            error => {
+            error: (error) => {
               this.messageSnackBar.open(error.error.message, 'OK', {
                 duration: 5000,
                 horizontalPosition: 'right',
                 verticalPosition: 'top'
               });
             }
-          );
+          });
         } else if (result === 'JOIN_WITH_CAR') {
           this.router.navigate([`/match/${this.match.code}/join-with-car`]);
         } else if (result === 'JOIN_WITHOUT_CAR') {

@@ -23,7 +23,7 @@ export class ErrorsInterceptor implements HttpInterceptor {
                             this.authenticationService.signOut();
                             this.router.navigate(['/sign-in']);
                         }
-                        return throwError(error);
+                        return throwError(() => error);
                     }
                 )
             );

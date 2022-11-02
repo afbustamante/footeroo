@@ -117,19 +117,23 @@ export class MatchCarpoolComponent implements OnInit {
         // Find the players that chose this car (confirmed or not)
         registrations.forEach(reg => {
           if (reg.car && reg.car.id === this.currentCar.id) {
-            this.playersAvailableForCarpool = true;
-
-            if (reg.carConfirmed) {
-              if (reg.player.email !== this.currentPlayer.email) {
-                this.confirmedPlayers.push(reg.player);
-                this.formerlyConfirmedPlayers.push(reg.player);
-              }
-            } else {
-              this.requestingPlayers.push(reg.player);
-            }
+            this.sendRegistrationToCarpoolList(reg);
           }
         });
       }
+    }
+  }
+
+  private sendRegistrationToCarpoolList(reg: MatchRegistration) {
+    this.playersAvailableForCarpool = true;
+
+    if (reg.carConfirmed) {
+      if (reg.player.email !== this.currentPlayer.email) {
+        this.confirmedPlayers.push(reg.player);
+        this.formerlyConfirmedPlayers.push(reg.player);
+      }
+    } else {
+      this.requestingPlayers.push(reg.player);
     }
   }
 

@@ -123,7 +123,6 @@ export class PlayerProfileComponent implements OnInit {
       });
     } else {
       this.publishPlayerUpdateFailure(errorMessage);
-      return;
     }
   }
 

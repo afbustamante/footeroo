@@ -1,6 +1,5 @@
 import { Site } from '../sites/site';
 import { Player } from '../players/player';
-import { MatchRegistration } from './match-registration';
 
 export interface Match {
     id?: number;

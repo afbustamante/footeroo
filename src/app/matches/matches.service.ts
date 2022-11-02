@@ -3,7 +3,6 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Match } from './match';
 import { environment } from 'src/environments/environment';
-import { map } from 'rxjs/operators';
 import { formatDate } from '@angular/common';
 import { MatchRegistration } from './match-registration';
 import { Player } from '../players/player';
