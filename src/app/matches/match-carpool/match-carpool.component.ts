@@ -50,12 +50,12 @@ export class MatchCarpoolComponent implements OnInit {
   }
 
   private loadMatch(matchCode: string) {
-    this.matchesService.findMatchByCode(matchCode).subscribe(
-      data => {
+    this.matchesService.findMatchByCode(matchCode).subscribe({
+      next: (data) => {
         this.match = data;
         this.loadMatchRegistrations(matchCode);
       },
-      error => {
+      error: (error) => {
         this.messageSnackBar.open(error.error.message, 'OK', {
           duration: 5000,
           verticalPosition: 'top',
@@ -63,16 +63,16 @@ export class MatchCarpoolComponent implements OnInit {
         });
         this.router.navigate(['/search']);
       }
-    );
+    });
   }
 
   loadMatchRegistrations(matchCode: string) {
-    this.matchesService.findMatchRegistrations(matchCode).subscribe(
-      data => {
+    this.matchesService.findMatchRegistrations(matchCode).subscribe({
+      next: (data) => {
         this.processCurrentCar(data);
         this.initPlayersLists(data);
       }
-    );
+    });
   }
 
   processCurrentCar(registrations?: MatchRegistration[]) {
@@ -85,13 +85,13 @@ export class MatchCarpoolComponent implements OnInit {
       });
 
       if (this.currentCar) {
-        this.carsService.loadCar(this.currentCar.id).subscribe(
-          data => {
+        this.carsService.loadCar(this.currentCar.id).subscribe({
+          next: (data) => {
             // Use the full detail of the car including driver's information
             this.currentCar = data;
             this.isDriver = (data.driver && data.driver.email === this.currentPlayer.email);
           },
-          error => {
+          error: (error) => {
             if (error.status === 403) {
               this.isDriver = false;
             } else {
@@ -102,7 +102,7 @@ export class MatchCarpoolComponent implements OnInit {
               });
             }
           }
-        );
+        });
       }
     }
   }
@@ -170,26 +170,24 @@ export class MatchCarpoolComponent implements OnInit {
       this.confirmedPlayers.forEach(player => {
         if (!this.formerlyConfirmedPlayers.includes(player)) {
           // The player was added to the confirmed players list
-          this.matchesService.updateCarForPlayerRegistration(this.match, player, this.currentCar, true).subscribe(
-            response => {},
-            error => {
+          this.matchesService.updateCarForPlayerRegistration(this.match, player, this.currentCar, true).subscribe({
+            error: (error) => {
               console.log(error.error.message);
               playersNotUpdated.push(player);
             }
-          );
+          });
         }
       });
 
       this.requestingPlayers.forEach(player => {
         if (this.formerlyConfirmedPlayers.includes(player)) {
           // The player was removed from the confirmed players list
-          this.matchesService.updateCarForPlayerRegistration(this.match, player, this.currentCar, false).subscribe(
-            response => {},
-            error => {
+          this.matchesService.updateCarForPlayerRegistration(this.match, player, this.currentCar, false).subscribe({
+            error: (error) => {
               console.log(error.error.message);
               playersNotUpdated.push(player);
             }
-          );
+          });
         }
       });
 

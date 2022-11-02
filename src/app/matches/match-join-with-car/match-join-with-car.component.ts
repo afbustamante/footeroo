@@ -42,9 +42,9 @@ export class MatchJoinWithCarComponent implements OnInit {
 
   ngOnInit(): void {
     const matchCode = this.route.snapshot.paramMap.get('code');
-    this.matchesService.findMatchByCode(matchCode).subscribe(
-      data => this.match = data,
-      error => {
+    this.matchesService.findMatchByCode(matchCode).subscribe({
+      next: (data) => this.match = data,
+      error: (error) => {
         this.messageSnackBar.open(error.error.message, 'OK', {
           duration: 5000,
           verticalPosition: 'top',
@@ -52,7 +52,7 @@ export class MatchJoinWithCarComponent implements OnInit {
         });
         this.router.navigate(['/search']);
       }
-    );
+    });
     this.cars$ = this.carsService.findCars();
     this.currentPlayer = this.authenticationService.currentUser;
     this.carSelected = false;
@@ -77,19 +77,19 @@ export class MatchJoinWithCarComponent implements OnInit {
   }
 
   joinMatch(car: Car): void {
-    this.matchesService.joinMatch(this.currentPlayer, this.match, car).subscribe(
-      response => {
+    this.matchesService.joinMatch(this.currentPlayer, this.match, car).subscribe({
+      next: (response) => {
         this.publishMatchJoinSuccess();
         this.router.navigate(['/list']);
       },
-      error => {
+      error: (error) => {
         this.messageSnackBar.open(error.error.message, 'OK', {
           duration: 5000,
           horizontalPosition: 'right',
           verticalPosition: 'top'
         });
       }
-    );
+    });
   }
 
   publishMatchJoinSuccess() {

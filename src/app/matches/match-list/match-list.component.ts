@@ -72,18 +72,18 @@ export class MatchListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         if (result === 'JOIN_ONLY') {
-          this.matchesService.joinMatch(this.currentPlayer, match).subscribe(
-            response => {
+          this.matchesService.joinMatch(this.currentPlayer, match).subscribe({
+            next: (response) => {
               this.publishMatchTransportationUpdateSuccess();
             },
-            error => {
+            error: (error) => {
               this.messageSnackBar.open(error.error.message, 'OK', {
                 duration: 5000,
                 horizontalPosition: 'right',
                 verticalPosition: 'top'
               });
             }
-          );
+          });
         } else if (result === 'JOIN_WITH_CAR') {
           this.router.navigate([`/match/${match.code}/join-with-car`]);
         } else if (result === 'JOIN_WITHOUT_CAR') {
@@ -104,19 +104,19 @@ export class MatchListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.matchesService.quitMatch(this.currentPlayer, match).subscribe(
-          response => {
+        this.matchesService.quitMatch(this.currentPlayer, match).subscribe({
+          next: (response) => {
             this.publishMatchAbandonSuccess();
             this.matchesToPlay$ = this.matchesService.findMatchesToPlay();
           },
-          error => {
+          error: (error) => {
             this.messageSnackBar.open(error.error.message, 'OK', {
               duration: 5000,
               horizontalPosition: 'right',
               verticalPosition: 'top'
             });
           }
-        );
+        });
       }
     });
   }
@@ -132,19 +132,19 @@ export class MatchListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.matchesService.cancelMatch(match).subscribe(
-          response => {
+        this.matchesService.cancelMatch(match).subscribe({
+          next: (response) => {
             this.publishMatchCancelSuccess();
             this.matchesToPlay$ = this.matchesService.findMatchesToPlay();
           },
-          error => {
+          error: (error) => {
             this.messageSnackBar.open(error.error.message, 'OK', {
               duration: 5000,
               horizontalPosition: 'right',
               verticalPosition: 'top'
             });
           }
-        );
+        });
       }
     });
   }

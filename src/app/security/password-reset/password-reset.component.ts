@@ -19,7 +19,7 @@ export class PasswordResetComponent implements OnInit {
   passwordPattern = '^[0-9a-zA-Z]{6,24}$';
 
   requestForm = this.fb.group({
-    email: [null, [Validators.required, Validators.email]]
+    email: ['', [Validators.required, Validators.email]]
   });
 
   passwordResetForm = this.fb.group({
@@ -55,17 +55,17 @@ export class PasswordResetComponent implements OnInit {
   submitRequest() {
     console.log('Token reset request');
 
-    this.authenticationService.sendPasswordResetToken(this.requestForm.value.email).subscribe(
-      response => {
+    this.authenticationService.sendPasswordResetToken(this.requestForm.value.email).subscribe({
+      next: (response) => {
         // TODO Translate this message
         this.publishActionSuccess('Your request has been successfully accepted. Please check your inbox and follow the instructions.');
       },
-      error => {
+      error: (error) => {
         if (error.status === 500) {
           this.publishActionFailure(error.error.message);
         }
       }
-    );
+    });
   }
 
   submitUpdate() {
@@ -81,17 +81,17 @@ export class PasswordResetComponent implements OnInit {
         validationToken: this.token
       };
 
-      this.authenticationService.updateCredentials(this.user, credentials).subscribe(
-        response => {
+      this.authenticationService.updateCredentials(this.user, credentials).subscribe({
+        next: (response) => {
           // TODO Translate this message
           this.publishActionSuccess('Your password has been successfully updated. You can sign-in now.');
         },
-        error => {
+        error: (error) => {
           if (error.status === 500) {
             this.publishActionFailure(error.error.message);
           }
         }
-      );
+      });
     }
   }
 

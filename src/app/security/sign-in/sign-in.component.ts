@@ -42,13 +42,12 @@ export class SignInComponent implements OnInit {
     }
 
     this.authenticationService.signIn(this.signinForm.controls.username.value, this.signinForm.controls.password.value)
-      .pipe(first())
-      .subscribe(
-        response => {
+      .pipe(first()).subscribe({
+        next: (response) => {
           this.signInUserEvent.emit(response.body);
           this.router.navigate([this.destination]);
         },
-        error => {
+        error: (error) => {
           this.errorCode = error.status;
 
           if (this.errorCode === 401) {
@@ -68,7 +67,7 @@ export class SignInComponent implements OnInit {
             });
           }
         }
-      );
+    });
   }
 
   sendToForgottenPasswordForm() {

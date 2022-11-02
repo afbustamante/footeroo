@@ -36,21 +36,20 @@ export class PlayerRegistryComponent {
       email: this.registryForm.value.email,
       password: btoa(this.registryForm.value.password) // Base64 encoded password
     };
-    this.playersService.registerPlayer(player)
-      .subscribe(
-        response => {
-          if (response.status === 201) {
-            const location = response.headers.get('Location');
-            this.publishPlayerRegistrySuccess(location);
-            this.router.navigate(['/']);
-          }
-        },
-        error => {
-          if (error.status === 400) {
-            this.publishPlayerRegistryFailure(error.error.message);
-          }
+    this.playersService.registerPlayer(player).subscribe({
+      next: (response) => {
+        if (response.status === 201) {
+          const location = response.headers.get('Location');
+          this.publishPlayerRegistrySuccess(location);
+          this.router.navigate(['/']);
         }
-      );
+      },
+      error: (error) => {
+        if (error.status === 400) {
+          this.publishPlayerRegistryFailure(error.error.message);
+        }
+      }
+    });
   }
 
   private publishPlayerRegistrySuccess(location: string) {

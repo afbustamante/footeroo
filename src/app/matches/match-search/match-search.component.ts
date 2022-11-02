@@ -27,14 +27,14 @@ export class MatchSearchComponent implements OnInit {
 
   onSubmit() {
     this.requestSent = true;
-    this.matchesService.findMatchByCode(this.searchForm.value.matchCode).subscribe(
-      data => {
+    this.matchesService.findMatchByCode(this.searchForm.value.matchCode).subscribe({
+      next: (data) => {
         this.match = data;
       },
-      error => {
+      error: (error) => {
         console.log('Unable to find a match for this code.');
       }
-    );
+    });
   }
 
   resetMatch() {

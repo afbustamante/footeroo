@@ -20,14 +20,14 @@ export class PlayerProfileComponent implements OnInit {
   currentPlayer: Player;
 
   profileDetailsForm = this.fb.group({
-    firstName: [null, Validators.required],
-    surname: [null, Validators.required],
-    email: [{value: null, disabled: true}],
-    phoneNumber: [null, Validators.pattern(this.phoneNumberPattern)]
+    firstName: ['', Validators.required],
+    surname: ['', Validators.required],
+    email: [{value: '', disabled: true}],
+    phoneNumber: ['', Validators.pattern(this.phoneNumberPattern)]
   });
 
   credentialsForm = this.fb.group({
-    username: [null, [Validators.required, Validators.email]],
+    username: ['', [Validators.required, Validators.email]],
     currentPassword: [null, [Validators.required, Validators.pattern(this.passwordPattern)]],
     newPassword: [null, [Validators.required, Validators.pattern(this.passwordPattern)]],
     passwordConfirmation: [null, [Validators.required, Validators.pattern(this.passwordPattern)]]
@@ -72,19 +72,19 @@ export class PlayerProfileComponent implements OnInit {
     this.currentPlayer.surname = this.profileDetailsForm.value.surname;
     this.currentPlayer.phoneNumber = this.profileDetailsForm.value.phoneNumber;
 
-    this.playersService.updatePlayerDetails(this.currentPlayer).subscribe(
-      response => {
+    this.playersService.updatePlayerDetails(this.currentPlayer).subscribe({
+      next: (response) => {
         if (response.status === 202) {
           this.publishPlayerUpdateSuccess();
           this.router.navigate(['/']);
         }
       },
-      error => {
+      error: (error) => {
         if (error.status === 400) {
           this.publishPlayerUpdateFailure(error.error.message);
         }
       }
-    );
+    });
   }
 
   onSubmitCredentials() {
@@ -108,19 +108,19 @@ export class PlayerProfileComponent implements OnInit {
         password: btoa(this.credentialsForm.value.newPassword)
       };
 
-      this.authenticationService.updateCredentials(this.currentPlayer, credentials).subscribe(
-        response => {
+      this.authenticationService.updateCredentials(this.currentPlayer, credentials).subscribe({
+        next: (response) => {
           if (response.status === 202) {
             this.publishPlayerUpdateSuccess();
             this.router.navigate(['/']);
           }
         },
-        error => {
+        error: (error) => {
           if (error.status === 400 || error.status === 500) {
             this.publishPlayerUpdateFailure(error.error.message);
           }
         }
-      );
+      });
     } else {
       this.publishPlayerUpdateFailure(errorMessage);
       return;

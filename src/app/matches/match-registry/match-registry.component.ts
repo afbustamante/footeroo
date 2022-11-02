@@ -97,18 +97,18 @@ export class MatchRegistryComponent implements OnInit {
       site
     };
 
-    this.matchesService.createMatch(match).subscribe(
-      response => {
+    this.matchesService.createMatch(match).subscribe({
+      next: (response) => {
         const location = response.headers.get('Location');
         this.publishMatchRegistrySuccess(location);
         this.router.navigate(['/list']);
       },
-      error => {
+      error: (error) => {
         if (error.status === 400) {
           this.publishMatchRegistryFailure(error.error.message);
         }
-      }
-    );
+      }  
+    });
   }
 
   private publishMatchRegistrySuccess(location: string) {
