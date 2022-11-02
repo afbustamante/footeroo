@@ -28,7 +28,8 @@ pipeline {
                 echo 'Pulling branch ' + env.GIT_BRANCH
 
                 // Clean the workspace
-                sh 'rm -rf dist'
+                sh 'rm -rf dist node_modules npm-cache'
+                sh 'npm cache clean --force'
 
                 // Prepare Angular dependencies
                 sh 'npm install'
