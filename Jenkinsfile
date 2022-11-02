@@ -45,6 +45,8 @@ pipeline {
             steps {
                 // Run TS Lint
                 sh 'npm run lint'
+                // Workaround for Node Error on build: The Angular Compiler requires TypeScript >=4.4.2 and <4.7.0 but 4.8.4 was found instead
+                sh 'npm install typescript@4.6.4 --save-dev'
                 // Run the build task in DEV mode
                 sh 'npm run build'
                 // Run the build task in PROD mode
