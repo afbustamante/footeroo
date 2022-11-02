@@ -30,9 +30,6 @@ pipeline {
                 // Clean the workspace
                 sh 'rm -rf dist node_modules npm-cache'
                 sh 'npm cache clean --force'
-
-                // Prepare Angular dependencies
-                sh 'npm install'
             }
         }
         stage('Build') {
@@ -43,6 +40,8 @@ pipeline {
                 }
             }
             steps {
+                // Prepare Angular dependencies
+                sh 'npm install'
                 // Run TS Lint
                 sh 'npm run lint'
                 // Run the build task in DEV mode
