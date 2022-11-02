@@ -57,14 +57,13 @@ pipeline {
             }
             post {
                 success {
-                    sh "cd dist && zip -r ../${DIST_ARCHIVE}.zip . && cd .."
+                    // sh "cd dist && zip -r ../${DIST_ARCHIVE}.zip . && cd .."
                     // archiveArtifacts artifacts: "${DIST_ARCHIVE}.zip", fingerprint: true
                     archiveArtifacts artifacts: 'dist/', fingerprint: true
                 }
             }
         }
         stage('Analyze') {
-            // sonarsource/sonar-scanner-cli:latest
             agent {
                 docker { image 'sonarsource/sonar-scanner-cli:latest' }
             }
@@ -72,7 +71,10 @@ pipeline {
                 script {
                     if (env.BRANCH_NAME == 'develop') {
                         // Scan for quality issues
-                        sh 'sonar-scanner -Dsonar.organization=afbustamante-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=f141b07519c6a6eb8ac0e400c56cfdabb1775cdc'
+                        configFileProvider([configFile(fileId: '8d47e8c5-f619-4f36-a1dc-590dca78adb1', variable: 'SONAR_CONFIG')]) {
+                            def props = readProperties file: "${SONAR_CONFIG}"
+                            sh "sonar-scanner -Dsonar.organization=afbustamante-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${props['sonar.login']}"
+                        }
                     } else {
                         echo "Skipped Sonar analysis on this branch: ${env.BRANCH_NAME}"
                     }
