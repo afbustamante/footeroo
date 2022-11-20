@@ -53,7 +53,7 @@ pipeline {
                 success {
                     // sh "cd dist && zip -r ../${DIST_ARCHIVE}.zip . && cd .."
                     // archiveArtifacts artifacts: "${DIST_ARCHIVE}.zip", fingerprint: true
-                    archiveArtifacts artifacts: 'dist/footeroo', fingerprint: true
+                    archiveArtifacts artifacts: 'dist/', fingerprint: true
                 }
             }
         }
