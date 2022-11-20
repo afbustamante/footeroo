@@ -20,14 +20,14 @@ export class PlayerProfileComponent implements OnInit {
   currentPlayer: Player;
 
   profileDetailsForm = this.fb.group({
-    firstName: ['', Validators.required],
-    surname: ['', Validators.required],
-    email: [{value: '', disabled: true}],
-    phoneNumber: ['', Validators.pattern(this.phoneNumberPattern)]
+    firstName: [null, Validators.required],
+    surname: [null, Validators.required],
+    email: [{value: null, disabled: true}],
+    phoneNumber: [null, Validators.pattern(this.phoneNumberPattern)]
   });
 
   credentialsForm = this.fb.group({
-    username: ['', [Validators.required, Validators.email]],
+    username: [null, [Validators.required, Validators.email]],
     currentPassword: [null, [Validators.required, Validators.pattern(this.passwordPattern)]],
     newPassword: [null, [Validators.required, Validators.pattern(this.passwordPattern)]],
     passwordConfirmation: [null, [Validators.required, Validators.pattern(this.passwordPattern)]]
@@ -45,25 +45,25 @@ export class PlayerProfileComponent implements OnInit {
     const user = this.authenticationService.currentUser;
 
     if (user) {
-      this.playersService.loadPlayerByEmail(user.email).subscribe(
-        data => {
+      this.playersService.loadPlayerByEmail(user.email).subscribe({
+        next: (data) => {
           this.currentPlayer = data;
 
-          this.profileDetailsForm.setValue({
+          this.profileDetailsForm.patchValue({
             firstName: this.currentPlayer.firstName,
             surname: this.currentPlayer.surname,
             email: this.currentPlayer.email,
             phoneNumber: this.currentPlayer.phoneNumber ? this.currentPlayer.phoneNumber : ''
           });
 
-          this.credentialsForm.setValue({
+          this.credentialsForm.patchValue({
             username: this.currentPlayer.email,
             currentPassword: null,
             newPassword: null,
             passwordConfirmation: null
           });
         }
-      );
+      });
     }
   }
 

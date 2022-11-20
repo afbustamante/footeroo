@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Player } from 'src/app/players/player';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 
@@ -15,7 +15,7 @@ export class PlayersService {
 
   loadPlayerByEmail(email: string): Observable<Player> {
     const options = (email) ? { params: new HttpParams().set('email', email) } : {};
-    return this.http.get<Player>(`${environment.coreApiUrl}/players`, options);
+    return this.http.get<Player[]>(`${environment.coreApiUrl}/players`, options).pipe(map((players) => players[0]));
   }
 
   registerPlayer(player: Player): Observable<HttpResponse<any>> {
