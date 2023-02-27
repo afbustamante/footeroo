@@ -11,10 +11,10 @@
                     <mat-icon aria-hidden="true">face</mat-icon>
                 </button>
                 <mat-menu #menu="matMenu">
-                    <button mat-menu-item disabled i18n>Signed in as {{ currentUser.email }}</button>
-                    <button mat-menu-item routerLink="/manage/my-profile" routerLinkActive="active" i18n>My profile</button>
-                    <button mat-menu-item i18n routerLink="/manage/my-cars" routerLinkActive="active">Manage my cars</button>
-                    <button mat-menu-item i18n (click)="signout()">Sign out</button>
+                    <button mat-menu-item disabled><span i18n>Signed in as</span> {{ currentUser.email }}</button>
+                    <button mat-menu-item routerLink="/manage/my-profile" routerLinkActive="active"><span i18n>My profile</span></button>
+                    <button mat-menu-item routerLink="/manage/my-cars" routerLinkActive="active"><span i18n>Manage my cars</span></button>
+                    <button mat-menu-item (click)="signout()"><span i18n>Sign out</span></button>
                 </mat-menu>
             </div>
         </mat-toolbar>

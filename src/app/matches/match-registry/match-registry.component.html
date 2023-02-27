@@ -100,9 +100,9 @@
                             </mat-radio-group>
                 
                             <mat-action-row>
-                                <button mat-raised-button color="primary" type="submit" [disabled]="basicMatchForm.invalid || !siteSelected" (click)="createWithSelectedSite()" i18n>
+                                <button mat-raised-button color="primary" type="submit" [disabled]="basicMatchForm.invalid || !siteSelected" (click)="createWithSelectedSite()">
                                     <mat-icon aria-hidden="true">done</mat-icon>
-                                    Choose and create match
+                                    <span i18n>Choose and create match</span>
                                 </button>
                             </mat-action-row>
                         </mat-expansion-panel>
@@ -170,16 +170,16 @@
                                 </div>
                             </div>
                             <mat-action-row>
-                                <button mat-raised-button color="primary" type="button" [disabled]="basicMatchForm.invalid || matchSiteForm.invalid" (click)="createWithNewSite()" i18n>
+                                <button mat-raised-button color="primary" type="button" [disabled]="basicMatchForm.invalid || matchSiteForm.invalid" (click)="createWithNewSite()">
                                     <mat-icon aria-hidden="true">done</mat-icon>
-                                    Create match
+                                    <span i18n>Create match</span>
                                 </button>
                             </mat-action-row>
                         </mat-expansion-panel>
                     </mat-accordion>
                 </div>
                 <div>
-                    <button mat-raised-button color="accent" matStepperPrevious type="button" i18n>Back</button>
+                    <button mat-raised-button color="accent" matStepperPrevious type="button"><span i18n>Back</span></button>
                 </div>
             </form>
         </mat-step>

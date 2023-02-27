@@ -20,9 +20,9 @@
                 </mat-radio-group>
         
                 <mat-action-row>
-                    <button mat-raised-button color="primary" type="button" (click)="joinMatchWithExistingCar()" [disabled]="!carSelected" i18n>
+                    <button mat-raised-button color="primary" type="button" (click)="joinMatchWithExistingCar()" [disabled]="!carSelected">
                         <mat-icon aria-hidden="true">done</mat-icon>
-                        Join using this car
+                        <span i18n>Join using this car</span>
                     </button>
                 </mat-action-row>
             </mat-expansion-panel>
@@ -50,9 +50,9 @@
                     </div>
                 </div>
                 <mat-action-row>
-                    <button mat-raised-button color="primary" type="button" (click)="joinMatchWithNewCar()" i18n>
+                    <button mat-raised-button color="primary" type="button" (click)="joinMatchWithNewCar()">
                         <mat-icon aria-hidden="true">done</mat-icon>
-                        Join using this car
+                        <span i18n>Join using this car</span>
                     </button>
                 </mat-action-row>
             </mat-expansion-panel>
