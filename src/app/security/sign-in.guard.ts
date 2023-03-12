@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { AuthenticationService } from './authentication.service';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { map, Observable, take } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,19 +10,24 @@ export class SignInGuard implements CanActivate {
 
   constructor(
     private router: Router,
-    private authenticationService: AuthenticationService
+    private oidcSecurityService: OidcSecurityService
   ) {}
 
   canActivate(next: ActivatedRouteSnapshot,
               state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-    const currentUser = this.authenticationService.currentUser;
+    return this.oidcSecurityService.isAuthenticated$.pipe(
+      take(1),
+      map(({ isAuthenticated }) => {
+        // allow navigation if authenticated
+        if (isAuthenticated) {
+          return true;
+        }
 
-    if (!currentUser) {
-      this.router.navigate(['/sign-in'], { queryParams: { dest: state.url} });
-      return false;
-    }
-
-    return true;
+        // redirect if not authenticated
+        this.router.navigate(['/sign-in'], { queryParams: { dest: state.url} });
+        return false;
+      })
+    );
   }
 }

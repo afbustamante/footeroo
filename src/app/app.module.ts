@@ -23,8 +23,8 @@ import { CommonsModule } from './commons/commons.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SignInGuard } from './security/sign-in.guard';
 import { AuthenticationInterceptor } from './security/authentication-interceptor';
-import { ErrorsInterceptor } from './commons/errors-interceptor';
 import { SitesModule } from './sites/sites.module';
+import { AuthConfigModule } from './auth/auth-config.module';
 
 registerLocaleData(localeFr, 'fr-FR');
 registerLocaleData(localeEs, 'es-ES');
@@ -47,11 +47,11 @@ registerLocaleData(localeEs, 'es-ES');
     SecurityModule,
     PlayersModule,
     MatchesModule,
-    SitesModule
+    SitesModule,
+    AuthConfigModule
   ],
   providers: [
     SignInGuard,
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorsInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]

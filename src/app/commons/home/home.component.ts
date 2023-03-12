@@ -3,6 +3,8 @@ import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AuthenticationService } from 'src/app/security/authentication.service';
 import { Player } from 'src/app/players/player';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -12,9 +14,10 @@ import { Player } from 'src/app/players/player';
 export class HomeComponent implements OnInit {
 
   currentPlayer: Player;
+  userData$: Observable<any>;
 
   constructor(
-    private authenticationService: AuthenticationService,
+    private oidcSecurityService: OidcSecurityService,
     private iconRegistry: MatIconRegistry,
     private sanitizer: DomSanitizer
   ) {
@@ -24,7 +27,13 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.currentPlayer = this.authenticationService.currentUser;
+    this.userData$ = this.oidcSecurityService.userData$;
+
+    this.userData$.subscribe(
+      data => {
+        this.currentPlayer = { firstName: data['given_name'], surname: data['family_name'], email: data['email']};
+      }
+    );
   }
 
 }

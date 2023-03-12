@@ -9,16 +9,10 @@ import { MatchListComponent } from './matches/match-list/match-list.component';
 import { MatchJoinWithCarComponent } from './matches/match-join-with-car/match-join-with-car.component';
 import { MatchJoinWithoutCarComponent } from './matches/match-join-without-car/match-join-without-car.component';
 import { MatchCarpoolComponent } from './matches/match-carpool/match-carpool.component';
-import { PlayerRegistryComponent } from './players/player-registry/player-registry.component';
-import { PlayerProfileComponent } from './players/player-profile/player-profile.component';
-import { PasswordResetComponent } from './security/password-reset/password-reset.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'register', component: PlayerRegistryComponent },
   { path: 'sign-in', component: SignInComponent },
-  { path: 'password-reset', component: PasswordResetComponent },
-  { path: 'profile', component: PlayerProfileComponent, canActivate: [SignInGuard]  },
   { path: 'create', component: MatchRegistryComponent, canActivate: [SignInGuard] },
   { path: 'search', component: MatchSearchComponent, canActivate: [SignInGuard] },
   { path: 'list', component: MatchListComponent, canActivate: [SignInGuard] },

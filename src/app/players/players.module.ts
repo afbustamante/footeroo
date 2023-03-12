@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { PlayerRegistryComponent } from './player-registry/player-registry.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
@@ -11,10 +10,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
 import { ReactiveFormsModule } from '@angular/forms';
-import { PlayerProfileComponent } from './player-profile/player-profile.component';
 
 @NgModule({
-  declarations: [PlayerRegistryComponent, PlayerProfileComponent],
+  declarations: [],
   imports: [
     CommonModule,
     RouterModule,

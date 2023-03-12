@@ -9,7 +9,6 @@
             </button>
             <mat-menu #menu="matMenu">
                 <button mat-menu-item disabled i18n>Signed in as {{ currentUser.email }}</button>
-                <button mat-menu-item routerLink="/profile" routerLinkActive="active" i18n>My profile</button>
                 <button mat-menu-item i18n (click)="signout()">Sign out</button>
             </mat-menu>
         </div>
