@@ -5,7 +5,8 @@ import { OidcSecurityService } from 'angular-auth-oidc-client';
 
 @Component({
   selector: 'app-sign-in',
-  template: '<html></html>'
+  templateUrl: './sign-in.component.html',
+  styleUrls: ['./sign-in.component.css']
 })
 export class SignInComponent implements OnInit {
 
@@ -26,12 +27,15 @@ export class SignInComponent implements OnInit {
       this.isAuthenticated = isAuthenticated;
 
       console.warn('User authenticated: ', isAuthenticated);
+
+      if (isAuthenticated) {
+        this.destination = this.route.snapshot.queryParams.dest || '/';
+        this.router.navigate([this.destination]);
+      }
     });
+  }
 
-    this.destination = this.route.snapshot.queryParams.dest || '/';
-
+  onSubmit() {
     this.oidcSecurityService.authorize();
-
-    this.router.navigate([this.destination]);
   }
 }

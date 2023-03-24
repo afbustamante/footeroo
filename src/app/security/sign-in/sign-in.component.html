@@ -1,0 +1,16 @@
+<div>
+    <h2 i18n>Authentication needed</h2>
+
+    <p i18n>You need to start a new session in order to access this page.</p>
+  
+    <form novalidate (ngSubmit)="onSubmit()">
+      <mat-card class="signin-card">
+        <mat-card-actions>
+          <button mat-raised-button color="primary" type="submit" i18n>
+            <mat-icon aria-hidden="true">fingerprint</mat-icon>
+            Sign-in with Footero SSO
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </form>
+  </div>

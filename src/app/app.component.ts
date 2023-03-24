@@ -25,11 +25,8 @@ export class AppComponent implements OnInit {
     }
 
     this.oidcSecurityService.checkAuth().subscribe(({ isAuthenticated, userData, accessToken }) => {
-      console.log('App authenticated', isAuthenticated);
-
       if (isAuthenticated) {
         this.currentUser = this.authenticationService.currentUser;
-        console.log('Is current user null', this.currentUser == null);
       }
     });
   }
