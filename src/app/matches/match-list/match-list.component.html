@@ -17,21 +17,25 @@
     
                 <mat-menu #menu="matMenu" xPosition="before">
                   <button mat-menu-item (click)="showMatchDetail(match.code)" i18n>View</button>
-                  <button mat-menu-item (click)="showCarpoolingOptions(match.code)" *ngIf="match.carpoolingEnabled" i18n>Carpool</button>
+                  <button mat-menu-item (click)="showCarpoolingOptions(match.code)" *ngIf="match.carpooling_enabled" i18n>Carpool</button>
                   <button mat-menu-item (click)="showMatchJoinConfirmationDialog(match)" i18n>Change transportation options</button>
                   <button mat-menu-item (click)="showMatchAbandonConfirmationDialog(match)" i18n>Quit</button>
-                  <button mat-menu-item (click)="showMatchCancelConfirmationDialog(match)" *ngIf="match.creator.email === currentPlayer.email" i18n>Cancel</button>
+                  <button mat-menu-item (click)="showMatchCancelConfirmationDialog(match)" i18n>Cancel</button>
                 </mat-menu>
               </mat-card-title>
             </mat-card-header>
             <mat-card-content class="match-card-content">
               <div>
-                <p>{{ match.site.name }}<br/>{{ match.site.address }}</p>
-                <p>
-                  <span *ngIf="match.numPlayersMin !== null">{{ match.numPlayersMin }} <span i18n> players required</span><br/></span>
-                  <span *ngIf="match.numPlayersMax !== null">{{ match.numPlayersMax }} <span i18n> players (max)</span><br/></span>
-                  {{ match.numRegisteredPlayers }} <span i18n> players attending</span>
-                </p>
+                <div class="match-site">
+                  {{ match.site.name }}<br/>
+                  {{ match.site.address }}<br/>
+                  {{ match.site.post_code }} {{ match.site.city }} {{ match.site.country }}
+                </div>
+                <div class="match-players">
+                  <span *ngIf="match.num_players_min !== null">{{ match.num_players_min }} <span i18n> players required</span><br/></span>
+                  <span *ngIf="match.num_players_max !== null">{{ match.num_players_max }} <span i18n> players (max)</span><br/></span>
+                  {{ match.num_registered_players }} <span i18n> players attending</span>
+                </div>
               </div>
             </mat-card-content>
           </mat-card>
@@ -52,19 +56,23 @@
             </mat-card-header>
             <mat-card-content class="match-card-content">
               <div>
-                <p>{{ match.site.name }}<br/>{{ match.site.address }}</p>
-                <p>
-                  <span *ngIf="match.numPlayersMin !== null">{{ match.numPlayersMin }} <span i18n> players required</span><br/></span>
-                  <span *ngIf="match.numPlayersMax !== null">{{ match.numPlayersMax }} <span i18n> players (max)</span><br/></span>
-                  {{ match.numRegisteredPlayers }} <span i18n> players were registered</span>
-                </p>
+                <div class="match-site">
+                  {{ match.site.name }}<br/>
+                  {{ match.site.address }}<br/>
+                  {{ match.site.post_code }} {{ match.site.city }} {{ match.site.country }}
+                </div>
+                <div class="match-players">
+                  <span *ngIf="match.num_players_min !== null">{{ match.num_players_min }} <span i18n> players required</span><br/></span>
+                  <span *ngIf="match.num_players_max !== null">{{ match.num_players_max }} <span i18n> players (max)</span><br/></span>
+                  {{ match.num_registered_players }} <span i18n> players were registered</span>
+                </div>
               </div>
             </mat-card-content>
           </mat-card>
         </mat-grid-tile>
       </mat-grid-list>
     </mat-tab>
-    <mat-tab label="Played matches">
+    <mat-tab label="Past matches">
       <mat-grid-list cols="1" rowHeight="180px">
         <mat-grid-tile *ngFor="let match of playedMatches$ | async">
           <mat-card class="match-card">
@@ -84,8 +92,14 @@
             </mat-card-header>
             <mat-card-content class="match-card-content">
               <div>
-                <p>{{ match.site.name }}<br/>{{ match.site.address }}</p>
-                <p>{{ match.numRegisteredPlayers }} <span i18n> players attended</span></p>
+                <div class="match-site">
+                  {{ match.site.name }}<br/>
+                  {{ match.site.address }}<br/>
+                  {{ match.site.post_code }} {{ match.site.city }} {{ match.site.country }}
+                </div>
+                <div class="match-players">
+                  {{ match.num_registered_players }} <span i18n> players attended</span>
+                </div>
               </div>
             </mat-card-content>
           </mat-card>

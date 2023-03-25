@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable, EMPTY } from 'rxjs';
 import { Car } from './car';
 import { environment } from 'src/environments/environment';
 import { catchError } from 'rxjs/operators';
 import { MatchRegistration } from '../matches/match-registration';
+import { CarForm } from './car-form';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,10 @@ export class CarsService {
 
   findCarsByMatch(matchCode: string): Observable<Car[]> {
     return this.http.get<Car[]>(`${environment.coreApiUrl}/matches/${matchCode}/cars`);
+  }
+
+  createCar(car: CarForm): Observable<HttpResponse<any>> {
+    return this.http.post(`${environment.coreApiUrl}/cars`, car, { observe : 'response'});
   }
 
   private filterCarsFromRegistrations(registrations: MatchRegistration[]): Car[] {

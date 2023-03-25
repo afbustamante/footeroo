@@ -7,6 +7,8 @@ import { formatDate } from '@angular/common';
 import { MatchRegistration } from './match-registration';
 import { Player } from '../players/player';
 import { Car } from '../cars/car';
+import { MatchForm } from './match-form';
+import { MatchRegistrationForm } from './match-registration-form';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +19,7 @@ export class MatchesService {
     private http: HttpClient
   ) {}
 
-  createMatch(match: Match): Observable<HttpResponse<any>> {
+  createMatch(match: MatchForm): Observable<HttpResponse<any>> {
     return this.http.post(`${environment.coreApiUrl}/matches`, match, { observe : 'response'});
   }
 
@@ -27,32 +29,35 @@ export class MatchesService {
 
   findMatchesToPlay(): Observable<Match[]> {
     const today = formatDate(Date.now(), 'yyyy-MM-dd', 'en');
-    return this.http.get<Match[]>(`${environment.coreApiUrl}/matches?startDate=${today}`);
+    return this.http.get<Match[]>(`${environment.coreApiUrl}/matches?start_date=${today}`);
   }
 
   findPlayedMatches(): Observable<Match[]> {
     const oneDayMilliseconds = 86400000;
     const yesterday = formatDate(Date.now() - oneDayMilliseconds, 'yyyy-MM-dd', 'en');
-    return this.http.get<Match[]>(`${environment.coreApiUrl}/matches?endDate=${yesterday}`);
+    return this.http.get<Match[]>(`${environment.coreApiUrl}/matches?end_date=${yesterday}`);
   }
 
   findMatchRegistrations(code: string): Observable<MatchRegistration[]> {
     return this.http.get<MatchRegistration[]>(`${environment.coreApiUrl}/matches/${code}/registrations`);
   }
 
-  joinMatch(player: Player, match: Match, car?: Car): Observable<HttpResponse<any>> {
-    // Avoid sending security details on the request
-    player.token = null;
-
-    const registration: MatchRegistration = {
-      player,
-      car
-    };
+  joinMatch(match: Match, carId?: number): Observable<HttpResponse<any>> {
+    let registration: MatchRegistrationForm;
+    
+    if (carId) {
+      registration = {
+        'car_id': carId
+      };
+    } else {
+      registration = {};
+    } 
     return this.http.post(`${environment.coreApiUrl}/matches/${match.code}/registrations`, registration, { observe : 'response'});
   }
 
-  quitMatch(player: Player, match: Match): Observable<HttpResponse<any>> {
-    return this.http.delete(`${environment.coreApiUrl}/matches/${match.code}/registrations/${player.id}`, { observe : 'response' });
+  quitMatch(match: Match): Observable<HttpResponse<any>> {
+    const playerId = localStorage.getItem('player_id');
+    return this.http.delete(`${environment.coreApiUrl}/matches/${match.code}/registrations/${playerId}`, { observe : 'response' });
   }
 
   cancelMatch(match: Match): Observable<HttpResponse<any>> {
@@ -61,7 +66,8 @@ export class MatchesService {
 
   updateCarForPlayerRegistration(match: Match, player: Player, car: Car, confirmed: boolean): Observable<HttpResponse<any>> {
     return this.http.patch(`${environment.coreApiUrl}/matches/${match.code}/registrations/${player.id}`, {
-      car, confirmed
+      'car_id': car.id,
+      'confirmed': confirmed
     }, {observe: 'response'});
   }
 }

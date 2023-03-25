@@ -6,8 +6,9 @@ import { Match } from '../match';
 import { AuthenticationService } from 'src/app/security/authentication.service';
 import { MatchJoinConfirmationComponent } from '../match-join-confirmation/match-join-confirmation.component';
 import { MatchesService } from '../matches.service';
-import { User } from 'src/app/security/user';
 import { MatchRegistration } from '../match-registration';
+import { Player } from 'src/app/players/player';
+import { PlayersService } from 'src/app/players/players.service';
 
 @Component({
   selector: 'app-match-detail',
@@ -30,31 +31,46 @@ export class MatchDetailComponent implements OnInit {
   playerAlreadyRegistered: boolean;
   pastMatch: boolean;
   placesAvailable: boolean;
-  currentUser: User;
+  currentPlayer: Player;
 
   constructor(
     private router: Router,
     private dialog: MatDialog,
     private authenticationService: AuthenticationService,
     private matchesService: MatchesService,
+    private playersService: PlayersService,
     private messageSnackBar: MatSnackBar,
   ) {}
 
   ngOnInit(): void {
-    this.currentUser = this.authenticationService.currentUser;
-    this.matchesService.findMatchRegistrations(this.code).subscribe(
-      data => {
-        this.registrations = data;
-        this.registrations.forEach(reg => {
-          if (reg.player.email === this.currentUser.email) {
-            this.playerAlreadyRegistered = true;
+    const currentUser = this.authenticationService.currentUser;
+
+    this.playersService.loadPlayerByEmail(currentUser.email).subscribe({
+      next: (player) => {
+        this.currentPlayer = player;
+
+        this.matchesService.findMatchRegistrations(this.code).subscribe(
+          data => {
+    
+            this.registrations = data;
+
+            if (this.currentPlayer) {
+              this.registrations.forEach(reg => {
+                if (reg.player.email === this.currentPlayer.email) {
+                  this.playerAlreadyRegistered = true;
+                }
+              });
+            } else {
+              this.playerAlreadyRegistered = false;
+            }
           }
-        });
+        );
       }
-    );
+    });
+
     this.pastMatch = (this.match) && (new Date(this.match.date) < new Date());
     this.placesAvailable = (this.match) && (
-      (this.match.numPlayersMax && this.match.numPlayersMax > this.match.numRegisteredPlayers) || (this.match.numPlayersMax == null)
+      (this.match.num_players_max && this.match.num_players_max > this.match.num_registered_players) || (this.match.num_players_max == null)
     );
   }
 
@@ -64,14 +80,14 @@ export class MatchDetailComponent implements OnInit {
       data: {
         matchCode: this.match.code,
         matchDate: this.match.date,
-        carpoolingEnabled: this.match.carpoolingEnabled
+        carpoolingEnabled: this.match.carpooling_enabled
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         if (result === 'JOIN_ONLY') {
-          this.matchesService.joinMatch(this.currentUser, this.match).subscribe({
+          this.matchesService.joinMatch(this.match).subscribe({
             next: (response) => {
               this.publishMatchJoinSuccess();
               this.router.navigate(['/list']);

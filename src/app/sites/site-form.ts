@@ -1,5 +1,4 @@
-export interface Site {
-    id?: number;
+export interface SiteForm {
     name: string;
     address: string;
     phone_number?: string;

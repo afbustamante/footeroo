@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
-import { AuthenticationService } from 'src/app/security/authentication.service';
-import { Player } from 'src/app/players/player';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { Observable } from 'rxjs';
+import { User } from 'src/app/security/user';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +12,7 @@ import { Observable } from 'rxjs';
 })
 export class HomeComponent implements OnInit {
 
-  currentPlayer: Player;
+  currentPlayer: User;
   userData$: Observable<any>;
 
   constructor(
@@ -31,7 +30,7 @@ export class HomeComponent implements OnInit {
 
     this.userData$.subscribe(
       data => {
-        this.currentPlayer = { firstName: data['given_name'], surname: data['family_name'], email: data['email']};
+        this.currentPlayer = { first_name: data['given_name'], surname: data['family_name'], email: data['email']};
       }
     );
   }

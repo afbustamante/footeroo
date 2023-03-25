@@ -2,16 +2,16 @@ import { Site } from '../sites/site';
 import { Player } from '../players/player';
 
 export interface Match {
-    id?: number;
-    code?: string;
+    id: number;
+    code: string;
     date: Date;
-    status?: string;
+    status: string;
     sport: string;
-    numPlayersMin: number;
-    numPlayersMax: number;
-    numRegisteredPlayers?: number;
+    num_players_min?: number;
+    num_players_max?: number;
+    num_registered_players?: number;
     site: Site;
     creator?: Player;
-    carpoolingEnabled: boolean;
-    codeSharingEnabled: boolean;
+    carpooling_enabled: boolean;
+    code_sharing_enabled: boolean;
 }

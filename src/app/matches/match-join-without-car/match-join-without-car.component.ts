@@ -7,8 +7,6 @@ import { Match } from '../match';
 import { MatchesService } from '../matches.service';
 import { Car } from 'src/app/cars/car';
 import { CarsService } from 'src/app/cars/cars.service';
-import { Player } from 'src/app/players/player';
-import { AuthenticationService } from 'src/app/security/authentication.service';
 
 @Component({
   selector: 'app-match-join-without-car',
@@ -17,14 +15,12 @@ import { AuthenticationService } from 'src/app/security/authentication.service';
 })
 export class MatchJoinWithoutCarComponent implements OnInit {
 
-  currentPlayer: Player;
   match: Match;
   cars$: Observable<Car[]>;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthenticationService,
     private matchesService: MatchesService,
     private carsService: CarsService,
     private messageSnackBar: MatSnackBar
@@ -43,11 +39,10 @@ export class MatchJoinWithoutCarComponent implements OnInit {
       }
     });
     this.cars$ = this.carsService.findCarsByMatch(matchCode);
-    this.currentPlayer = this.authenticationService.currentUser;
   }
 
-  joinMatchUsingCar(car: Car) {
-    this.matchesService.joinMatch(this.currentPlayer, this.match, car).subscribe({
+  joinMatchUsingCar(carId: number) {
+    this.matchesService.joinMatch(this.match, carId).subscribe({
       next: (response) => {
         this.publishMatchJoinSuccess();
         this.router.navigate(['/list']);

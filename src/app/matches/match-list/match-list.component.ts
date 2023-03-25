@@ -4,13 +4,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { Match } from '../match';
-import { Player } from 'src/app/players/player';
 import { MatchesService } from '../matches.service';
 import { MatchViewDialogComponent } from '../match-view-dialog/match-view-dialog.component';
-import { AuthenticationService } from 'src/app/security/authentication.service';
 import { MatchJoinConfirmationComponent } from '../match-join-confirmation/match-join-confirmation.component';
 import { MatchAbandonConfirmationComponent } from '../match-abandon-confirmation/match-abandon-confirmation.component';
-import { PlayersService } from 'src/app/players/players.service';
 import { MatchCancelConfirmationComponent } from '../match-cancel-confirmation/match-cancel-confirmation.component';
 
 @Component({
@@ -22,13 +19,10 @@ export class MatchListComponent implements OnInit {
 
   matchesToPlay$: Observable<Match[]>;
   playedMatches$: Observable<Match[]>;
-  currentPlayer: Player;
 
   constructor(
     private router: Router,
-    private authenticationService: AuthenticationService,
     private matchesService: MatchesService,
-    private playersService: PlayersService,
     private messageSnackBar: MatSnackBar,
     private dialog: MatDialog
   ) {}
@@ -36,15 +30,6 @@ export class MatchListComponent implements OnInit {
   ngOnInit(): void {
     this.matchesToPlay$ = this.matchesService.findMatchesToPlay();
     this.playedMatches$ = this.matchesService.findPlayedMatches();
-    const currentUser = this.authenticationService.currentUser;
-
-    if (currentUser) {
-      this.playersService.loadPlayerByEmail(currentUser.email).subscribe(
-        data => {
-          this.currentPlayer = data;
-        }
-      );
-    }
   }
 
   showMatchDetail(matchCode: string): void {
@@ -65,14 +50,14 @@ export class MatchListComponent implements OnInit {
       data: {
         matchCode: match.code,
         matchDate: match.date,
-        carpoolingEnabled: match.carpoolingEnabled
+        carpoolingEnabled: match.carpooling_enabled
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         if (result === 'JOIN_ONLY') {
-          this.matchesService.joinMatch(this.currentPlayer, match).subscribe({
+          this.matchesService.joinMatch(match).subscribe({
             next: (response) => {
               this.publishMatchTransportationUpdateSuccess();
             },
@@ -104,7 +89,7 @@ export class MatchListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.matchesService.quitMatch(this.currentPlayer, match).subscribe({
+        this.matchesService.quitMatch(match).subscribe({
           next: (response) => {
             this.publishMatchAbandonSuccess();
             this.matchesToPlay$ = this.matchesService.findMatchesToPlay();

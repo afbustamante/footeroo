@@ -20,7 +20,7 @@
                     <mat-card-content class="detail-card-content">
                         <mat-selection-list formControlName="requestingPlayersSelection">
                             <mat-list-option *ngFor="let player of requestingPlayers" [value]="player">
-                            {{ player.firstName }}
+                            {{ player.first_name }}
                             </mat-list-option>
                         </mat-selection-list>
                     </mat-card-content>
@@ -42,7 +42,7 @@
                     <mat-card-content class="detail-card-content">
                         <mat-selection-list formControlName="confirmedPlayersSelection" *ngIf="confirmedPlayers.length > 0">
                             <mat-list-option *ngFor="let player of confirmedPlayers" [value]="player">
-                            {{ player.firstName }}
+                            {{ player.first_name }}
                             </mat-list-option>
                         </mat-selection-list>
 

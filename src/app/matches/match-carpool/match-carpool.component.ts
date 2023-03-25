@@ -9,6 +9,8 @@ import { MatchRegistration } from '../match-registration';
 import { AuthenticationService } from 'src/app/security/authentication.service';
 import { Car } from 'src/app/cars/car';
 import { CarsService } from 'src/app/cars/cars.service';
+import { User } from 'src/app/security/user';
+import { PlayersService } from 'src/app/players/players.service';
 
 @Component({
   selector: 'app-match-carpool',
@@ -39,11 +41,20 @@ export class MatchCarpoolComponent implements OnInit {
     private messageSnackBar: MatSnackBar,
     private authenticationService: AuthenticationService,
     private matchesService: MatchesService,
+    private playersService: PlayersService,
     private carsService: CarsService
   ) { }
 
   ngOnInit(): void {
-    this.currentPlayer = this.authenticationService.currentUser;
+    const currentUser = this.authenticationService.currentUser;
+    this.playersService.loadPlayerByEmail(currentUser.email).subscribe({
+      next: (player) => {
+        this.currentPlayer = player;
+      },
+      error: (error) => {
+        console.error('Unable to get the active player', error.error);
+      }
+    });
 
     const matchCode = this.route.snapshot.paramMap.get('code');
     this.loadMatch(matchCode);
@@ -79,7 +90,7 @@ export class MatchCarpoolComponent implements OnInit {
     if (registrations) {
       // Find current player's registered car
       registrations.forEach(reg => {
-        if (reg.player.email === this.currentPlayer.email) {
+        if (reg.player.id === this.currentPlayer.id) {
           this.currentCar = reg.car;
         }
       });
@@ -89,7 +100,7 @@ export class MatchCarpoolComponent implements OnInit {
           next: (data) => {
             // Use the full detail of the car including driver's information
             this.currentCar = data;
-            this.isDriver = (data.driver && data.driver.email === this.currentPlayer.email);
+            this.isDriver = (data.driver && data.driver.id === this.currentPlayer.id);
           },
           error: (error) => {
             if (error.status === 403) {
@@ -127,8 +138,8 @@ export class MatchCarpoolComponent implements OnInit {
   private sendRegistrationToCarpoolList(reg: MatchRegistration) {
     this.playersAvailableForCarpool = true;
 
-    if (reg.carConfirmed) {
-      if (reg.player.email !== this.currentPlayer.email) {
+    if (reg.car_confirmed) {
+      if (reg.player.id !== this.currentPlayer.id) {
         this.confirmedPlayers.push(reg.player);
         this.formerlyConfirmedPlayers.push(reg.player);
       }
@@ -152,7 +163,7 @@ export class MatchCarpoolComponent implements OnInit {
 
     selectedPlayers.forEach(player => {
       this.confirmedPlayers.push(player);
-      this.requestingPlayers = this.requestingPlayers.filter(p => p.email !== player.email);
+      this.requestingPlayers = this.requestingPlayers.filter(p => p.id !== player.id);
     });
   }
 
@@ -163,7 +174,7 @@ export class MatchCarpoolComponent implements OnInit {
 
     selectedPlayers.forEach(player => {
       this.requestingPlayers.push(player);
-      this.confirmedPlayers = this.confirmedPlayers.filter(p => p.email !== player.email);
+      this.confirmedPlayers = this.confirmedPlayers.filter(p => p.id !== player.id);
     });
   }
 
@@ -220,10 +231,10 @@ export class MatchCarpoolComponent implements OnInit {
 
     players.forEach(p => {
       if (firstOne) {
-        message += p.firstName;
+        message += p.first_name;
         firstOne = false;
       } else {
-        message += ', ' + p.firstName;
+        message += ', ' + p.first_name;
       }
     });
 

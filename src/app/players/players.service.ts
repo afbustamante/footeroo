@@ -18,10 +18,6 @@ export class PlayersService {
     return this.http.get<Player[]>(`${environment.coreApiUrl}/players`, options).pipe(map((players) => players[0]));
   }
 
-  registerPlayer(player: Player): Observable<HttpResponse<any>> {
-    return this.http.post(`${environment.coreApiUrl}/players`, player, { observe : 'response'});
-  }
-
   updatePlayerDetails(player: Player): Observable<HttpResponse<any>> {
     return this.http.put(`${environment.coreApiUrl}/players/${player.id}`, player, { observe : 'response'});
   }

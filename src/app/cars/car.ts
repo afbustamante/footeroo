@@ -1,9 +1,9 @@
 import { Player } from '../players/player';
 
 export interface Car {
-    id?: number;
+    id: number;
     name: string;
-    numSeats: number;
-    numPassengers?: number;
+    num_seats: number;
+    num_passengers?: number;
     driver?: Player;
 }

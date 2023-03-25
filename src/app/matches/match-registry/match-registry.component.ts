@@ -7,7 +7,8 @@ import { Observable } from 'rxjs';
 import { SitesService } from 'src/app/sites/sites.service';
 import { Site } from 'src/app/sites/site';
 import { MatchesService } from 'src/app/matches/matches.service';
-import { Match } from '../match';
+import { MatchForm } from '../match-form';
+import { SiteForm } from 'src/app/sites/site-form';
 import { Sport } from 'src/app/sports/sport';
 import { SportsService } from 'src/app/sports/sports.service';
 
@@ -35,7 +36,10 @@ export class MatchRegistryComponent implements OnInit {
     site: [null],
     name: [null, Validators.required],
     address: [null, Validators.required],
-    phoneNumber: [null]
+    phoneNumber: [null],
+    postCode: [null],
+    city: [null],
+    country: [null],
   });
   siteSelected = false;
   newSitePanelSelected = false;
@@ -71,30 +75,50 @@ export class MatchRegistryComponent implements OnInit {
 
   createWithSelectedSite() {
     const site = this.matchSiteForm.value.site;
-    this.createMatch(site);
+    this.createMatch(site.id);
   }
 
   createWithNewSite() {
-    const site: Site = {
+    const site: SiteForm = {
       name: this.matchSiteForm.value.name,
       address: this.matchSiteForm.value.address,
-      phoneNumber: this.matchSiteForm.value.phoneNumber
+      phone_number: this.matchSiteForm.value.phoneNumber,
+      post_code: this.matchSiteForm.value.postCode,
+      city: this.matchSiteForm.value.city,
+      country: this.matchSiteForm.value.country,
     };
 
-    this.createMatch(site);
+    this.sitesService.createSite(site).subscribe(
+      {
+        next: (response) => {
+          const location = response.headers.get('Location');
+          const locationParts = location.split('/');
+          const siteId = locationParts[locationParts.length - 1];
+
+          this.createMatch(new Number(siteId).valueOf());
+        },
+        error: (error) => {
+          this.messageSnackBar.open(error.error.message, 'OK', {
+            duration: 5000,
+            verticalPosition: 'top',
+            horizontalPosition: 'right'
+          });
+        }
+      }
+    );
   }
 
-  createMatch(site: Site) {
+  createMatch(siteId: number) {
     const matchForm = this.basicMatchForm.value;
 
-    const match: Match = {
+    const match: MatchForm = {
       date: new Date(matchForm.date + 'T' + matchForm.time + ':00'),
-      numPlayersMin: matchForm.numPlayersMin,
-      numPlayersMax: matchForm.numPlayersMax,
-      carpoolingEnabled: matchForm.carpoolingEnabled,
-      codeSharingEnabled: matchForm.codeSharingEnabled,
+      num_players_min: matchForm.numPlayersMin,
+      num_players_max: matchForm.numPlayersMax,
+      carpooling_enabled: matchForm.carpoolingEnabled,
+      code_sharing_enabled: matchForm.codeSharingEnabled,
       sport: matchForm.sport,
-      site
+      site_id: siteId,
     };
 
     this.matchesService.createMatch(match).subscribe({
@@ -107,7 +131,7 @@ export class MatchRegistryComponent implements OnInit {
         if (error.status === 400) {
           this.publishMatchRegistryFailure(error.error.message);
         }
-      }  
+      }
     });
   }
 

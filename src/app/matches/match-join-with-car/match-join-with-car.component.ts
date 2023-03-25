@@ -6,9 +6,8 @@ import { Observable } from 'rxjs';
 import { MatchesService } from 'src/app/matches/matches.service';
 import { Car } from 'src/app/cars/car';
 import { CarsService } from 'src/app/cars/cars.service';
-import { Player } from 'src/app/players/player';
-import { AuthenticationService } from 'src/app/security/authentication.service';
 import { Match } from '../match';
+import { CarForm } from 'src/app/cars/car-form';
 
 @Component({
   selector: 'app-match-join-with-car',
@@ -26,7 +25,6 @@ export class MatchJoinWithCarComponent implements OnInit {
     car: [null]
   });
 
-  currentPlayer: Player;
   cars$: Observable<Car[]>;
   carSelected: boolean;
 
@@ -34,7 +32,6 @@ export class MatchJoinWithCarComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private messageSnackBar: MatSnackBar,
-    private authenticationService: AuthenticationService,
     private carsService: CarsService,
     private matchesService: MatchesService,
     private router: Router
@@ -54,7 +51,6 @@ export class MatchJoinWithCarComponent implements OnInit {
       }
     });
     this.cars$ = this.carsService.findCars();
-    this.currentPlayer = this.authenticationService.currentUser;
     this.carSelected = false;
   }
 
@@ -64,20 +60,35 @@ export class MatchJoinWithCarComponent implements OnInit {
 
   joinMatchWithExistingCar(): void {
     const car = this.registryForm.value.car;
-    this.joinMatch(car);
+    this.joinMatch(car.id);
   }
 
   joinMatchWithNewCar(): void {
-    const car: Car = {
+    const car: CarForm = {
       name: this.registryForm.value.carName,
-      numSeats: this.registryForm.value.carSeats
+      num_seats: this.registryForm.value.carSeats
     };
 
-    this.joinMatch(car);
+    this.carsService.createCar(car).subscribe({
+      next: (response) => {
+        const location = response.headers.get('Location');
+        const locationParts = location.split('/');
+        const carId = locationParts[locationParts.length - 1];
+
+        this.joinMatch(new Number(carId).valueOf());
+      },
+      error: (error) => {
+        this.messageSnackBar.open(error.error.message, 'OK', {
+          duration: 500,
+          verticalPosition: 'top',
+          horizontalPosition: 'right'
+        });
+      }
+    });
   }
 
-  joinMatch(car: Car): void {
-    this.matchesService.joinMatch(this.currentPlayer, this.match, car).subscribe({
+  joinMatch(carId: number): void {
+    this.matchesService.joinMatch(this.match, carId).subscribe({
       next: (response) => {
         this.publishMatchJoinSuccess();
         this.router.navigate(['/list']);

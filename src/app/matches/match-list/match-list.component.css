@@ -23,6 +23,17 @@
   text-align: left;
 }
 
+.match-players {
+  width: 50%;
+  float: right;
+  text-align: right;
+}
+
+.match-site {
+  width: 50%;
+  float: left;
+}
+
 .sports_icon {
   background-size: cover;
 }

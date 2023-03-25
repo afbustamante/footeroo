@@ -19,7 +19,7 @@ export class AuthenticationService {
     this.userData$.subscribe(data => {
       if (data.userData != null) {
         this.currentUserSubject = new BehaviorSubject<User>({
-          firstName: data.userData['given_name'],
+          first_name: data.userData['given_name'],
           surname: data.userData['family_name'],
           email: data.userData['email']
         });
