@@ -20,6 +20,7 @@ export class CarsService {
     return this.http.get<Car[]>(`${environment.coreApiUrl}/cars`).pipe(
       catchError(err => {
         console.log(`Could not get cars list for active player. Got ${err.status} error code.`);
+        console.error(err);
         return EMPTY;
       })
     );
@@ -35,6 +36,10 @@ export class CarsService {
 
   createCar(car: CarForm): Observable<HttpResponse<any>> {
     return this.http.post(`${environment.coreApiUrl}/cars`, car, { observe : 'response'});
+  }
+
+  removeCar(id: number): Observable<HttpResponse<any>> {
+    return this.http.delete(`${environment.coreApiUrl}/cars/${id}`, { observe : 'response'});
   }
 
   private filterCarsFromRegistrations(registrations: MatchRegistration[]): Car[] {

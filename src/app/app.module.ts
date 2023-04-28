@@ -24,6 +24,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SignInGuard } from './security/sign-in.guard';
 import { AuthenticationInterceptor } from './security/authentication-interceptor';
 import { SitesModule } from './sites/sites.module';
+import { CarsModule } from './cars/cars.module';
 import { AuthConfigModule } from './auth/auth-config.module';
 
 registerLocaleData(localeFr, 'fr-FR');
@@ -48,6 +49,7 @@ registerLocaleData(localeEs, 'es-ES');
     PlayersModule,
     MatchesModule,
     SitesModule,
+    CarsModule,
     AuthConfigModule
   ],
   providers: [

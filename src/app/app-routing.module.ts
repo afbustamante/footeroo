@@ -9,6 +9,7 @@ import { MatchListComponent } from './matches/match-list/match-list.component';
 import { MatchJoinWithCarComponent } from './matches/match-join-with-car/match-join-with-car.component';
 import { MatchJoinWithoutCarComponent } from './matches/match-join-without-car/match-join-without-car.component';
 import { MatchCarpoolComponent } from './matches/match-carpool/match-carpool.component';
+import { CarManagementComponent } from './cars/car-management/car-management.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -16,11 +17,14 @@ const routes: Routes = [
   { path: 'create', component: MatchRegistryComponent, canActivate: [SignInGuard] },
   { path: 'search', component: MatchSearchComponent, canActivate: [SignInGuard] },
   { path: 'list', component: MatchListComponent, canActivate: [SignInGuard] },
+  { path: 'cars', component: CarManagementComponent, canActivate: [SignInGuard] },
   { path: 'match/:code/join-with-car', component: MatchJoinWithCarComponent, canActivate: [SignInGuard] },
   { path: 'match/:code/join-without-car', component: MatchJoinWithoutCarComponent, canActivate: [SignInGuard] },
   { path: 'match/:code/carpooling', component: MatchCarpoolComponent, canActivate: [SignInGuard] },
   { path: '**', redirectTo: '' }
 ];
+
+export const routing = RouterModule.forRoot(routes, { onSameUrlNavigation: "reload" });
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],

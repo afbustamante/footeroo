@@ -56,7 +56,7 @@ export class MatchDetailComponent implements OnInit {
 
             if (this.currentPlayer) {
               this.registrations.forEach(reg => {
-                if (reg.player.email === this.currentPlayer.email) {
+                if (reg.player.id === this.currentPlayer.id) {
                   this.playerAlreadyRegistered = true;
                 }
               });

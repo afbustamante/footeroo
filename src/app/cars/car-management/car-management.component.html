@@ -1,0 +1,43 @@
+<div>
+    <h2 i18n>Manage my cars</h2>
+
+    <p i18n>In this page you find the list of cars that you have registered when joining a match.</p>
+
+    <mat-card class="main-card">
+        <mat-card-content>
+            <table class="result-table" mat-table [dataSource]="myCars">
+                <!-- Car's name -->
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header><span i18n>Name</span></th>
+                    <td mat-cell *matCellDef="let car">{{ car.name }}</td>
+                </ng-container>
+                
+                <!-- Car's number of seats -->
+                <ng-container matColumnDef="numSeats">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header><span i18n>Number of seats</span></th>
+                    <td mat-cell *matCellDef="let car">{{ car.num_seats }}</td>
+                </ng-container>
+
+                <!-- Actions -->
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="actions-column"><span i18n>Actions</span></th>
+                    <td mat-cell *matCellDef="let car">
+                        <button mat-icon-button aria-label="Update" title="Update" disabled>
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-icon-button aria-label="Delete" title="Delete" (click)="openDeleteCarConfirmationDialog(car.id, car.name)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>              
+        </mat-card-content>
+    </mat-card>
+
+    <div>
+        <a mat-button routerLink="/" routerLinkActive="active" i18n>Back to the home page</a>
+    </div>
+</div>

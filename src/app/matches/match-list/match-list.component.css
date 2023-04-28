@@ -10,7 +10,7 @@
   background-color: #f5f5f5;
   background-image: url('/assets/img/others/cancelled.png');
   background-repeat: no-repeat;
-  background-position: right;
+  background-position: center;
 }
 
 .more-button {
@@ -24,13 +24,13 @@
 }
 
 .match-players {
-  width: 50%;
+  width: 40%;
   float: right;
   text-align: right;
 }
 
 .match-site {
-  width: 50%;
+  width: 40%;
   float: left;
 }
 
