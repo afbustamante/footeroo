@@ -75,7 +75,7 @@ export class MatchJoinWithCarComponent implements OnInit {
         const locationParts = location.split('/');
         const carId = locationParts[locationParts.length - 1];
 
-        this.joinMatch(new Number(carId).valueOf());
+        this.joinMatch(Number.parseInt(carId).valueOf());
       },
       error: (error) => {
         this.messageSnackBar.open(error.error.message, 'OK', {

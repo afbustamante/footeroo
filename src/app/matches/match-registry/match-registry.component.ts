@@ -95,7 +95,7 @@ export class MatchRegistryComponent implements OnInit {
           const locationParts = location.split('/');
           const siteId = locationParts[locationParts.length - 1];
 
-          this.createMatch(new Number(siteId).valueOf());
+          this.createMatch(Number.parseInt(siteId).valueOf());
         },
         error: (error) => {
           this.messageSnackBar.open(error.error.message, 'OK', {

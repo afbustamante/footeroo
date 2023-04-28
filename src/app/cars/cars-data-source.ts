@@ -21,6 +21,7 @@ export class CarsDataSource extends DataSource<Car> {
     }
 
     disconnect(): void {
+        this._dataStream.unsubscribe();
     }
 
     setData(data: Car[]) {

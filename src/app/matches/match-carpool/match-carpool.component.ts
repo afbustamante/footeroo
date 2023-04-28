@@ -9,7 +9,6 @@ import { MatchRegistration } from '../match-registration';
 import { AuthenticationService } from 'src/app/security/authentication.service';
 import { Car } from 'src/app/cars/car';
 import { CarsService } from 'src/app/cars/cars.service';
-import { User } from 'src/app/security/user';
 import { PlayersService } from 'src/app/players/players.service';
 
 @Component({
