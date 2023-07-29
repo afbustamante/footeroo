@@ -9,9 +9,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
-  declarations: [HomeComponent],
+  declarations: [HomeComponent, PageNotFoundComponent],
   imports: [
     CommonModule,
     RouterModule,

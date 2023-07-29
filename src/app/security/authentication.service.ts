@@ -27,7 +27,7 @@ export class AuthenticationService {
         this.currentUserSubject = new BehaviorSubject<User>(null);
       }
     })
-    
+
     if (this.currentUserSubject !== null) {
       return this.currentUserSubject.value;
     } else {

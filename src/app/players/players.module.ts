@@ -10,9 +10,12 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PlayerProfileComponent } from './player-profile/player-profile.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    PlayerProfileComponent
+  ],
   imports: [
     CommonModule,
     RouterModule,
