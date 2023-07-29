@@ -19,6 +19,10 @@ export class PlayersService {
   }
 
   updatePlayerDetails(player: Player): Observable<HttpResponse<any>> {
-    return this.http.put(`${environment.coreApiUrl}/players/${player.id}`, player, { observe : 'response'});
+    return this.http.put(`${environment.coreApiUrl}/players/${player.id}`, {
+      first_name : player.first_name,
+      surname : player.surname,
+      phone_number : player.phone_number
+    }, { observe : 'response'});
   }
 }
