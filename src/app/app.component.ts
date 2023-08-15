@@ -3,6 +3,7 @@ import { User } from './security/user';
 import { AuthenticationService } from './security/authentication.service';
 import { Router } from '@angular/router';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +13,7 @@ import { OidcSecurityService } from 'angular-auth-oidc-client';
 export class AppComponent implements OnInit {
 
   currentUser: User;
+  version: string;
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -29,6 +31,8 @@ export class AppComponent implements OnInit {
         this.currentUser = this.authenticationService.currentUser;
       }
     });
+
+    this.version = environment.appVersion;
   }
 
   setCurrentUser(user: User) {

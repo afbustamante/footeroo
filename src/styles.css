@@ -6,6 +6,14 @@
     }
 }
 
+@media (min-width: 1280px) {
+    body {
+        margin-left: auto;
+        margin-right: auto;
+        width: 1200px;
+    }
+}
+
 html, body { height: 100%; }
 
 body {
