@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -29,7 +29,7 @@ export class MatchJoinWithCarComponent implements OnInit {
   carSelected: boolean;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private route: ActivatedRoute,
     private messageSnackBar: MatSnackBar,
     private carsService: CarsService,

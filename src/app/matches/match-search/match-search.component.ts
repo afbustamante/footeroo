@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { MatchesService } from '../matches.service';
 import { Match } from '../match';
 
@@ -17,7 +17,7 @@ export class MatchSearchComponent implements OnInit {
   match: Match;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private matchesService: MatchesService
   ) {}
 

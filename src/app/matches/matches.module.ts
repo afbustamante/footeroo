@@ -33,43 +33,41 @@ import { MatchAbandonConfirmationComponent } from './match-abandon-confirmation/
 import { MatchCancelConfirmationComponent } from './match-cancel-confirmation/match-cancel-confirmation.component';
 
 @NgModule({
-  declarations: [
-    MatchRegistryComponent,
-    MatchSearchComponent,
-    MatchListComponent,
-    MatchDetailComponent,
-    MatchJoinConfirmationComponent,
-    MatchJoinWithCarComponent,
-    MatchJoinWithoutCarComponent,
-    MatchViewDialogComponent,
-    MatchCarpoolComponent,
-    MatchAbandonConfirmationComponent,
-    MatchCancelConfirmationComponent
-  ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    RouterModule,
-    LayoutModule,
-    MatButtonModule,
-    MatIconModule,
-    MatCardModule,
-    MatInputModule,
-    MatSelectModule,
-    MatTabsModule,
-    MatListModule,
-    MatNativeDateModule,
-    MatGridListModule,
-    MatMenuModule,
-    MatSlideToggleModule,
-    MatDialogModule,
-    MatSnackBarModule,
-    MatRadioModule,
-    MatExpansionModule,
-    MatStepperModule,
-    ReactiveFormsModule
-  ],
-  entryComponents: [
-  ]
+    declarations: [
+        MatchRegistryComponent,
+        MatchSearchComponent,
+        MatchListComponent,
+        MatchDetailComponent,
+        MatchJoinConfirmationComponent,
+        MatchJoinWithCarComponent,
+        MatchJoinWithoutCarComponent,
+        MatchViewDialogComponent,
+        MatchCarpoolComponent,
+        MatchAbandonConfirmationComponent,
+        MatchCancelConfirmationComponent
+    ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        RouterModule,
+        LayoutModule,
+        MatButtonModule,
+        MatIconModule,
+        MatCardModule,
+        MatInputModule,
+        MatSelectModule,
+        MatTabsModule,
+        MatListModule,
+        MatNativeDateModule,
+        MatGridListModule,
+        MatMenuModule,
+        MatSlideToggleModule,
+        MatDialogModule,
+        MatSnackBarModule,
+        MatRadioModule,
+        MatExpansionModule,
+        MatStepperModule,
+        ReactiveFormsModule
+    ]
 })
 export class MatchesModule { }

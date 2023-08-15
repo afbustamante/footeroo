@@ -1,5 +1,5 @@
 import { Component, OnInit, Output } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
@@ -49,7 +49,7 @@ export class MatchRegistryComponent implements OnInit {
   sports$: Observable<Sport[]>;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private messageSnackBar: MatSnackBar,
     private sitesService: SitesService,
     private matchesService: MatchesService,

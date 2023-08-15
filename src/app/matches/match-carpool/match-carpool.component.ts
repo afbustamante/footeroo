@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Match } from '../match';
@@ -34,7 +34,7 @@ export class MatchCarpoolComponent implements OnInit {
   });
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private messageSnackBar: MatSnackBar,

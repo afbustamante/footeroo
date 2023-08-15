@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthenticationService } from 'src/app/security/authentication.service';
@@ -33,7 +33,7 @@ export class PlayerProfileComponent implements OnInit {
   });
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private authenticationService: AuthenticationService,
     private playersService: PlayersService,
     private messageSnackBar: MatSnackBar,
