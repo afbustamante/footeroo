@@ -47,7 +47,7 @@ export class MatchJoinWithCarComponent implements OnInit {
           verticalPosition: 'top',
           horizontalPosition: 'right'
         });
-        this.router.navigate(['/search']);
+        this.router.navigate(['/join']);
       }
     });
     this.cars$ = this.carsService.findCars();

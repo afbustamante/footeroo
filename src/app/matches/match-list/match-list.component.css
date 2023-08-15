@@ -6,6 +6,10 @@
   bottom: 15px;
 }
 
+.no-match-message {
+  margin: 15px;
+}
+
 .cancelled-match {
   background-color: #f5f5f5;
   background-image: url('/assets/img/others/cancelled.png');

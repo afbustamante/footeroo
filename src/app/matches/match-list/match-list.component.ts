@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable } from 'rxjs';
+import { Observable, shareReplay } from 'rxjs';
 import { Match } from '../match';
 import { MatchesService } from '../matches.service';
 import { MatchViewDialogComponent } from '../match-view-dialog/match-view-dialog.component';
@@ -28,8 +28,8 @@ export class MatchListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.matchesToPlay$ = this.matchesService.findMatchesToPlay();
-    this.playedMatches$ = this.matchesService.findPlayedMatches();
+    this.matchesToPlay$ = this.matchesService.findMatchesToPlay().pipe(shareReplay());
+    this.playedMatches$ = this.matchesService.findPlayedMatches().pipe(shareReplay());
   }
 
   showMatchDetail(matchCode: string): void {

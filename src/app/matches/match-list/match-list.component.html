@@ -3,108 +3,122 @@
 
   <mat-tab-group>
     <mat-tab label="Coming matches">
-      <mat-grid-list cols="1" rowHeight="210px">
-        <mat-grid-tile *ngFor="let match of matchesToPlay$ | async">
-          <mat-card *ngIf="match.status !== 'cancelled'" class="match-card">
-            <mat-card-header>
-              <div mat-card-avatar [ngClass]="['sports_icon', 'sports_icon_' + match.sport]"></div>
-              <mat-card-title>
-                {{ match.date | date:'longDate' }} <span i18n>at</span> {{ match.date | date:'shortTime' }}
-    
-                <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Options">
-                  <mat-icon>more_vert</mat-icon>
-                </button>
-    
-                <mat-menu #menu="matMenu" xPosition="before">
-                  <button mat-menu-item (click)="showMatchDetail(match.code)" i18n>View</button>
-                  <button mat-menu-item (click)="showCarpoolingOptions(match.code)" *ngIf="match.carpooling_enabled" i18n>Carpool</button>
-                  <button mat-menu-item (click)="showMatchJoinConfirmationDialog(match)" i18n>Change transportation options</button>
-                  <button mat-menu-item (click)="showMatchAbandonConfirmationDialog(match)" i18n>Quit</button>
-                  <button mat-menu-item (click)="showMatchCancelConfirmationDialog(match)" i18n>Cancel</button>
-                </mat-menu>
-              </mat-card-title>
-            </mat-card-header>
-            <mat-card-content class="match-card-content">
-              <div>
-                <div class="match-site">
-                  {{ match.site.name }}<br/>
-                  {{ match.site.address }}<br/>
-                  {{ match.site.post_code }} {{ match.site.city }} {{ match.site.country }}
+      <ng-template [ngIf]="(matchesToPlay$ | async)?.length > 0" [ngIfElse]="noComingMatches">
+        <mat-grid-list cols="1" rowHeight="210px">
+          <mat-grid-tile *ngFor="let match of matchesToPlay$ | async">
+            <mat-card *ngIf="match.status !== 'cancelled'" class="match-card">
+              <mat-card-header>
+                <div mat-card-avatar [ngClass]="['sports_icon', 'sports_icon_' + match.sport]"></div>
+                <mat-card-title>
+                  {{ match.date | date:'longDate' }} <span i18n>at</span> {{ match.date | date:'shortTime' }}
+      
+                  <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Options">
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+      
+                  <mat-menu #menu="matMenu" xPosition="before">
+                    <button mat-menu-item (click)="showMatchDetail(match.code)" i18n>View</button>
+                    <button mat-menu-item (click)="showCarpoolingOptions(match.code)" *ngIf="match.carpooling_enabled" i18n>Carpool</button>
+                    <button mat-menu-item (click)="showMatchJoinConfirmationDialog(match)" i18n>Change transportation options</button>
+                    <button mat-menu-item (click)="showMatchAbandonConfirmationDialog(match)" i18n>Quit</button>
+                    <button mat-menu-item (click)="showMatchCancelConfirmationDialog(match)" i18n>Cancel</button>
+                  </mat-menu>
+                </mat-card-title>
+              </mat-card-header>
+              <mat-card-content class="match-card-content">
+                <div>
+                  <div class="match-site">
+                    {{ match.site.name }}<br/>
+                    {{ match.site.address }}<br/>
+                    {{ match.site.post_code }} {{ match.site.city }} {{ match.site.country }}
+                  </div>
+                  <div class="match-players">
+                    <span *ngIf="match.num_players_min !== null">{{ match.num_players_min }} <span i18n> players required</span><br/></span>
+                    <span *ngIf="match.num_players_max !== null">{{ match.num_players_max }} <span i18n> players (max)</span><br/></span>
+                    {{ match.num_registered_players }} <span i18n> players attending</span>
+                  </div>
                 </div>
-                <div class="match-players">
-                  <span *ngIf="match.num_players_min !== null">{{ match.num_players_min }} <span i18n> players required</span><br/></span>
-                  <span *ngIf="match.num_players_max !== null">{{ match.num_players_max }} <span i18n> players (max)</span><br/></span>
-                  {{ match.num_registered_players }} <span i18n> players attending</span>
+              </mat-card-content>
+            </mat-card>
+            <mat-card *ngIf="match.status === 'cancelled'" class="match-card cancelled-match">
+              <mat-card-header>
+                <div mat-card-avatar [ngClass]="['sports_icon', 'sports_icon_' + match.sport]"></div>
+                <mat-card-title>
+                  {{ match.date | date:'longDate' }} <span i18n>at</span> {{ match.date | date:'shortTime' }}
+      
+                  <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Options">
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+      
+                  <mat-menu #menu="matMenu" xPosition="before">
+                    <button mat-menu-item (click)="showMatchDetail(match.code)" i18n>View</button>
+                  </mat-menu>
+                </mat-card-title>
+              </mat-card-header>
+              <mat-card-content class="match-card-content">
+                <div>
+                  <div class="match-site">
+                    {{ match.site.name }}<br/>
+                    {{ match.site.address }}<br/>
+                    {{ match.site.post_code }} {{ match.site.city }} {{ match.site.country }}
+                  </div>
+                  <div class="match-players">
+                    <span *ngIf="match.num_players_min !== null">{{ match.num_players_min }} <span i18n> players required</span><br/></span>
+                    <span *ngIf="match.num_players_max !== null">{{ match.num_players_max }} <span i18n> players (max)</span><br/></span>
+                    {{ match.num_registered_players }} <span i18n> players were registered</span>
+                  </div>
                 </div>
-              </div>
-            </mat-card-content>
-          </mat-card>
-          <mat-card *ngIf="match.status === 'cancelled'" class="match-card cancelled-match">
-            <mat-card-header>
-              <div mat-card-avatar [ngClass]="['sports_icon', 'sports_icon_' + match.sport]"></div>
-              <mat-card-title>
-                {{ match.date | date:'longDate' }} <span i18n>at</span> {{ match.date | date:'shortTime' }}
-    
-                <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Options">
-                  <mat-icon>more_vert</mat-icon>
-                </button>
-    
-                <mat-menu #menu="matMenu" xPosition="before">
-                  <button mat-menu-item (click)="showMatchDetail(match.code)" i18n>View</button>
-                </mat-menu>
-              </mat-card-title>
-            </mat-card-header>
-            <mat-card-content class="match-card-content">
-              <div>
-                <div class="match-site">
-                  {{ match.site.name }}<br/>
-                  {{ match.site.address }}<br/>
-                  {{ match.site.post_code }} {{ match.site.city }} {{ match.site.country }}
-                </div>
-                <div class="match-players">
-                  <span *ngIf="match.num_players_min !== null">{{ match.num_players_min }} <span i18n> players required</span><br/></span>
-                  <span *ngIf="match.num_players_max !== null">{{ match.num_players_max }} <span i18n> players (max)</span><br/></span>
-                  {{ match.num_registered_players }} <span i18n> players were registered</span>
-                </div>
-              </div>
-            </mat-card-content>
-          </mat-card>
-        </mat-grid-tile>
-      </mat-grid-list>
+              </mat-card-content>
+            </mat-card>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </ng-template>
+      <ng-template #noComingMatches>
+        <div class="no-match-message">
+          <p i18n>No coming matches found.</p>
+        </div>
+      </ng-template>
     </mat-tab>
     <mat-tab label="Past matches">
-      <mat-grid-list cols="1" rowHeight="180px">
-        <mat-grid-tile *ngFor="let match of playedMatches$ | async">
-          <mat-card class="match-card">
-            <mat-card-header>
-              <div mat-card-avatar [ngClass]="['sports_icon', 'sports_icon_' + match.sport]"></div>
-              <mat-card-title>
-                {{ match.date | date:'longDate' }} <span i18n>at</span> {{ match.date | date:'shortTime' }}
-    
-                <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Options">
-                  <mat-icon>more_vert</mat-icon>
-                </button>
-    
-                <mat-menu #menu="matMenu" xPosition="before">
-                  <button mat-menu-item (click)="showMatchDetail(match.code)" i18n>View</button>
-                </mat-menu>
-              </mat-card-title>
-            </mat-card-header>
-            <mat-card-content class="match-card-content">
-              <div>
-                <div class="match-site">
-                  {{ match.site.name }}<br/>
-                  {{ match.site.address }}<br/>
-                  {{ match.site.post_code }} {{ match.site.city }} {{ match.site.country }}
+      <ng-template [ngIf]="(playedMatches$ | async)?.length > 0" [ngIfElse]="noPastMatches">
+        <mat-grid-list cols="1" rowHeight="180px">
+          <mat-grid-tile *ngFor="let match of playedMatches$ | async">
+            <mat-card class="match-card">
+              <mat-card-header>
+                <div mat-card-avatar [ngClass]="['sports_icon', 'sports_icon_' + match.sport]"></div>
+                <mat-card-title>
+                  {{ match.date | date:'longDate' }} <span i18n>at</span> {{ match.date | date:'shortTime' }}
+      
+                  <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Options">
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+      
+                  <mat-menu #menu="matMenu" xPosition="before">
+                    <button mat-menu-item (click)="showMatchDetail(match.code)" i18n>View</button>
+                  </mat-menu>
+                </mat-card-title>
+              </mat-card-header>
+              <mat-card-content class="match-card-content">
+                <div>
+                  <div class="match-site">
+                    {{ match.site.name }}<br/>
+                    {{ match.site.address }}<br/>
+                    {{ match.site.post_code }} {{ match.site.city }} {{ match.site.country }}
+                  </div>
+                  <div class="match-players">
+                    {{ match.num_registered_players }} <span i18n> players attended</span>
+                  </div>
                 </div>
-                <div class="match-players">
-                  {{ match.num_registered_players }} <span i18n> players attended</span>
-                </div>
-              </div>
-            </mat-card-content>
-          </mat-card>
-        </mat-grid-tile>
-      </mat-grid-list>
+              </mat-card-content>
+            </mat-card>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </ng-template>
+      <ng-template #noPastMatches>
+        <div class="no-match-message">
+          <p i18n>No past matches found.</p>
+        </div>
+      </ng-template>
     </mat-tab>
   </mat-tab-group>
 

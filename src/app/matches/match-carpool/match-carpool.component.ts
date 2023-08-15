@@ -71,7 +71,7 @@ export class MatchCarpoolComponent implements OnInit {
           verticalPosition: 'top',
           horizontalPosition: 'right'
         });
-        this.router.navigate(['/search']);
+        this.router.navigate(['/join']);
       }
     });
   }
