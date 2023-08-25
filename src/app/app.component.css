@@ -22,14 +22,9 @@
     text-decoration: none;
 }
 
-#version {
-    color: #BBB;
-    float: right;
-}
-
 .title-block {
     padding: 0.5em;
-    width: 85%;
+    width: 95%;
     float: left;
     position: relative;
     background-image: url('/assets/img/others/logo.png');
