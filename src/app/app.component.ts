@@ -31,8 +31,6 @@ export class AppComponent implements OnInit {
         this.currentUser = this.authenticationService.currentUser;
       }
     });
-
-    this.version = environment.appVersion;
   }
 
   setCurrentUser(user: User) {
