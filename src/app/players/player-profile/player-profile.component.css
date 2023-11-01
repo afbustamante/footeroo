@@ -2,8 +2,8 @@
   width: 100%;
 }
 
-.registry-card {
-  min-width: 120px;
+.registry-card, .password-card {
+  width: 97%;
   margin: 20px auto;
 }
 

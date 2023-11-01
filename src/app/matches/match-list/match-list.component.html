@@ -78,6 +78,17 @@
           <p i18n>No coming matches found.</p>
         </div>
       </ng-template>
+      
+      <nav>
+        <a mat-raised-button color="primary" routerLink="/create" routerLinkActive="active" i18n>
+          <mat-icon aria-hidden="true">post_add</mat-icon>
+          Create
+        </a>
+        <a mat-raised-button routerLink="/join" routerLinkActive="active" i18n>
+          <mat-icon aria-hidden="true">search</mat-icon>
+          Join
+        </a>
+      </nav>
     </mat-tab>
     <mat-tab label="Past matches">
       <ng-template [ngIf]="(playedMatches$ | async)?.length > 0" [ngIfElse]="noPastMatches">
