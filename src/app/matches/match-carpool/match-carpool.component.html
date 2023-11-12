@@ -11,7 +11,7 @@
             <p *ngIf="!playersAvailableForCarpool" i18n>However, there are no players waiting for a carpool by now for this match. You could try again later!</p>
 
             <div class="leftcol">
-                <mat-card class="detail-card" *ngIf="playersAvailableForCarpool">
+                <mat-card appearance="outlined" class="detail-card" *ngIf="playersAvailableForCarpool">
                     <mat-card-header>
                         <mat-card-subtitle>
                             <span i18n>Players available</span>
@@ -33,7 +33,7 @@
                 </mat-card>
             </div>
             <div class="rightcol">
-                <mat-card class="detail-card" *ngIf="playersAvailableForCarpool">
+                <mat-card appearance="outlined" class="detail-card" *ngIf="playersAvailableForCarpool">
                     <mat-card-header>
                         <mat-card-subtitle>
                             <span i18n>My passengers</span>

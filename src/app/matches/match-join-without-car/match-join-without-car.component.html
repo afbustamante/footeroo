@@ -5,7 +5,7 @@
 
     <mat-grid-list cols="2" rowHeight="200px">
         <mat-grid-tile *ngFor="let car of cars$ | async">
-            <mat-card class="car-card">
+            <mat-card appearance="outlined" class="car-card">
                 <mat-card-header>
                     <mat-card-title>{{ car.name }}</mat-card-title>
                 </mat-card-header>

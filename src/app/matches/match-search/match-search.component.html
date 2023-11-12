@@ -4,7 +4,7 @@
 
         <p i18n>In order to join a match please start by typing its code and then click on Search to continue</p>
 
-        <mat-card class="search-card">
+        <mat-card appearance="outlined" class="search-card">
             <mat-card-content>
                 <div class="row">
                     <div class="col">
@@ -31,7 +31,7 @@
         </div>
 
         <div *ngIf="requestSent && !match">
-            <mat-card>
+            <mat-card appearance="outlined">
                 <mat-card-header>
                     <mat-card-title>
                         <span i18n>No match found for this code</span>
