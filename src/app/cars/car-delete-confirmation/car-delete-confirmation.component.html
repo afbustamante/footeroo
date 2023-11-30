@@ -2,18 +2,18 @@
     <h1 mat-dialog-title i18n>Confirmation</h1>
     
     <div mat-dialog-content>
-        <p i18n>Are you sure of deleting {{ data.carName }}?</p>
+        <p i18n>Are you sure of deleting this car?</p>
 
         <input type="hidden" [(ngModel)]="carId">
     </div>
     <div mat-dialog-actions>
-        <button mat-raised-button color="primary" type="submit" [mat-dialog-close]="carId" i18n>
+        <button mat-raised-button color="primary" type="submit" [mat-dialog-close]="carId">
             <mat-icon aria-hidden="true">done</mat-icon>
-            Confirm
+            <span i18n>Confirm</span>
         </button>
-        <button mat-raised-button color="warn" mat-dialog-close i18n>
+        <button mat-raised-button color="warn" mat-dialog-close>
             <mat-icon aria-hidden="true">cancel</mat-icon>
-            Cancel
+            <span i18n>Cancel</span>
         </button>
     </div>
 </div>

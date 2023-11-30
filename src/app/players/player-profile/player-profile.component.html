@@ -4,7 +4,7 @@
   <mat-tab-group>
     <mat-tab label="Personal details">
       <form [formGroup]="profileDetailsForm" novalidate (ngSubmit)="onSubmitDetails()">
-        <mat-card class="registry-card">
+        <mat-card appearance="outlined" class="registry-card">
           <mat-card-content>
             <div class="row">
               <div class="col">
@@ -49,9 +49,9 @@
             </div>
           </mat-card-content>
           <mat-card-actions>
-            <button mat-raised-button color="primary" type="submit" [disabled]="profileDetailsForm.invalid" i18n>
+            <button mat-raised-button color="primary" type="submit" [disabled]="profileDetailsForm.invalid">
               <mat-icon aria-hidden="true">done</mat-icon>
-              Update
+              <span i18n>Update</span>
             </button>
           </mat-card-actions>
         </mat-card>
@@ -60,7 +60,7 @@
 
     <mat-tab label="Sign-in information">
       <form [formGroup]="credentialsForm" novalidate (ngSubmit)="onSubmitCredentials()" disabled>
-        <mat-card class="password-card">
+        <mat-card appearance="outlined" class="password-card">
           <mat-card-content>
             <p i18n>You can change your password at any time. Please type your current password and then your new
               password to change it.</p>
@@ -100,9 +100,9 @@
             </div>
           </mat-card-content>
           <mat-card-actions>
-            <button mat-raised-button color="primary" type="submit" [disabled]="credentialsForm.invalid" i18n>
+            <button mat-raised-button color="primary" type="submit" [disabled]="credentialsForm.invalid">
               <mat-icon aria-hidden="true">done</mat-icon>
-              Update password
+              <span i18n>Update password</span>
             </button>
           </mat-card-actions>
         </mat-card>

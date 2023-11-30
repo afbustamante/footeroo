@@ -6,8 +6,7 @@
             <span i18n>This match does not have carpooling features enabled</span>
         </div>
 
-        <p i18n>Are you sure of joining the match planned for {{ data.matchDate | date:'longDate' }} at
-            {{ data.matchDate | date:'shortTime' }}?</p>
+        <p i18n>Are you sure of joining this match?</p>
     
         <mat-radio-group aria-label="Select an option" [(ngModel)]="joinMode" class="radio-group">
             <mat-radio-button class="radio-button" value="JOIN_WITH_CAR" i18n>Yes, and I take my car to go to</mat-radio-button>
@@ -16,13 +15,13 @@
         </mat-radio-group>
     </div>
     <div mat-dialog-actions>
-        <button mat-raised-button color="primary" type="submit" [mat-dialog-close]="joinMode" i18n>
+        <button mat-raised-button color="primary" type="submit" [mat-dialog-close]="joinMode">
             <mat-icon aria-hidden="true">done</mat-icon>
-            Confirm
+            <span i18n>Confirm</span>
         </button>
-        <button mat-raised-button color="warn" mat-dialog-close i18n>
+        <button mat-raised-button color="warn" mat-dialog-close>
             <mat-icon aria-hidden="true">cancel</mat-icon>
-            Cancel
+            <span i18n>Cancel</span>
         </button>
     </div>
 </div>

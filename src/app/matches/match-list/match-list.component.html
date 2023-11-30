@@ -6,7 +6,7 @@
       <ng-template [ngIf]="(matchesToPlay$ | async)?.length > 0" [ngIfElse]="noComingMatches">
         <mat-grid-list cols="1" rowHeight="210px">
           <mat-grid-tile *ngFor="let match of matchesToPlay$ | async">
-            <mat-card *ngIf="match.status !== 'cancelled'" class="match-card">
+            <mat-card appearance="outlined" *ngIf="match.status !== 'cancelled'" class="match-card">
               <mat-card-header>
                 <div mat-card-avatar [ngClass]="['sports_icon', 'sports_icon_' + match.sport]"></div>
                 <mat-card-title>
@@ -40,7 +40,7 @@
                 </div>
               </mat-card-content>
             </mat-card>
-            <mat-card *ngIf="match.status === 'cancelled'" class="match-card cancelled-match">
+            <mat-card appearance="outlined" *ngIf="match.status === 'cancelled'" class="match-card cancelled-match">
               <mat-card-header>
                 <div mat-card-avatar [ngClass]="['sports_icon', 'sports_icon_' + match.sport]"></div>
                 <mat-card-title>
@@ -80,13 +80,13 @@
       </ng-template>
       
       <nav>
-        <a mat-raised-button color="primary" routerLink="/create" routerLinkActive="active" i18n>
+        <a mat-raised-button color="primary" routerLink="/create" routerLinkActive="active">
           <mat-icon aria-hidden="true">post_add</mat-icon>
-          Create
+          <span i18n>Create</span>
         </a>
-        <a mat-raised-button routerLink="/join" routerLinkActive="active" i18n>
+        <a mat-raised-button routerLink="/join" routerLinkActive="active">
           <mat-icon aria-hidden="true">search</mat-icon>
-          Join
+          <span i18n>Join</span>
         </a>
       </nav>
     </mat-tab>
@@ -94,7 +94,7 @@
       <ng-template [ngIf]="(playedMatches$ | async)?.length > 0" [ngIfElse]="noPastMatches">
         <mat-grid-list cols="1" rowHeight="180px">
           <mat-grid-tile *ngFor="let match of playedMatches$ | async">
-            <mat-card class="match-card">
+            <mat-card appearance="outlined" class="match-card">
               <mat-card-header>
                 <div mat-card-avatar [ngClass]="['sports_icon', 'sports_icon_' + match.sport]"></div>
                 <mat-card-title>

@@ -2,17 +2,16 @@
     <h1 mat-dialog-title i18n>Confirmation</h1>
     
     <div mat-dialog-content>
-        <p i18n>Are you sure of quitting the match planned for {{ data.matchDate | date:'longDate' }} at
-            {{ data.matchDate | date:'shortTime' }}?</p>
+        <p i18n>Are you sure of quitting this match? This action will not cancel the match unless you are the last player in the list.</p>
     </div>
     <div mat-dialog-actions>
-        <button mat-raised-button color="primary" type="submit" [mat-dialog-close]="true" i18n>
+        <button mat-raised-button color="primary" type="submit" [mat-dialog-close]="true">
             <mat-icon aria-hidden="true">done</mat-icon>
-            Confirm
+            <span id="confirm_button" i18n>Confirm</span>
         </button>
-        <button mat-raised-button color="warn" mat-dialog-close i18n>
+        <button mat-raised-button color="warn" mat-dialog-close>
             <mat-icon aria-hidden="true">cancel</mat-icon>
-            Cancel
+            <span id="cancel_button" i18n>Cancel</span>
         </button>
     </div>
 </div>

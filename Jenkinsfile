@@ -10,14 +10,14 @@ pipeline {
 
     environment {
         VERSION = "${env.BUILD_NUMBER}"
-        DIST_ARCHIVE ="dist.v${VERSION}"
+        DIST_ARCHIVE = "dist.v${VERSION}"
     }
 
     stages {
         stage('Prepare') {
             agent {
                 docker {
-                    image 'node:14.20.1'
+                    image 'node:18.18.2'
                     reuseNode true
                 }
             }
@@ -37,7 +37,7 @@ pipeline {
         stage('Build') {
             agent {
                 docker {
-                    image 'node:14.20.1'
+                    image 'node:18.18.2'
                     reuseNode true
                 }
             }
