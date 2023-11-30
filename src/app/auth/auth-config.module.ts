@@ -4,19 +4,19 @@ import { environment } from 'src/environments/environment';
 
 
 @NgModule({
-    imports: [AuthModule.forRoot({
-        config: {
-              authority: `${environment.usersApiUrl}`,
-              redirectUrl: window.location.origin,
-              postLogoutRedirectUri: window.location.origin,
-              clientId: `${environment.usersApiClientId}`,
-              scope: 'openid profile email offline_access',
-              responseType: 'code',
-              silentRenew: true,
-              useRefreshToken: true,
-              renewTimeBeforeTokenExpiresInSeconds: 30,
-          }
-      })],
-    exports: [AuthModule],
+  imports: [AuthModule.forRoot({
+    config: {
+      authority: `${environment.usersApiUrl}`,
+      redirectUrl: window.location.origin,
+      postLogoutRedirectUri: window.location.origin,
+      clientId: `${environment.usersApiClientId}`,
+      scope: 'openid profile email offline_access',
+      responseType: 'code',
+      silentRenew: true,
+      useRefreshToken: true,
+      renewTimeBeforeTokenExpiresInSeconds: 30,
+    }
+  })],
+  exports: [AuthModule],
 })
-export class AuthConfigModule {}
+export class AuthConfigModule { }

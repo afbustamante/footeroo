@@ -16,6 +16,7 @@ import { PageNotFoundComponent } from "./commons/page-not-found/page-not-found.c
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'error/not-found', component: PageNotFoundComponent },
+  { path: 'unauthorized', component: SignInComponent },
   { path: 'sign-in', component: SignInComponent },
   { path: 'manage/my-profile', component: PlayerProfileComponent, canActivate: [SignInGuard]  },
   { path: 'create', component: MatchRegistryComponent, canActivate: [SignInGuard] },

@@ -13,7 +13,7 @@ import { Player } from '../player';
 })
 export class PlayerProfileComponent implements OnInit {
 
-  phoneNumberPattern = '^([+]{1}[0-9]{1,3} [0-9\ ]{6,13}|[0-9\-\ \.]{6,16})$';
+  phoneNumberPattern = '^([+]{1}[0-9]{1,3} [0-9 ]{6,13}|[0-9- .]{6,16})$';
   passwordPattern = '^[0-9a-zA-Z]{6,24}$';
 
   currentPlayer: Player;
