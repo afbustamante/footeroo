@@ -27,7 +27,7 @@ pipeline {
                 echo 'Pulling branch ' + env.GIT_BRANCH
 
                 // Clean the workspace
-                sh 'rm -rf dist node_modules npm-cache'
+                sh 'rm -rf dist node_modules npm-cache package-lock.json'
                 sh 'npm cache clean --force'
 
                 // Prepare Angular dependencies
