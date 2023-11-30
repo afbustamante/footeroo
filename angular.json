@@ -10,10 +10,10 @@
       "sourceRoot": "src",
       "prefix": "app",
       "i18n": {
-        "sourceLocale": "en-US",
+        "sourceLocale": "en",
         "locales": {
-          "es-CO": {
-            "translation": "src/locale/messages.es-CO.json"
+          "es": {
+            "translation": "src/locale/messages.es.json"
           }
         }
       },
@@ -38,7 +38,7 @@
             "scripts": []
           },
           "configurations": {
-            "devel": {
+            "development": {
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -55,8 +55,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
+                  "maximumWarning": "1280kb",
+                  "maximumError": "1536kb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -82,8 +82,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
+                  "maximumWarning": "1280kb",
+                  "maximumError": "1536kb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -91,8 +91,7 @@
                   "maximumError": "10kb"
                 }
               ]
-            },
-            "development": {}
+            }
           },
           "defaultConfiguration": "production"
         },
