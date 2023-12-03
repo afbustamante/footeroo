@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from './security/user';
 import { AuthenticationService } from './security/authentication.service';
 import { Router } from '@angular/router';
-import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { LoginResponse, OidcSecurityService } from 'angular-auth-oidc-client';
 
 @Component({
   selector: 'app-root',
@@ -25,19 +25,27 @@ export class AppComponent implements OnInit {
       this.currentUser = this.authenticationService.currentUser;
     }
 
-    this.oidcSecurityService.checkAuth().subscribe(({ isAuthenticated, userData, accessToken }) => {
-      if (isAuthenticated) {
-        this.currentUser = this.authenticationService.currentUser;
+    this.oidcSecurityService.checkAuth().subscribe(
+      (loginResponse: LoginResponse) => {
+        const { isAuthenticated, userData, accessToken, idToken, configId } = loginResponse;
+
+        if (isAuthenticated) {
+          this.currentUser = this.authenticationService.currentUser;
+        }
       }
-    });
+    );
   }
 
   setCurrentUser(user: User) {
     this.currentUser = user;
   }
 
+  signin() {
+    this.oidcSecurityService.authorize();
+  }
+
   signout() {
-    this.oidcSecurityService.logoff();
+    this.oidcSecurityService.logoff().subscribe((result) => console.log(result));
     this.router.navigate(['/']);
   }
 }

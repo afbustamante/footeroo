@@ -21,11 +21,10 @@ import { PlayersModule } from './players/players.module';
 import { MatchesModule } from './matches/matches.module';
 import { CommonsModule } from './commons/commons.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { SignInGuard } from './security/sign-in.guard';
-import { AuthenticationInterceptor } from './security/authentication-interceptor';
 import { SitesModule } from './sites/sites.module';
 import { CarsModule } from './cars/cars.module';
 import { AuthConfigModule } from './auth/auth-config.module';
+import { AuthInterceptor } from 'angular-auth-oidc-client';
 
 registerLocaleData(localeFr, 'fr-FR');
 registerLocaleData(localeEs, 'es-ES');
@@ -53,8 +52,7 @@ registerLocaleData(localeEs, 'es-ES');
     AuthConfigModule
   ],
   providers: [
-    SignInGuard,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })
