@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
-import { AuthModule, } from 'angular-auth-oidc-client';
+import { AuthModule } from 'angular-auth-oidc-client';
 import { environment } from 'src/environments/environment';
-
 
 @NgModule({
   imports: [AuthModule.forRoot({
