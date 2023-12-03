@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
+import { Injectable, inject } from '@angular/core';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, Router, CanActivateFn } from '@angular/router';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { map, Observable, take } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SignInGuard implements CanActivate {
+class SignInService {
 
   constructor(
     private router: Router,
@@ -14,7 +14,7 @@ export class SignInGuard implements CanActivate {
   ) {}
 
   canActivate(next: ActivatedRouteSnapshot,
-              state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+              state: RouterStateSnapshot): Observable<boolean> | boolean {
 
     return this.oidcSecurityService.isAuthenticated$.pipe(
       take(1),
@@ -30,4 +30,8 @@ export class SignInGuard implements CanActivate {
       })
     );
   }
+}
+
+export const SignInGuard: CanActivateFn = (next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean => {
+  return inject(SignInService).canActivate(next, state);
 }
