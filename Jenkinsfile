@@ -1,6 +1,10 @@
 pipeline {
     agent none
 
+    tools {
+        jdk 'JDK-17'
+    }
+
     options {
         timeout(time: 30, unit: 'MINUTES')
         disableConcurrentBuilds()
@@ -67,7 +71,7 @@ pipeline {
         }
         stage('Analyze') {
             agent {
-                docker { image 'sonarsource/sonar-scanner-cli:latest' }
+                docker { image 'sonarsource/sonar-scanner-cli:5.0.1' }
             }
             steps {
                 script {
