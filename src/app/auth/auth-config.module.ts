@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { AuthModule } from 'angular-auth-oidc-client';
 import { environment } from 'src/environments/environment';
 
-
 @NgModule({
   imports: [AuthModule.forRoot({
     config: {
@@ -15,6 +14,7 @@ import { environment } from 'src/environments/environment';
       silentRenew: true,
       useRefreshToken: true,
       renewTimeBeforeTokenExpiresInSeconds: 30,
+      secureRoutes: [`${environment.coreApiUrl}`]
     }
   })],
   exports: [AuthModule],
