@@ -34,7 +34,7 @@ pipeline {
                 sh 'npm install'
             }
         }
-        stage('Build') {
+        stage('Validate') {
             agent {
                 docker {
                     image 'node:18.18.2'
@@ -44,6 +44,16 @@ pipeline {
             steps {
                 // Run TS Lint
                 sh 'npm run lint'
+            }
+        }
+        stage('Build') {
+            agent {
+                docker {
+                    image 'node:18.18.2'
+                    reuseNode true
+                }
+            }
+            steps {
                 // Run the build task
                 sh 'npm run build'
             }
