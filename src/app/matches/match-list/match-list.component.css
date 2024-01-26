@@ -1,10 +1,9 @@
-nav a {
+div.actions {
   padding: 5px 10px;
-  text-decoration: none;
+}
+
+div.actions button {
   margin-right: 10px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  display: inline-block;
 }
 
 .match-card {

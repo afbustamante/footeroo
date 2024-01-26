@@ -14,18 +14,18 @@
 
     <p i18n>I would like to...</p>
 
-    <nav>
-        <a mat-raised-button color="primary" routerLink="/create" routerLinkActive="active">
+    <div class="actions">
+        <button mat-raised-button color="primary" routerLink="/create" routerLinkActive="active" tabindex="1">
             <mat-icon aria-hidden="true">post_add</mat-icon>
             <span i18n>Create a new match</span>
-        </a>
-        <a mat-raised-button routerLink="/join" routerLinkActive="active">
+        </button>
+        <button mat-raised-button routerLink="/join" routerLinkActive="active" tabindex="2">
             <mat-icon aria-hidden="true">search</mat-icon>
             <span i18n>Join a match</span>
-        </a>
-        <a mat-raised-button routerLink="/list" routerLinkActive="active">
+        </button>
+        <button mat-raised-button routerLink="/list" routerLinkActive="active" tabindex="3">
             <mat-icon aria-hidden="true">calendar_today</mat-icon>
             <span i18n>View my calendar</span>
-        </a>
-    </nav>
+        </button>
+    </div>
 </div>

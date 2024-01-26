@@ -79,16 +79,16 @@
         </div>
       </ng-template>
       
-      <nav>
-        <a mat-raised-button color="primary" routerLink="/create" routerLinkActive="active">
+      <div class="actions">
+        <button mat-raised-button color="primary" routerLink="/create" routerLinkActive="active">
           <mat-icon aria-hidden="true">post_add</mat-icon>
           <span i18n>Create</span>
-        </a>
-        <a mat-raised-button routerLink="/join" routerLinkActive="active">
+        </button>
+        <button mat-raised-button routerLink="/join" routerLinkActive="active">
           <mat-icon aria-hidden="true">search</mat-icon>
           <span i18n>Join</span>
-        </a>
-      </nav>
+        </button>
+      </div>
     </mat-tab>
     <mat-tab label="Past matches">
       <ng-template [ngIf]="(playedMatches$ | async)?.length > 0" [ngIfElse]="noPastMatches">

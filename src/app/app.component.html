@@ -7,7 +7,7 @@
                 </a>
             </div>
             <div *ngIf="currentUser !== null">
-                <button mat-icon-button [matMenuTriggerFor]="menu">
+                <button mat-icon-button [matMenuTriggerFor]="menu" tabindex="0">
                     <mat-icon aria-hidden="true">face</mat-icon>
                 </button>
                 <mat-menu #menu="matMenu">
