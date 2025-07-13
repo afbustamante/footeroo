@@ -1,10 +1,6 @@
 pipeline {
     agent none
 
-    tools {
-        jdk 'JDK-17'
-    }
-
     options {
         timeout(time: 30, unit: 'MINUTES')
         disableConcurrentBuilds()
@@ -79,7 +75,7 @@ pipeline {
                         // Scan for quality issues
                         configFileProvider([configFile(fileId: '8d47e8c5-f619-4f36-a1dc-590dca78adb1', variable: 'SONAR_CONFIG')]) {
                             def props = readProperties file: "${SONAR_CONFIG}"
-                            sh "sonar-scanner -Dsonar.organization=afbustamante-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${props['sonar.login']}"
+                            sh "sonar-scanner -Dsonar.organization=${props['sonar.organization']} -Dsonar.login=${props['sonar.token']}"
                         }
                     } else {
                         echo "Skipped Sonar analysis on this branch: ${env.BRANCH_NAME}"
