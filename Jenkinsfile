@@ -1,5 +1,7 @@
 pipeline {
-    agent none
+    agent {
+        label 'jenkins-agent-1'
+    }
 
     options {
         timeout(time: 30, unit: 'MINUTES')
@@ -73,7 +75,7 @@ pipeline {
                 script {
                     if (env.BRANCH_NAME == 'develop') {
                         // Scan for quality issues
-                        configFileProvider([configFile(fileId: '8d47e8c5-f619-4f36-a1dc-590dca78adb1', variable: 'SONAR_CONFIG')]) {
+                        configFileProvider([configFile(fileId: 'bad0cf67-d3d2-4731-a029-f30599bdc7f3', variable: 'SONAR_CONFIG')]) {
                             def props = readProperties file: "${SONAR_CONFIG}"
                             sh "sonar-scanner -Dsonar.organization=${props['sonar.organization']} -Dsonar.login=${props['sonar.token']}"
                         }
