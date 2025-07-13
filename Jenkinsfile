@@ -1,7 +1,5 @@
 pipeline {
-    agent {
-        label 'jenkins-agent-1'
-    }
+    agent none
 
     options {
         timeout(time: 30, unit: 'MINUTES')
@@ -17,6 +15,12 @@ pipeline {
 
     stages {
         stage('Prepare') {
+            agent {
+                docker {
+                    image 'node:18.18.2'
+                    reuseNode true
+                }
+            }
             steps {
                 // Get code from GitHub repository
                 // git branch: 'master', url: 'https://github.com/afbustamante/footeroo'
@@ -24,8 +28,6 @@ pipeline {
 
                 // Clean the workspace
                 sh 'rm -rf dist node_modules npm-cache package-lock.json'
-                sh 'docker pull node:18.18.2'
-                sh 'docker run -it --rm --entrypoint sh node:18.18.2'
                 sh 'npm cache clean --force'
 
                 // Prepare Angular dependencies
@@ -33,12 +35,24 @@ pipeline {
             }
         }
         stage('Validate') {
+            agent {
+                docker {
+                    image 'node:18.18.2'
+                    reuseNode true
+                }
+            }
             steps {
                 // Run TS Lint
                 sh 'npm run lint'
             }
         }
         stage('Build') {
+            agent {
+                docker {
+                    image 'node:18.18.2'
+                    reuseNode true
+                }
+            }
             steps {
                 // Run the build task
                 sh 'npm run build'
@@ -52,12 +66,13 @@ pipeline {
             }
         }
         stage('Analyze') {
+            agent {
+                docker { image 'sonarsource/sonar-scanner-cli:5.0.1' }
+            }
             steps {
                 script {
                     if (env.BRANCH_NAME == 'develop') {
                         // Scan for quality issues
-                        sh 'docker pull sonarsource/sonar-scanner-cli:5.0.1'
-                        sh 'docker run -it --rm --entrypoint sh sonarsource/sonar-scanner-cli:5.0.1'
                         configFileProvider([configFile(fileId: 'bad0cf67-d3d2-4731-a029-f30599bdc7f3', variable: 'SONAR_CONFIG')]) {
                             def props = readProperties file: "${SONAR_CONFIG}"
                             sh "sonar-scanner -Dsonar.organization=${props['sonar.organization']} -Dsonar.login=${props['sonar.token']}"
